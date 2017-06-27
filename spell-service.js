@@ -1,4 +1,4 @@
-/ The exported functions in this module makes a call to Bing Spell Check API that returns spelling corrections.
+// The exported functions in this module makes a call to Bing Spell Check API that returns spelling corrections.
 // For more info, check out the API reference:
 // https://dev.cognitive.microsoft.com/docs/services/56e73033cf5ff80c2008c679/operations/56e73036cf5ff81048ee6727
 var request = require('request');
