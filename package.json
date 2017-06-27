@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,10 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/jhojandev/dbot#readme",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "botbuilder": "^3.8.4",
+    "dotenv-extended": "^1.0.4",
+    "request": "^2.79.0",
     "restify": "^4.3.0"
   },
   "engines": {
