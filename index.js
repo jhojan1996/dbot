@@ -15,6 +15,7 @@ bot.dialog('/', function (session) {
     
     //respond with user's message
     session.send("You said " + session.message.text);
+    session.send("Remember that you said: " + session.message.text);
 });
 
 // Setup Restify Server
