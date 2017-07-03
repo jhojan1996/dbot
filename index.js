@@ -34,18 +34,66 @@ bot.dialog('Ayuda', function (session, args) {
             {
                 "contentType": "application/vnd.microsoft.card.hero",
                 "content": {
-                    "title": "seattle Hotel 5",
-                    "subtitle": "3 stars. 4185 reviews. From $96 per night.",
+                    "title": "Crear RUT",
+                    "subtitle": "Quiero generar mi RUT",
                     "images": [
                       {
                         "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
                       }
-                    ],
-                    "buttons": [
+                    ]
+                    /*"buttons": [
                       {
                         "title": "More details",
                         "type": "openUrl",
                         "value": "https://www.bing.com/search?q=hotels+in+seattle"
+                      }
+                    ]*/
+                }
+            },
+            {
+                "contentType": "application/vnd.microsoft.card.hero",
+                "content": {
+                    "title": "Formalizar el RUT",
+                    "subtitle": "Quiero formalizar mi RUT",
+                    "images": [
+                      {
+                        "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                      }
+                    ]
+                }
+            },
+            {
+                "contentType": "application/vnd.microsoft.card.hero",
+                "content": {
+                    "title": "Actualizar el RUT",
+                    "subtitle": "Quiero actualizar mi RUT",
+                    "images": [
+                      {
+                        "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                      }
+                    ]
+                }
+            },
+            {
+                "contentType": "application/vnd.microsoft.card.hero",
+                "content": {
+                    "title": "Notificaciones",
+                    "subtitle": "Quiero subscribirme al servicio de notificaciones",
+                    "images": [
+                      {
+                        "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                      }
+                    ]
+                }
+            },
+            {
+                "contentType": "application/vnd.microsoft.card.hero",
+                "content": {
+                    "title": "Agendar citas",
+                    "subtitle": "Quiero agendar una cita",
+                    "images": [
+                      {
+                        "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
                       }
                     ]
                 }
