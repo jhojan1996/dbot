@@ -27,11 +27,47 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
+bot.dialog('Ayuda', function (session, args) {
+    var message = new builder.Message()
+        .attachmentLayout(builder.AttachmentLayout.carousel)
+        .attachments([
+            {
+                "contentType": "application/vnd.microsoft.card.hero",
+                "content": {
+                    "title": "seattle Hotel 5",
+                    "subtitle": "3 stars. 4185 reviews. From $96 per night.",
+                    "images": [
+                      {
+                        "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                      }
+                    ],
+                    "buttons": [
+                      {
+                        "title": "More details",
+                        "type": "openUrl",
+                        "value": "https://www.bing.com/search?q=hotels+in+seattle"
+                      }
+                    ]
+                }
+            }
+        ]);
+
+    session.send(message);
+
+    // End
+    session.endDialog();
+}).triggerAction({
+    matches: 'Ayuda'
+});
+
+
 bot.dialog('SearchHotels', [
     function (session, args, next) {
         session.send('Welcome to the Hotels finder! We are analyzing your message: \'%s\'', session.message.text);
 
-        console.log(args);
+        console.log("ARGS ------>",args);
+        console.log("SESSION ------>",session);
+        console.log("ARGS.INTENT.ENTITIES ------------>",args.intent.entities);
         // try extracting entities
         var cityEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'builtin.geography.city');
         var airportEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'AirportCode');
