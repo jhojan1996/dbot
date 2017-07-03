@@ -31,6 +31,7 @@ bot.dialog('SearchHotels', [
     function (session, args, next) {
         session.send('Welcome to the Hotels finder! We are analyzing your message: \'%s\'', session.message.text);
 
+        console.log(args);
         // try extracting entities
         var cityEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'builtin.geography.city');
         var airportEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'AirportCode');
