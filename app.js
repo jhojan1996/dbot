@@ -1,8 +1,8 @@
 var builder = require('botbuilder');
 var restify = require('restify');
 
-var LuisActions = require('core');
-var SampleActions = require('samples/all');
+var LuisActions = require('./core');
+var SampleActions = require('./samples/all');
 var LuisModelUrl = process.env.LUIS_MODEL_URL;
 
 var server = restify.createServer();
