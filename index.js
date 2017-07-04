@@ -177,7 +177,7 @@ bot.dialog('CrearRut', [
             });
     }
 ]).triggerAction({
-    matches: 'SearchHotels',
+    matches: 'CrearRut',
     onInterrupted: function (session) {
         session.send('Please provide a destination');
     }
