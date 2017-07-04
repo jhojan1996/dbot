@@ -134,18 +134,46 @@ bot.dialog('CrearRut', [
         var tel1 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel1');
         var tel2 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel2');
 
-        if (f_expedicion) {
-            // city entity detected, continue to next step
+        if(!tipo_documento) {
+            builder.Prompts.text(session, 'Por favor ingresa un tipo de documento');
+        }else if(!documento) {
+            builder.Prompts.text(session, 'Por favor ingresa un documento');
+        }else if(!f_expedicion){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!l_expedicion){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!dpto_ex){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!city_ex){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!apellido1){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!apellido2){
+            builder.Prompts.text(session, 'Please enter your destination');   
+        }else if(!nombre1){
+            builder.Prompts.text(session, 'Please enter your destination'); 
+        }else if(!nombre2){
+            builder.Prompts.text(session, 'Please enter your destination'); 
+        }else if(!pais){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!dpto){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!city){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!address){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!mail){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!postal){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!tel1){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else if(!tel2){
+            builder.Prompts.text(session, 'Please enter your destination');
+        }else{
             session.dialogData.searchType = 'city';
             next({ response: f_expedicion.entity });
-        } else if (f_expedicion) {
-            // airport entity detected, continue to next step
-            session.dialogData.searchType = 'airport';
-            next({ response: f_expedicion.entity });
-        } else {
-            // no entities detected, ask user for a destination
-            builder.Prompts.text(session, 'Please enter your destination');
-        }
+        }   
     },
     function (session, results) {
         var destination = results.response;
@@ -179,6 +207,7 @@ bot.dialog('CrearRut', [
 ]).triggerAction({
     matches: 'CrearRut',
     onInterrupted: function (session) {
+        console.log("onInterrupted --------->",session);
         session.send('Please provide a destination');
     }
 });
