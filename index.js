@@ -178,6 +178,8 @@ bot.dialog('CrearRut', [
     function (session, results) {
         var destination = results.response;
 
+        console.log("result.response---------->",result.response);
+
         var message = 'Looking for hotels';
         if (session.dialogData.searchType === 'airport') {
             message += ' near %s airport...';
@@ -188,7 +190,7 @@ bot.dialog('CrearRut', [
         session.send(message, destination);
 
         // Async search
-        Store
+        /*Store
             .searchHotels(destination)
             .then(function (hotels) {
                 // args
@@ -202,7 +204,7 @@ bot.dialog('CrearRut', [
 
                 // End
                 session.endDialog();
-            });
+            });*/
     }
 ]).triggerAction({
     matches: 'CrearRut',
@@ -212,7 +214,7 @@ bot.dialog('CrearRut', [
     }
 });
 
-bot.dialog('SearchHotels', [
+/*bot.dialog('SearchHotels', [
     function (session, args, next) {
         session.send('Welcome to the Hotels finder! We are analyzing your message: \'%s\'', session.message.text);
 
@@ -269,7 +271,7 @@ bot.dialog('SearchHotels', [
     onInterrupted: function (session) {
         session.send('Please provide a destination');
     }
-});
+});*/
 
 bot.dialog('ShowHotelsReviews', function (session, args) {
     // retrieve hotel name from matched entities
