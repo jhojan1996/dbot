@@ -108,6 +108,80 @@ bot.dialog('Ayuda', function (session, args) {
     matches: 'Ayuda'
 });
 
+bot.dialog('CrearRut', [
+    function (session, args, next) {
+        console.log("ARGS ------>",args);
+        console.log("SESSION ------>",session);
+        console.log("NEXT ------------->", next);
+        console.log("ARGS.INTENT.ENTITIES ------------>",args.intent.entities);
+        // try extracting entities
+        var tipo_documento = builder.EntityRecognizer.findEntity(args.intent.entities, 'tipo_documento');
+        var documento = builder.EntityRecognizer.findEntity(args.intent.entities, 'documento');
+        var f_expedicion = builder.EntityRecognizer.findEntity(args.intent.entities, 'f_expedicion');
+        var l_expedicion = builder.EntityRecognizer.findEntity(args.intent.entities, 'l_expedicion');
+        var dpto_ex = builder.EntityRecognizer.findEntity(args.intent.entities, 'dpto_ex');
+        var city_ex = builder.EntityRecognizer.findEntity(args.intent.entities, 'city_ex');
+        var apellido1 = builder.EntityRecognizer.findEntity(args.intent.entities, 'apellido1');
+        var apellido2 = builder.EntityRecognizer.findEntity(args.intent.entities, 'apellido2');
+        var nombre1 = builder.EntityRecognizer.findEntity(args.intent.entities, 'nombre1');
+        var nombre2 = builder.EntityRecognizer.findEntity(args.intent.entities, 'nombre2');
+        var pais = builder.EntityRecognizer.findEntity(args.intent.entities, 'pais');
+        var dpto = builder.EntityRecognizer.findEntity(args.intent.entities, 'dpto');
+        var city = builder.EntityRecognizer.findEntity(args.intent.entities, 'city');
+        var address = builder.EntityRecognizer.findEntity(args.intent.entities, 'address');
+        var mail = builder.EntityRecognizer.findEntity(args.intent.entities, 'mail');
+        var postal = builder.EntityRecognizer.findEntity(args.intent.entities, 'postal');
+        var tel1 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel1');
+        var tel2 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel2');
+
+        if (cityEntity) {
+            // city entity detected, continue to next step
+            session.dialogData.searchType = 'city';
+            next({ response: cityEntity.entity });
+        } else if (airportEntity) {
+            // airport entity detected, continue to next step
+            session.dialogData.searchType = 'airport';
+            next({ response: airportEntity.entity });
+        } else {
+            // no entities detected, ask user for a destination
+            builder.Prompts.text(session, 'Please enter your destination');
+        }
+    },
+    function (session, results) {
+        var destination = results.response;
+
+        var message = 'Looking for hotels';
+        if (session.dialogData.searchType === 'airport') {
+            message += ' near %s airport...';
+        } else {
+            message += ' in %s...';
+        }
+
+        session.send(message, destination);
+
+        // Async search
+        Store
+            .searchHotels(destination)
+            .then(function (hotels) {
+                // args
+                session.send('I found %d hotels:', hotels.length);
+
+                var message = new builder.Message()
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments(hotels.map(hotelAsAttachment));
+
+                session.send(message);
+
+                // End
+                session.endDialog();
+            });
+    }
+]).triggerAction({
+    matches: 'SearchHotels',
+    onInterrupted: function (session) {
+        session.send('Please provide a destination');
+    }
+});
 
 bot.dialog('SearchHotels', [
     function (session, args, next) {
