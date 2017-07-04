@@ -1,4 +1,5 @@
 var util = require('util');
+var builder = require('botbuilder');
 var LuisActions = require('../core');
 
 var FindHotelsAction = {
