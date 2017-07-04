@@ -134,14 +134,14 @@ bot.dialog('CrearRut', [
         var tel1 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel1');
         var tel2 = builder.EntityRecognizer.findEntity(args.intent.entities, 'tel2');
 
-        if (cityEntity) {
+        if (f_expedicion) {
             // city entity detected, continue to next step
             session.dialogData.searchType = 'city';
-            next({ response: cityEntity.entity });
-        } else if (airportEntity) {
+            next({ response: f_expedicion.entity });
+        } else if (f_expedicion) {
             // airport entity detected, continue to next step
             session.dialogData.searchType = 'airport';
-            next({ response: airportEntity.entity });
+            next({ response: f_expedicion.entity });
         } else {
             // no entities detected, ask user for a destination
             builder.Prompts.text(session, 'Please enter your destination');
