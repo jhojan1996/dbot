@@ -178,7 +178,7 @@ bot.dialog('CrearRut', [
     function (session, results) {
         var destination = results.response;
 
-        console.log("result.response---------->",result.response);
+        console.log("result.response---------->",results.response);
 
         var message = 'Looking for hotels';
         if (session.dialogData.searchType === 'airport') {
