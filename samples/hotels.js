@@ -80,7 +80,7 @@ var FindHotelsAction = {
                                     ]
                                 }
                             }
-                        ]);
+                        ])
         },
         Checkin: {
             type: 'date',
