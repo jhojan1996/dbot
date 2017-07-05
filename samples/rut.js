@@ -351,7 +351,7 @@ var crearRut_cambiarMpioUbi= {
 };
 
 var crearRut_cambiarDireccion= {
-	intentName: 'crearRut_cambiarMpioUbi',
+	intentName: 'crearRut_cambiarDireccion',
     friendlyName: 'Cambiar la dirección de residencia',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
