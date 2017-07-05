@@ -20,7 +20,7 @@ var ayuda = {
                         "subtitle": "Quiero generar mi RUT",
                         "images": [
                           {
-                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
                           }
                         ]
                         /*"buttons": [
@@ -39,7 +39,7 @@ var ayuda = {
                         "subtitle": "Quiero formalizar mi RUT",
                         "images": [
                           {
-                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
                           }
                         ]
                     }
@@ -51,7 +51,7 @@ var ayuda = {
                         "subtitle": "Quiero actualizar mi RUT",
                         "images": [
                           {
-                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Actualizar+RUT&w=500&h=260"
                           }
                         ]
                     }
@@ -63,7 +63,7 @@ var ayuda = {
                         "subtitle": "Quiero subscribirme al servicio de notificaciones",
                         "images": [
                           {
-                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
                           }
                         ]
                     }
@@ -75,7 +75,7 @@ var ayuda = {
                         "subtitle": "Quiero agendar una cita",
                         "images": [
                           {
-                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+5&w=500&h=260"
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
                           }
                         ]
                     }

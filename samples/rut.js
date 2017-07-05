@@ -118,7 +118,7 @@ var crearRut = {
     },
     // Action fulfillment method, recieves parameters as keyed-object (parameters argument) and a callback function to invoke with the fulfillment result.
     fulfill: function (parameters, callback) {
-        callback("Su rut fue creado con exito!");
+        callback(util.format("Su rut fue creado con exito con los siguientes datos:\n Tipo de documento: "));
     }
 };
 
