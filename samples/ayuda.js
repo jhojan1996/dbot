@@ -23,13 +23,13 @@ var ayuda = {
                             "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
                           }
                         ]
-                        /*"buttons": [
+                        "buttons": [
                           {
-                            "title": "More details",
-                            "type": "openUrl",
-                            "value": "https://www.bing.com/search?q=hotels+in+seattle"
+                            "type": "postback",
+                            "title": "Generar mi rut",
+                            "payload":"Por favor quiero crear mi rut"
                           }
-                        ]*/
+                        ]
                     }
                 },
                 {
