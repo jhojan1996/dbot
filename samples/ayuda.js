@@ -27,7 +27,7 @@ var ayuda = {
                           {
                             "type": "postBack",
                             "title": "Generar mi rut",
-                            "payload":"Por favor quiero crear mi rut"
+                            "value":"Por favor quiero crear mi rut"
                           }
                         ]
                     }
