@@ -35,7 +35,7 @@ function DefaultReplyHandler(session) {
 
 function FulfillReplyHandler(session, actionModel) {
     console.log('Action Binding "' + actionModel.intentName + '" completed:', actionModel);
-    session.endDialog(actionModel.result.toString());
+    session.endDialog(actionModel.result);
 }
 
 function onContextCreationHandler(action, actionModel, next, session) {
