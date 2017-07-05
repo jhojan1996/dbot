@@ -25,7 +25,7 @@ var ayuda = {
                         ],
                         "buttons": [
                           {
-                            "type": "postback",
+                            "type": "postBack",
                             "title": "Generar mi rut",
                             "payload":"Por favor quiero crear mi rut"
                           }
