@@ -24,9 +24,6 @@ var BuiltInTypes = {
         City:               'builtin.geography.city',
         Country:            'builtin.geography.country',
         PointOfInterest:    'builtin.geography.pointOfInterest'
-    },
-    String: {
-        cedula:             'cedula'
     }
 };
 
