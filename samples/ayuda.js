@@ -22,7 +22,7 @@ var ayuda = {
                           {
                             "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
                           }
-                        ]
+                        ],
                         "buttons": [
                           {
                             "type": "postback",
