@@ -34,7 +34,7 @@ function DefaultReplyHandler(session) {
 }
 
 function FulfillReplyHandler(session, actionModel) {
-    console.log('Action Binding "' + actionModel.intentName + '" completed:', actionModel);
+    console.log('Action Binding "' + actionModel.intentName + '" completed:', actionModel.result.Message.data.attachments);
     session.endDialog(actionModel.result);
 }
 
