@@ -84,3 +84,5 @@ var ayuda = {
         );
     }
 };
+
+module.exports = ayuda;
