@@ -1,6 +1,26 @@
 var util = require('util');
 var builder = require('botbuilder');
 var LuisActions = require('../core');
+var nodemailer = require('nodemailer');
+var mysql = require('mysql');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'jhojanestiven1996@gmail.com',
+    pass: 'stressprotect1996'
+  }
+});
+
+var connection = mysql.createConnection(
+    {
+      host     : 'creditosmc.com',
+      user     : 'credito1',
+      password : 'rzh@i;S&F2s5',
+      database : 'credito1_dibot'
+    }
+);
+		 
 
 var crearRut = {
 	intentName: 'CrearRut',
@@ -118,7 +138,75 @@ var crearRut = {
     },
     // Action fulfillment method, recieves parameters as keyed-object (parameters argument) and a callback function to invoke with the fulfillment result.
     fulfill: function (parameters, callback) {
-        callback(util.format("Su rut fue creado con exito con los siguientes datos:\nTipo de documento: %s\nDocumento: %s\nFecha de expedición: %s\nPaís expedición: %s\nDepartamento expedición: %s\nMunicipio expedición: %s\nPrimer apellido: %s\nSegundo apellido: %s\nPrimer nombre: %s\nSegundo nombre: %s",
+		connection.connect(function(err) {
+		  if (err) {
+		    console.error('error connecting: ' + err.stack);
+		    return;
+		  }
+		  console.log('connected as id ' + connection.threadId);
+		});
+
+		/* Begin transaction */
+		connection.beginTransaction(function(err) {
+		  if (err) { throw err; }
+		  	connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [parameters.Nombre1, parameters.Nombre2, parameters.Apellido1, parameters.Apellido2, parameters.Direccion, parameters.Telefono1, parameters.Telefono2, parameters.Email, parameters.Postal], function(err, result) {
+		    if (err) { 
+		      connection.rollback(function() {
+		        throw err;
+		      });
+		    }
+		 
+		    var log = result.insertId;
+		    var cod_rut = Math.floor(Math.random() * 1000000000);
+		 
+		    connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, parameters.ActPrinc, parameters.ActSecun, parameters.OtrasAct, parameters.Ocupacion, parameters.Responsabilidad, log], function(err, result) {
+		      if (err) { 
+		        connection.rollback(function() {
+		          throw err;
+		        });
+		      }
+		    });
+
+		    var rndm = Math.floor(Math.random() * 100);
+		    var password
+		    var username = parameters.Nombre1+parameters.Nombre2+rndm
+		    var password = Math.floor(Math.random() * 10000000);
+
+		    connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
+		      if (err) { 
+		        connection.rollback(function() {
+		          throw err;
+		        });
+		      }  
+		      connection.commit(function(err) {
+		        if (err) { 
+		          connection.rollback(function() {
+		            throw err;
+		          });
+		        }
+		        var mailOptions = {
+				  	from: 'jhojanestiven1996@gmail.com',
+				  	to: parameters.Email,
+				 	subject: 'Creacion de RUT',
+				  	html: '<h1>su rut fue creado con exito<h1><br/><b>Usuario: '+username+'</b><br/>Contraseña: '+password
+				};
+
+				transporter.sendMail(mailOptions, function(error, info){
+				  	if (error) {
+				    	console.log(error);
+				  	} else {
+				    	console.log('Email sent: ' + info.response);
+				  	}
+				});
+
+		        console.log('Transaction Complete.');
+		        connection.end();
+		      });
+		    });
+		  });
+		});
+		/* End transaction */
+		callback(util.format("Su rut fue creado con exito con los siguientes datos:\nTipo de documento: %s\nDocumento: %s\nFecha de expedición: %s\nPaís expedición: %s\nDepartamento expedición: %s\nMunicipio expedición: %s\nPrimer apellido: %s\nSegundo apellido: %s\nPrimer nombre: %s\nSegundo nombre: %s",
         	parameters.TipoDoc, parameters.Documento, parameters.FechaExp, parameters.PaisExp, parameters.DptoExp, parameters.MpioExp, parameters.Apellido1, parameters.Apellido2, parameters.Nombre1, parameters.Nombre2));
     }
 };

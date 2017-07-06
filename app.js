@@ -16,6 +16,23 @@ var connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
+server.get('/modifyRut', function(req,res,next){
+    fs.readFile('./docs/index.html', 'utf8', function(err, file) {
+        if (err) {
+            res.send(500);
+            return next();
+        }
+
+        res.send({
+            code: 200,
+            noEnd: true
+        });
+        res.write(file);
+        res.end();
+        return next();
+    });
+});
+
 var bot = new builder.UniversalBot(connector);
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intentDialog = bot.dialog('/', new builder.IntentDialog({ recognizers: [recognizer] })

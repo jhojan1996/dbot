@@ -16,7 +16,9 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0",
-    "schema-inspector": "^1.6.8"
+    "schema-inspector": "^1.6.8",
+    "nodemailer": "^4.0.1",
+    "mysql": "^2.13.0"
   },
   "engines": {
       "node": "6.9.1",
