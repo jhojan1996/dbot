@@ -20,207 +20,221 @@ var connection = mysql.createConnection(
       database : 'dibot'
     }
 );
-		 
+         
 
 var crearRut = {
-	intentName: 'CrearRut',
+    intentName: 'CrearRut',
     friendlyName: 'Creación de RUT',
     confirmOnContextSwitch: true,
     schema: {
-    	TipoDoc: {
-    		type: 'string',
+        TipoDoc: {
+            type: 'string',
             message: 'Por favor ingrese su tipo de documento'
-    	},
-    	Documento: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Documento: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el número de documento'
-    	},
-    	FechaExp: {
-    		type: 'date',
+        },
+        FechaExp: {
+            type: 'date',
             builtInType: LuisActions.BuiltInTypes.DateTime.Date,
             validDate: true, 
             message: 'Por favor ingrese la fecha de expedición de su documento'
-    	},
-    	PaisExp: {
-    		type: 'string',
+        },
+        PaisExp: {
+            type: 'string',
             builtInType: LuisActions.BuiltInTypes.Geography.Country,
             message: 'Por favor ingrese el país donde se expide su documento'
-    	},
-    	DptoExp: {
-    		type: 'string',
+        },
+        DptoExp: {
+            type: 'string',
             message: 'Por favor ingrese el departamento donde se expide su documento'
-    	},
-    	MpioExp: {
-    		type: 'string',
+        },
+        MpioExp: {
+            type: 'string',
             builtInType: LuisActions.BuiltInTypes.Geography.City,
             message: 'Por favor ingrese la ciudad o el municipio donde se expide su documento'
-    	},
-    	Apellido1: {
-    		type: 'string',
+        },
+        Apellido1: {
+            type: 'string',
             message: 'Por favor ingrese su primer apellido'
-    	},
-    	Apellido2: {
-    		type: 'string',
+        },
+        Apellido2: {
+            type: 'string',
             message: 'Por favor ingrese su segundo apellido'
-    	},
-    	Nombre1: {
-    		type: 'string',
+        },
+        Nombre1: {
+            type: 'string',
             message: 'Por favor ingrese su primer nombre'
-    	},
-    	Nombre2: {
-    		type: 'string',
+        },
+        Nombre2: {
+            type: 'string',
             message: 'Por favor ingrese su segundo nombre'
-    	},
-    	PaisUbi: {
-    		type: 'string',
+        },
+        PaisUbi: {
+            type: 'string',
             builtInType: LuisActions.BuiltInTypes.Geography.Country,
             message: 'Por favor ingrese el país donde reside'
-    	},
-    	DptoUbi: {
-    		type: 'string',
+        },
+        DptoUbi: {
+            type: 'string',
             message: 'Por favor ingrese el departamento donde reside'
-    	},
-    	MpioUbi: {
-    		type: 'string',
+        },
+        MpioUbi: {
+            type: 'string',
             builtInType: LuisActions.BuiltInTypes.Geography.City,
             message: 'Por favor ingrese la ciudad o el municipio donde reside'
-    	},
-    	Direccion: {
-    		type: 'string',
+        },
+        Direccion: {
+            type: 'string',
             message: 'Por favor ingrese su dirección'
-    	},
-    	Email: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Email,
+        },
+        Email: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Email,
             message: 'Por favor ingrese su correo electronico'
-    	},
-    	Postal: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Postal: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese su codigo postal'
-    	},
-    	Telefono1: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Telefono1: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese un primer número telefonico'
-    	},
-    	Telefono2: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Telefono2: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese un segundo número telefonico'
-    	},
-    	ActPrinc: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        ActPrinc: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el codigo de su actividad principal'
-    	},
-    	ActSecun: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        ActSecun: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el codigo de su actividad secndaria'
-    	},
-    	OtrasAct: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        OtrasAct: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el codigo de otras actividades'
-    	},
-    	Ocupacion: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Ocupacion: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el codigo de su ocupación'
-    	},
-    	Responsabilidad: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+        },
+        Responsabilidad: {
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el codigo de sus responsabilidades, calidades y atributos'
-    	}
+        }
     },
     // Action fulfillment method, recieves parameters as keyed-object (parameters argument) and a callback function to invoke with the fulfillment result.
     fulfill: function (parameters, callback) {
-		connection.connect(function(err) {
-		  if (err) {
-		    console.error('error connecting: ' + err.stack);
-		    return;
-		  }
-		  console.log('connected as id ' + connection.threadId);
-		});
+        connection.connect(function(err) {
+          if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+          }
+          console.log('connected as id ' + connection.threadId);
+        });
 
-		/* Begin transaction */
-		connection.beginTransaction(function(err) {
-		  if (err) { throw err; }
-		  	connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [parameters.Nombre1, parameters.Nombre2, parameters.Apellido1, parameters.Apellido2, parameters.Direccion, parameters.Telefono1, parameters.Telefono2, parameters.Email, parameters.Postal], function(err, result) {
-		    if (err) { 
-		      connection.rollback(function() {
-		        throw err;
-		      });
-		    }
-		 
-		    var log = result.insertId;
-		    var cod_rut = Math.floor(Math.random() * 1000000000);
-		 
-		    connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, parameters.ActPrinc, parameters.ActSecun, parameters.OtrasAct, parameters.Ocupacion, parameters.Responsabilidad, log], function(err, result) {
-		      if (err) { 
-		        connection.rollback(function() {
-		          throw err;
-		        });
-		      }
-		    });
+        /* Begin transaction */
+        /*connection.beginTransaction(function(err) {
+          if (err) { throw err; }
+            connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [parameters.Nombre1, parameters.Nombre2, parameters.Apellido1, parameters.Apellido2, parameters.Direccion, parameters.Telefono1, parameters.Telefono2, parameters.Email, parameters.Postal], function(err, result) {
+            if (err) { 
+              connection.rollback(function() {
+                throw err;
+              });
+            }
+         
+            var log = result.insertId;
+            var cod_rut = Math.floor(Math.random() * 1000000000);
+         
+            connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, parameters.ActPrinc, parameters.ActSecun, parameters.OtrasAct, parameters.Ocupacion, parameters.Responsabilidad, log], function(err, result) {
+              if (err) { 
+                connection.rollback(function() {
+                  throw err;
+                });
+              }
+            });
 
-		    var rndm = Math.floor(Math.random() * 100);
-		    var password
-		    var username = parameters.Nombre1+parameters.Nombre2+rndm
-		    var password = Math.floor(Math.random() * 10000000);
+            var rndm = Math.floor(Math.random() * 100);
+            var password
+            var username = parameters.Nombre1+parameters.Nombre2+rndm
+            var password = Math.floor(Math.random() * 10000000);
 
-		    connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
-		      if (err) { 
-		        connection.rollback(function() {
-		          throw err;
-		        });
-		      }  
-		      connection.commit(function(err) {
-		        if (err) { 
-		          connection.rollback(function() {
-		            throw err;
-		          });
-		        }
-		        var mailOptions = {
-				  	from: 'jhojanestiven1996@gmail.com',
-				  	to: parameters.Email,
-				 	subject: 'Creacion de RUT',
-				  	html: '<h1>su rut fue creado con exito<h1><br/><b>Usuario: '+username+'</b><br/>Contraseña: '+password
-				};
+            connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
+              if (err) { 
+                connection.rollback(function() {
+                  throw err;
+                });
+              }  
+              connection.commit(function(err) {
+                if (err) { 
+                  connection.rollback(function() {
+                    throw err;
+                  });
+                }
+                var mailOptions = {
+                    from: 'jhojanestiven1996@gmail.com',
+                    to: parameters.Email,
+                    subject: 'Creacion de RUT',
+                    html: '<h1>su rut fue creado con exito<h1><br/><b>Usuario: '+username+'</b><br/>Contraseña: '+password
+                };
 
-				transporter.sendMail(mailOptions, function(error, info){
-				  	if (error) {
-				    	console.log(error);
-				  	} else {
-				    	console.log('Email sent: ' + info.response);
-				  	}
-				});
+                transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
 
-		        console.log('Transaction Complete.');
-		        connection.end();
-		      });
-		    });
-		  });
-		});
-		/* End transaction */
-		callback(util.format("Su rut fue creado con exito con los siguientes datos:\nTipo de documento: %s\nDocumento: %s\nFecha de expedición: %s\nPaís expedición: %s\nDepartamento expedición: %s\nMunicipio expedición: %s\nPrimer apellido: %s\nSegundo apellido: %s\nPrimer nombre: %s\nSegundo nombre: %s",
-        	parameters.TipoDoc, parameters.Documento, parameters.FechaExp, parameters.PaisExp, parameters.DptoExp, parameters.MpioExp, parameters.Apellido1, parameters.Apellido2, parameters.Nombre1, parameters.Nombre2));
+                console.log('Transaction Complete.');
+                connection.end();
+              });
+            });
+          });
+        });*/
+        /* End transaction */
+        var mailOptions = {
+            from: 'jhojanestiven1996@gmail.com',
+            to: parameters.Email,
+            subject: 'Creacion de RUT',
+            html: '<h1>su rut fue creado con exito<h1><br/><b>Usuario: '+username+'</b><br/>Contraseña: '+password
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        callback(util.format("Su rut fue creado con exito con los siguientes datos:\nTipo de documento: %s\nDocumento: %s\nFecha de expedición: %s\nPaís expedición: %s\nDepartamento expedición: %s\nMunicipio expedición: %s\nPrimer apellido: %s\nSegundo apellido: %s\nPrimer nombre: %s\nSegundo nombre: %s",
+            parameters.TipoDoc, parameters.Documento, parameters.FechaExp, parameters.PaisExp, parameters.DptoExp, parameters.MpioExp, parameters.Apellido1, parameters.Apellido2, parameters.Nombre1, parameters.Nombre2));
     }
 };
 
 var crearRut_cambiarTI = {
-	intentName: 'crearRut_cambiarTI',
+    intentName: 'crearRut_cambiarTI',
     friendlyName: 'Cambiar el tipo de documento',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
     schema: {
         TipoDoc: {
-    		type: 'string',
+            type: 'string',
             message: 'Por favor ingrese su tipo de documento'
-    	}
+        }
     },
     fulfill: function (parameters, callback, parentContextParameters) {
         parentContextParameters.TipoDoc = parameters.TipoDoc;
@@ -229,16 +243,16 @@ var crearRut_cambiarTI = {
 };
 
 var crearRut_cambiarDi= {
-	intentName: 'crearRut_cambiarDi',
+    intentName: 'crearRut_cambiarDi',
     friendlyName: 'Cambiar el número de documento',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
     schema: {
         Documento: {
-    		type: 'string',
-    		builtInType: LuisActions.BuiltInTypes.Number,
+            type: 'string',
+            builtInType: LuisActions.BuiltInTypes.Number,
             message: 'Por favor ingrese el número de documento'
-    	}
+        }
     },
     fulfill: function (parameters, callback, parentContextParameters) {
         parentContextParameters.Documento = parameters.Documento;
@@ -247,17 +261,17 @@ var crearRut_cambiarDi= {
 };
 
 var crearRut_cambiarFechaExp= {
-	intentName: 'crearRut_cambiarFechaExp',
+    intentName: 'crearRut_cambiarFechaExp',
     friendlyName: 'Cambiar la fecha de expedición del documento de identidad',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
     schema: {
         FechaExp: {
-    		type: 'date',
+            type: 'date',
             builtInType: LuisActions.BuiltInTypes.DateTime.Date,
             validDate: true, 
             message: 'Por favor ingrese la fecha de expedición de su documento'
-    	}
+        }
     },
     fulfill: function (parameters, callback, parentContextParameters) {
         parentContextParameters.FechaExp = parameters.FechaExp;
@@ -266,16 +280,16 @@ var crearRut_cambiarFechaExp= {
 };
 
 var crearRut_cambiarPaisExp= {
-	intentName: 'crearRut_cambiarPaisExp',
+    intentName: 'crearRut_cambiarPaisExp',
     friendlyName: 'Cambiar el país de expedición del documento de identidad',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
     schema: {
         PaisExp: {
-    		type: 'string',
+            type: 'string',
             builtInType: LuisActions.BuiltInTypes.Geography.Country,
             message: 'Por favor ingrese el país donde se expide su documento'
-    	}
+        }
     },
     fulfill: function (parameters, callback, parentContextParameters) {
         parentContextParameters.PaisExp = parameters.PaisExp;
@@ -284,7 +298,7 @@ var crearRut_cambiarPaisExp= {
 };
 
 var crearRut_cambiarDptoExp= {
-	intentName: 'crearRut_cambiarDptoExp',
+    intentName: 'crearRut_cambiarDptoExp',
     friendlyName: 'Cambiar el departamento de expedición del documento de identidad',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -301,7 +315,7 @@ var crearRut_cambiarDptoExp= {
 };
 
 var crearRut_cambiarMpioExp= {
-	intentName: 'crearRut_cambiarMpioExp',
+    intentName: 'crearRut_cambiarMpioExp',
     friendlyName: 'Cambiar el municipio de expedición del documento de identidad',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -319,7 +333,7 @@ var crearRut_cambiarMpioExp= {
 };
 
 var crearRut_cambiarApellido1= {
-	intentName: 'crearRut_cambiarApellido1',
+    intentName: 'crearRut_cambiarApellido1',
     friendlyName: 'Cambiar el primer apellido',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -336,7 +350,7 @@ var crearRut_cambiarApellido1= {
 };
 
 var crearRut_cambiarApellido2= {
-	intentName: 'crearRut_cambiarApellido2',
+    intentName: 'crearRut_cambiarApellido2',
     friendlyName: 'Cambiar el segundo apellido',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -353,7 +367,7 @@ var crearRut_cambiarApellido2= {
 };
 
 var crearRut_cambiarNombre1= {
-	intentName: 'crearRut_cambiarNombre1',
+    intentName: 'crearRut_cambiarNombre1',
     friendlyName: 'Cambiar el primer nombre',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -370,7 +384,7 @@ var crearRut_cambiarNombre1= {
 };
 
 var crearRut_cambiarNombre2= {
-	intentName: 'crearRut_cambiarNombre2',
+    intentName: 'crearRut_cambiarNombre2',
     friendlyName: 'Cambiar el segundo nombre',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -387,7 +401,7 @@ var crearRut_cambiarNombre2= {
 };
 
 var crearRut_cambiarPaisUbi= {
-	intentName: 'crearRut_cambiarPaisUbi',
+    intentName: 'crearRut_cambiarPaisUbi',
     friendlyName: 'Cambiar el país donde reside',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -405,7 +419,7 @@ var crearRut_cambiarPaisUbi= {
 };
 
 var crearRut_cambiarDptoUbi= {
-	intentName: 'crearRut_cambiarDptoUbi',
+    intentName: 'crearRut_cambiarDptoUbi',
     friendlyName: 'Cambiar el departamento donde reside',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -422,7 +436,7 @@ var crearRut_cambiarDptoUbi= {
 };
 
 var crearRut_cambiarMpioUbi= {
-	intentName: 'crearRut_cambiarMpioUbi',
+    intentName: 'crearRut_cambiarMpioUbi',
     friendlyName: 'Cambiar el municipio donde reside',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -440,7 +454,7 @@ var crearRut_cambiarMpioUbi= {
 };
 
 var crearRut_cambiarDireccion= {
-	intentName: 'crearRut_cambiarDireccion',
+    intentName: 'crearRut_cambiarDireccion',
     friendlyName: 'Cambiar la dirección de residencia',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -457,7 +471,7 @@ var crearRut_cambiarDireccion= {
 };
 
 var crearRut_cambiarEmail= {
-	intentName: 'crearRut_cambiarEmail',
+    intentName: 'crearRut_cambiarEmail',
     friendlyName: 'Cambiar el correo electronico',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -475,7 +489,7 @@ var crearRut_cambiarEmail= {
 };
 
 var crearRut_cambiarPostal= {
-	intentName: 'crearRut_cambiarPostal',
+    intentName: 'crearRut_cambiarPostal',
     friendlyName: 'Cambiar el codigo postal',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -493,7 +507,7 @@ var crearRut_cambiarPostal= {
 };
 
 var crearRut_cambiarTelefono1= {
-	intentName: 'crearRut_cambiarTelefono1',
+    intentName: 'crearRut_cambiarTelefono1',
     friendlyName: 'Cambiar el primer teléfono',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -511,7 +525,7 @@ var crearRut_cambiarTelefono1= {
 };
 
 var crearRut_cambiarTelefono2= {
-	intentName: 'crearRut_cambiarTelefono2',
+    intentName: 'crearRut_cambiarTelefono2',
     friendlyName: 'Cambiar el segundo teléfono',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -529,7 +543,7 @@ var crearRut_cambiarTelefono2= {
 };
 
 var crearRut_cambiarActPrinc= {
-	intentName: 'crearRut_cambiarActPrinc',
+    intentName: 'crearRut_cambiarActPrinc',
     friendlyName: 'Cambiar la actividad principal',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -547,7 +561,7 @@ var crearRut_cambiarActPrinc= {
 };
 
 var crearRut_cambiarActSecun= {
-	intentName: 'crearRut_cambiarActSecun',
+    intentName: 'crearRut_cambiarActSecun',
     friendlyName: 'Cambiar la actividad secndaria',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -565,7 +579,7 @@ var crearRut_cambiarActSecun= {
 };
 
 var crearRut_cambiarOtrasAct= {
-	intentName: 'crearRut_cambiarOtrasAct',
+    intentName: 'crearRut_cambiarOtrasAct',
     friendlyName: 'Cambiar otras actividades',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -583,7 +597,7 @@ var crearRut_cambiarOtrasAct= {
 };
 
 var crearRut_cambiarOcupacion= {
-	intentName: 'crearRut_cambiarOcupacion',
+    intentName: 'crearRut_cambiarOcupacion',
     friendlyName: 'Cambiar ocupación',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -601,7 +615,7 @@ var crearRut_cambiarOcupacion= {
 };
 
 var crearRut_cambiarResponsabilidad= {
-	intentName: 'crearRut_cambiarResponsabilidad',
+    intentName: 'crearRut_cambiarResponsabilidad',
     friendlyName: 'Cambiar responsabilidades',
     parentAction: crearRut,
     canExecuteWithoutContext: false,
@@ -620,30 +634,30 @@ var crearRut_cambiarResponsabilidad= {
 
 
 module.exports = [
-	crearRut,
-	crearRut_cambiarTI,
-	crearRut_cambiarDi,
-	crearRut_cambiarFechaExp,
-	crearRut_cambiarPaisExp,
-	crearRut_cambiarDptoExp,
-	crearRut_cambiarMpioExp,
-	crearRut_cambiarApellido1,
-	crearRut_cambiarApellido2,
-	crearRut_cambiarNombre1,
-	crearRut_cambiarNombre2,
-	crearRut_cambiarPaisUbi,
-	crearRut_cambiarDptoUbi,
-	crearRut_cambiarMpioUbi,
-	crearRut_cambiarDireccion,
-	crearRut_cambiarEmail,
-	crearRut_cambiarPostal,
-	crearRut_cambiarTelefono1,
-	crearRut_cambiarTelefono2,
-	crearRut_cambiarActPrinc,
-	crearRut_cambiarActSecun,
-	crearRut_cambiarOtrasAct,
-	crearRut_cambiarOcupacion,
-	crearRut_cambiarResponsabilidad
+    crearRut,
+    crearRut_cambiarTI,
+    crearRut_cambiarDi,
+    crearRut_cambiarFechaExp,
+    crearRut_cambiarPaisExp,
+    crearRut_cambiarDptoExp,
+    crearRut_cambiarMpioExp,
+    crearRut_cambiarApellido1,
+    crearRut_cambiarApellido2,
+    crearRut_cambiarNombre1,
+    crearRut_cambiarNombre2,
+    crearRut_cambiarPaisUbi,
+    crearRut_cambiarDptoUbi,
+    crearRut_cambiarMpioUbi,
+    crearRut_cambiarDireccion,
+    crearRut_cambiarEmail,
+    crearRut_cambiarPostal,
+    crearRut_cambiarTelefono1,
+    crearRut_cambiarTelefono2,
+    crearRut_cambiarActPrinc,
+    crearRut_cambiarActSecun,
+    crearRut_cambiarOtrasAct,
+    crearRut_cambiarOcupacion,
+    crearRut_cambiarResponsabilidad
 ];
 
 
