@@ -11,8 +11,8 @@ var download = require('download-file');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'jhojanestiven1996@gmail.com',
-    pass: 'stressprotect1996'
+    user: 'dibot2017@gmail.com',
+    pass: 'Innovati2017+'
   }
 });
 
@@ -24,11 +24,6 @@ var connection = mysql.createConnection(
       database : 'dibot'
     }
 );
-
-var options_dnlwd = {
-    directory: "./images/cats/",
-    filename: "cat.gif"
-}
 
 var doc = new pdf; 
 
@@ -226,7 +221,6 @@ var crearRut = {
 		});
 		/* End transaction */
         var stream = doc.pipe(blobStream());
-        doc.font('Arial');
         doc.fontSize('16');
         doc.text("Su RUT fue creado con exito");
         doc.moveDown();
@@ -280,6 +274,10 @@ var crearRut = {
 
         steam.on('finish',function(){
             var URL_PDF = steam.toBlobURL('application/pdf');
+            var options_dnlwd = {
+                directory: "../downloads/",
+                filename: "rut"+parameters.Nombre1+"-"+parameters.Nombre2+"-"+parameters.Apellido1+"-"+parameters.Apellido2+"-"+parameters.Documento;
+            }
             download(URL_PDF, options_dnlwd, function(err){
                 if (err) throw err
                 console.log("descargado");
