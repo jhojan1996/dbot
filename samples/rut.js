@@ -34,7 +34,7 @@ var doc = new pdf;
 
 var crearRut = {
 	intentName: 'CrearRut',
-    friendlyName: 'Creación de RUT',
+    friendlyName: 'Crear el RUT',
     confirmOnContextSwitch: true,
     schema: {
     	TipoDoc: {

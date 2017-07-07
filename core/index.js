@@ -141,7 +141,7 @@ function evaluate(modelUrl, actions, currentActionModel, userInput, onContextCre
                                 // prompt
                                 var currentActionName = action.friendlyName || action.intentName;
                                 var newActionName = newAction.friendlyName || newAction.intentName;
-                                actionModel.contextSwitchPrompt = util.format('Do you want to discard the current action \'%s\' and start the with \'%s\' action?', currentActionName, newActionName);
+                                actionModel.contextSwitchPrompt = util.format('Seguro que deseas dejar de \'%s\' y solicitar \'%s\'?', currentActionName, newActionName);
 
                                 // return and wait for context switch confirmation 
                                 return resolve(actionModel);
