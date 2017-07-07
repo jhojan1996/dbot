@@ -29,7 +29,7 @@ var logIn = {
     schema: {},
     // Action fulfillment method, recieves parameters as keyed-object (parameters argument) and a callback function to invoke with the fulfillment result.
     fulfill: function (parameters, callback) {
-        var message = new builder.Message(session)
+        var message = new builder.Message()
             .sourceEvent({
                 facebook: {
                     attachment: {

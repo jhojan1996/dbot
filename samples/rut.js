@@ -3,6 +3,10 @@ var builder = require('botbuilder');
 var LuisActions = require('../core');
 var nodemailer = require('nodemailer');
 var mysql = require('mysql');
+var pdf = require('pdfkit');
+var fs = require('fs');
+var blobStream = require('blob-stream');
+var download = require('download-file');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -20,7 +24,13 @@ var connection = mysql.createConnection(
       database : 'dibot'
     }
 );
-		 
+
+var options_dnlwd = {
+    directory: "./images/cats/",
+    filename: "cat.gif"
+}
+
+var doc = new pdf; 
 
 var crearRut = {
 	intentName: 'CrearRut',
@@ -206,8 +216,87 @@ var crearRut = {
 		  });
 		});
 		/* End transaction */
-		callback(util.format("Su rut fue creado con exito con los siguientes datos:\nTipo de documento: %s\nDocumento: %s\nFecha de expedición: %s\nPaís expedición: %s\nDepartamento expedición: %s\nMunicipio expedición: %s\nPrimer apellido: %s\nSegundo apellido: %s\nPrimer nombre: %s\nSegundo nombre: %s",
-        	parameters.TipoDoc, parameters.Documento, parameters.FechaExp, parameters.PaisExp, parameters.DptoExp, parameters.MpioExp, parameters.Apellido1, parameters.Apellido2, parameters.Nombre1, parameters.Nombre2));
+        var stream = doc.pipe(blobStream());
+        doc.font('Arial');
+        doc.fontSize('16');
+        doc.text("Su RUT fue creado con exito");
+        doc.moveDown();
+        doc.text("Tipo de documento: "+parameters.TipoDoc);
+        doc.moveDown();
+        doc.text("Número de documento: "+parameters.Documento);
+        doc.moveDown();
+        doc.text("Fecha de expedición: "+parameters.FechaExp);
+        doc.moveDown();
+        doc.text("País de expedición: "+parameters.PaisExp);
+        doc.moveDown();
+        doc.text("Departamento de expedición: "+parameters.DptoExp);
+        doc.moveDown();
+        doc.text("Municipio de expedición: "+parameters.MpioExp);
+        doc.moveDown();
+        doc.text("Primer apellido: "+parameters.Apellido1);
+        doc.moveDown();
+        doc.text("Segundo apellido: "+parameters.Apellido2);
+        doc.moveDown();
+        doc.text("Primer nombre: "+parameters.Nombre1);
+        doc.moveDown();
+        doc.text("Sergundo nombre: "+parameters.Nombre2);
+        doc.moveDown();
+        doc.text("País de residencia: "+parameters.PaisUbi;
+        doc.moveDown();
+        doc.text("Departamento de residencia: "+parameters.DptoUbi);
+        doc.moveDown();
+        doc.text("Municipio de residencia: "+parameters.MpioUbi);
+        doc.moveDown();
+        doc.text("Direccion: "+parameters.Direccion);
+        doc.moveDown();
+        doc.text("Email: "+parameters.Email);
+        doc.moveDown();
+        doc.text("Codigo postal: "+parameters.Postal);
+        doc.moveDown();
+        doc.text("Primer número de teléfono: "+parameters.Telefono1);
+        doc.moveDown();
+        doc.text("Sergundo número de teléfono: "+parameters.Telefono2);
+        doc.moveDown();
+        doc.text("Actividad principal: "+parameters.ActPrinc);
+        doc.moveDown();
+        doc.text("Actividad secundaria: "+parameters.ActSecun);
+        doc.moveDown();
+        doc.text("Otras actividades: "+parameters.OtrasAct);
+        doc.moveDown();
+        doc.text("Ocupación: "+parameters.Ocupacion);
+        doc.moveDown();
+        doc.text("Responsabilidades: "+parameters.Responsabilidad);
+
+        doc.end();        
+
+        steam.on('finish',function(){
+            var URL_PDF = steam.toBlobURL('application/pdf');
+            download(URL_PDF, options_dnlwd, function(err){
+                if (err) throw err
+                console.log("descargado");
+            }) 
+        });
+		callback(
+            new builder.Message()
+                .sourceEvent({
+                    facebook: {
+                        attachment: {
+                            type: 'template',
+                            payload: {
+                            template_type: 'generic',
+                            elements: [{
+                                title: 'Ingresar al sistema',
+                                image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingreso+al+sistema&w=500&h=260",
+                                buttons: [{
+                                    type: 'account_link',
+                                    url: FRONTEND_URL + '/files/login.html'
+                                }]
+                            }]
+                        }
+                    }
+                }
+            });
+        );
     }
 };
 
