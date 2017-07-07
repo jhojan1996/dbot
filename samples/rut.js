@@ -167,6 +167,15 @@ var crearRut = {
 		    }
 		 
 		    var log = result.insertId;
+
+            connection.query('INSERT INTO detalle_usuario (id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?)', [log, parameters.TipoDoc, parameters.Documento, parameters.FechaExp, parameters.PaisExp, parameters.DptoExp, parameters.MpioExp, parameters.PaisUbi, parameters.DptoUbi, parameters.MpioUbi], function(err, result) {
+              if (err) { 
+                connection.rollback(function() {
+                    throw err;
+                });
+              }
+            });
+
 		    var cod_rut = Math.floor(Math.random() * 1000000000);
 		 
 		    connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, parameters.ActPrinc, parameters.ActSecun, parameters.OtrasAct, parameters.Ocupacion, parameters.Responsabilidad, log], function(err, result) {
