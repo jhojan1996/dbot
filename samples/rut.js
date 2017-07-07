@@ -278,24 +278,24 @@ var crearRut = {
         });
 		callback(
             new builder.Message()
-                .sourceEvent({
-                    facebook: {
-                        attachment: {
-                            type: 'template',
-                            payload: {
+            .sourceEvent({
+                facebook: {
+                    attachment: {
+                        type: 'template',
+                        payload: {
                             template_type: 'generic',
                             elements: [{
                                 title: 'Ingresar al sistema',
                                 image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingreso+al+sistema&w=500&h=260",
                                 buttons: [{
                                     type: 'account_link',
-                                    url: FRONTEND_URL + '/files/login.html'
+                                    url: FRONTEND_URL + '/views/login.html'
                                 }]
                             }]
                         }
                     }
                 }
-            });
+            })
         );
     }
 };
