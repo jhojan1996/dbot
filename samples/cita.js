@@ -16,7 +16,7 @@ var connection = mysql.createConnection(
     {
       host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
       user     : 'bdfb18a7b2c383',
-      password : '669f8c04 ',
+      password : '669f8c04',
       database : 'dibot'
     }
 );
