@@ -241,7 +241,7 @@ var crearRut = {
         doc.moveDown();
         doc.text("Sergundo nombre: "+parameters.Nombre2);
         doc.moveDown();
-        doc.text("País de residencia: "+parameters.PaisUbi;
+        doc.text("País de residencia: "+parameters.PaisUbi);
         doc.moveDown();
         doc.text("Departamento de residencia: "+parameters.DptoUbi);
         doc.moveDown();
