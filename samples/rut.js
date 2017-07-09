@@ -278,7 +278,7 @@ var crearRut = {
             var URL_PDF = steam.toBlobURL('application/pdf');
             var options_dnlwd = {
                 directory: "../downloads/",
-                filename: "rut"+parameters.Nombre1+"-"+parameters.Nombre2+"-"+parameters.Apellido1+"-"+parameters.Apellido2+"-"+parameters.Documento;
+                filename: "rut"+parameters.Nombre1+"-"+parameters.Nombre2+"-"+parameters.Apellido1+"-"+parameters.Apellido2+"-"+parameters.Documento
             }
             download(URL_PDF, options_dnlwd, function(err){
                 if (err) throw err
