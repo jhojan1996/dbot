@@ -2,6 +2,8 @@ var util = require('util');
 var builder = require('botbuilder');
 var LuisActions = require('../core');
 
+console.log(session);
+
 var ayuda = {
 	intentName: 'Ayuda',
     friendlyName: 'Ayuda del chat',
