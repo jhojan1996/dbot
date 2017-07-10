@@ -3,8 +3,6 @@ require('dotenv-extended').load();
 
 var builder = require('botbuilder');
 var restify = require('restify');
-var Store = require('./store');
-var spellService = require('./spell-service');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -105,24 +103,6 @@ bot.dialog('Ayuda', function (session) {
 }).triggerAction({
     matches: 'Ayuda'
 });
-
-// Spell Check
-if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
-    bot.use({
-        botbuilder: function (session, next) {
-            spellService
-                .getCorrectedText(session.message.text)
-                .then(function (text) {
-                    session.message.text = text;
-                    next();
-                })
-                .catch(function (error) {
-                    console.error(error);
-                    next();
-                });
-        }
-    });
-}
 
 // Helpers
 function hotelAsAttachment(hotel) {
