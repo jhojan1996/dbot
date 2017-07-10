@@ -25,6 +25,10 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
+bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
+    matches: 'Ayuda'
+});
+
 bot.dialog('SearchHotels', [
     function (session, args, next) {
         session.send('Welcome to the Hotels finder! We are analyzing your message: \'%s\'', session.message.text);
@@ -96,11 +100,6 @@ bot.dialog('ShowHotelsReviews', function (session, args) {
     }
 }).triggerAction({
     matches: 'ShowHotelsReviews'
-});
-
-bot.dialog('Ayuda', require('./actions/ayuda')
-}).triggerAction({
-    matches: 'Ayuda'
 });
 
 // Helpers
