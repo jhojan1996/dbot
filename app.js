@@ -42,4 +42,6 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT
-bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).beginDialogAction('CrearRutAyudaAction', 'Ayuda', { matches: 'Ayuda' });
+bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
+    matches: 'RutCambiarTipoDoc'
+});
