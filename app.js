@@ -33,10 +33,10 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
         session.beginDialog(args.action, args);
     }
 });
-
+//bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({matches: 'CrearRut'});
-bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
-bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
+//bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
+//bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT
 bot.dialog('RutCambiarNumeroDocumento', require('./actions/rut/tipoDoc')).triggerAction({
