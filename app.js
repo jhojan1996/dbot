@@ -142,5 +142,12 @@ function onContextCreationHandler(action, actionModel, next, session) {
         }
     }
 
+    if(action.intentName === 'Ayuda'){
+        console.log("Action---------------->",action);
+        console.log("ActionModel---------------->",actionModel);
+        console.log("Next---------------->",next);
+        console.log("Session---------------->",session);
+    }
+
     next();
 }
