@@ -43,7 +43,7 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
 
 //Acciones para cambiar de contexto en creacion de RUT
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
-    matches: 'RutCambiarNumeroDocumento',
+    matches: 'RutCambiarTipoDoc',
     onSelectAction: (session, args, next) => {
         // Add the help dialog to the dialog stack 
         // (override the default behavior of replacing the stack)
