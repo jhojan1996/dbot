@@ -34,7 +34,10 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({matches: 'CrearRut'});
+bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
+    matches: 'CrearRut',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
