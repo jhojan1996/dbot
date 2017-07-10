@@ -8,8 +8,6 @@ var fs = require('fs');
 var blobStream = require('blob-stream');
 var download = require('download-file');
 
-console.log(session);
-
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
