@@ -32,7 +32,10 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
-bot.dialog('Ayuda', require('./actions/ayuda'));
+bot.dialog('Ayuda', function(session){
+        console.log("Entre a la ayuda!");
+        session.endDialog("Hola! Soy DiBot. A continuacion te mostrare las acciones en las que puedo ayudar: ");
+});
 bot.dialog('CrearRut', require('./actions/crearRut'));
 bot.dialog('GestionarRut', require('./actions/gestionarRut'));
 bot.dialog('Login', require('./actions/login'));
