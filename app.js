@@ -77,3 +77,7 @@ bot.dialog('CrearRut', require('./actions/crearRut'));
 bot.dialog('GestionarRut', require('./actions/gestionarRut'));
 bot.dialog('Login', require('./actions/login'));
 bot.dialog('CrearCita', require('./actions/crearCita'));
+
+bot.on('error', function (e) {
+    console.log('And error ocurred', e);
+});
