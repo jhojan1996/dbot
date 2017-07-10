@@ -39,7 +39,7 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({matches: 'C
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT
-bot.dialog('RutCambiarNumeroDocumento', require('./actions/rut/tipoDoc')).triggerAction({
+bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
     matches: 'RutCambiarNumeroDocumento',
     onSelectAction: (session, args, next) => {
         // Add the help dialog to the dialog stack 
