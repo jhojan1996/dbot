@@ -103,7 +103,7 @@ bot.dialog('ShowHotelsReviews', function (session, args) {
 bot.dialog('Ayuda', function (session) {
     session.endDialog('Hi! Try asking me things like \'search hotels in Seattle\', \'search hotels near LAX airport\' or \'show me the reviews of The Bot Resort\'');
 }).triggerAction({
-    matches: 'Help'
+    matches: 'Ayuda'
 });
 
 // Spell Check
@@ -144,5 +144,3 @@ function reviewAsAttachment(review) {
         .text(review.text)
         .images([new builder.CardImage().url(review.image)]);
 }
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
