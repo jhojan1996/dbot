@@ -56,9 +56,9 @@ var bot = new builder.UniversalBot(connector, [
                 return session.beginDialog('ayuda');
             case DialogLabels.Rut:
                 return session.beginDialog('CrearRut');
-            case DialogLabels.Login
+            case DialogLabels.Login:
             	return session.beginDialog('login');
-            case DialogLabels.Citas
+            case DialogLabels.Citas:
             	return session.beginDialog('citas');
         }
     }
