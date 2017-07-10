@@ -1,22 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Gist
- @jhojan1996
- Sign out
- Watch 127
-  Star 628
-  Fork 737 Microsoft/BotBuilder-Samples
- Code  Issues 14  Pull requests 15  Projects 0  Wiki Insights 
-Branch: master Find file Copy pathBotBuilder-Samples/Node/intelligence-LUIS/app.js
-3b8f26a  on 25 Feb
-@pcostantini pcostantini Node - Samples ES5 compliant
-2 contributors @pcostantini @iassal
-RawBlameHistory     
-146 lines (129 sloc)  5.25 KB
 // This loads the environment variables from the .env file
 require('dotenv-extended').load();
 
