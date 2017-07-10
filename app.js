@@ -1,46 +1,167 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Gist
+ @jhojan1996
+ Sign out
+ Watch 127
+  Star 628
+  Fork 737 Microsoft/BotBuilder-Samples
+ Code  Issues 14  Pull requests 15  Projects 0  Wiki Insights 
+Branch: master Find file Copy pathBotBuilder-Samples/Node/intelligence-LUIS/app.js
+3b8f26a  on 25 Feb
+@pcostantini pcostantini Node - Samples ES5 compliant
+2 contributors @pcostantini @iassal
+RawBlameHistory     
+146 lines (129 sloc)  5.25 KB
+// This loads the environment variables from the .env file
+require('dotenv-extended').load();
+
 var builder = require('botbuilder');
 var restify = require('restify');
+var Store = require('./store');
+var spellService = require('./spell-service');
 
-
-//configura el servidor tipo restify
+// Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
-
-// Crea el nuevo bot y configura la escucha de mensajes
-// Las variables de entorno ".env" se cargan desde azure
+// Create connector and listen for messages
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID, 
+    appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 server.post('/api/messages', connector.listen());
 
-var DialogLabels = {
-    Rut: 'Crear rut',
-    Citas: 'Agendar una cita',
-    Login: 'Ingresar al sistema',
-    Ayuda: 'Solicitar ayuda'
-};
-
-//Este dialogo es para intent por defecto
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
 });
 
-// Aquí instanciamos a LUIS
+// You can provide your own model by specifing the 'LUIS_MODEL_URL' environment variable
+// This Url can be obtained by uploading or creating your model from the LUIS portal: https://www.luis.ai/
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
-bot.dialog('Ayuda', function(session){
-        console.log("Entre a la ayuda!");
-        session.endDialog("Hola! Soy DiBot. A continuacion te mostrare las acciones en las que puedo ayudar: ");
-});
-bot.dialog('CrearRut', require('./actions/crearRut'));
-bot.dialog('GestionarRut', require('./actions/gestionarRut'));
-bot.dialog('Login', require('./actions/login'));
-bot.dialog('CrearCita', require('./actions/crearCita'));
+bot.dialog('SearchHotels', [
+    function (session, args, next) {
+        session.send('Welcome to the Hotels finder! We are analyzing your message: \'%s\'', session.message.text);
 
-bot.on('error', function (e) {
-    console.log('And error ocurred', e);
+        // try extracting entities
+        var cityEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'builtin.geography.city');
+        var airportEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'AirportCode');
+        if (cityEntity) {
+            // city entity detected, continue to next step
+            session.dialogData.searchType = 'city';
+            next({ response: cityEntity.entity });
+        } else if (airportEntity) {
+            // airport entity detected, continue to next step
+            session.dialogData.searchType = 'airport';
+            next({ response: airportEntity.entity });
+        } else {
+            // no entities detected, ask user for a destination
+            builder.Prompts.text(session, 'Please enter your destination');
+        }
+    },
+    function (session, results) {
+        var destination = results.response;
+
+        var message = 'Looking for hotels';
+        if (session.dialogData.searchType === 'airport') {
+            message += ' near %s airport...';
+        } else {
+            message += ' in %s...';
+        }
+
+        session.send(message, destination);
+
+        // Async search
+        Store
+            .searchHotels(destination)
+            .then(function (hotels) {
+                // args
+                session.send('I found %d hotels:', hotels.length);
+
+                var message = new builder.Message()
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments(hotels.map(hotelAsAttachment));
+
+                session.send(message);
+
+                // End
+                session.endDialog();
+            });
+    }
+]).triggerAction({
+    matches: 'SearchHotels',
+    onInterrupted: function (session) {
+        session.send('Please provide a destination');
+    }
 });
+
+bot.dialog('ShowHotelsReviews', function (session, args) {
+    // retrieve hotel name from matched entities
+    var hotelEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'Hotel');
+    if (hotelEntity) {
+        session.send('Looking for reviews of \'%s\'...', hotelEntity.entity);
+        Store.searchHotelReviews(hotelEntity.entity)
+            .then(function (reviews) {
+                var message = new builder.Message()
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments(reviews.map(reviewAsAttachment));
+                session.endDialog(message);
+            });
+    }
+}).triggerAction({
+    matches: 'ShowHotelsReviews'
+});
+
+bot.dialog('Ayuda', function (session) {
+    session.endDialog('Hi! Try asking me things like \'search hotels in Seattle\', \'search hotels near LAX airport\' or \'show me the reviews of The Bot Resort\'');
+}).triggerAction({
+    matches: 'Help'
+});
+
+// Spell Check
+if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
+    bot.use({
+        botbuilder: function (session, next) {
+            spellService
+                .getCorrectedText(session.message.text)
+                .then(function (text) {
+                    session.message.text = text;
+                    next();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    next();
+                });
+        }
+    });
+}
+
+// Helpers
+function hotelAsAttachment(hotel) {
+    return new builder.HeroCard()
+        .title(hotel.name)
+        .subtitle('%d stars. %d reviews. From $%d per night.', hotel.rating, hotel.numberOfReviews, hotel.priceStarting)
+        .images([new builder.CardImage().url(hotel.image)])
+        .buttons([
+            new builder.CardAction()
+                .title('More details')
+                .type('openUrl')
+                .value('https://www.bing.com/search?q=hotels+in+' + encodeURIComponent(hotel.location))
+        ]);
+}
+
+function reviewAsAttachment(review) {
+    return new builder.ThumbnailCard()
+        .title(review.title)
+        .text(review.text)
+        .images([new builder.CardImage().url(review.image)]);
+}
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
