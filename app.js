@@ -24,49 +24,9 @@ var DialogLabels = {
 };
 
 //Este dialogo es para intent por defecto
-var bot = new builder.UniversalBot(connector, [
-    function (session) {
-        // prompt for search option
-        builder.Prompts.choice(
-            session,
-            'Hola! Soy DiBot. dime, ¿Qué deseas hacer?',
-            [DialogLabels.Ayuda, DialogLabels.Rut, DialogLabels.Login, DialogLabels.Citas],
-            {
-                maxRetries: 3,
-                retryPrompt: 'Por favor escoge o escribe una de las opciones'
-            });
-    },
-    function (session, result) {
-        if (!result.response) {
-            // exhausted attemps and no selection, start over
-            session.send('Lo siento! No pude atender tu solicitud. Pero no te preocupes, puede escribirlo de nuevo!');
-            return session.endDialog();
-        }
-
-        // on error, start over
-        session.on('error', function (err) {
-            session.send('Error interno, si persiste envie un e-mail a xxx@xxx.com con el siguiente mensaje: %s', err.message);
-            session.endDialog();
-        });
-
-        // continue on proper dialog
-        var selection = result.response.entity;
-        switch (selection) {
-            case DialogLabels.Ayuda:
-                console.log("Ayuda action");
-                return session.beginDialog('ayuda');
-            case DialogLabels.Rut:
-                console.log("Rut action");
-                return session.beginDialog('CrearRut');
-            case DialogLabels.Login:
-                console.log("Login action");
-            	return session.beginDialog('login');
-            case DialogLabels.Citas:
-                console.log("Citas action");
-            	return session.beginDialog('citas');
-        }
-    }
-]);
+var bot = new builder.UniversalBot(connector, function (session) {
+    session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
+});
 
 // Aquí instanciamos a LUIS
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
