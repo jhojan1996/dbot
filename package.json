@@ -2,9 +2,9 @@
   "name": "botbuilder-luis-actionbinding-samples",
   "version": "1.0.0",
   "description": "Bot Builder LUIS Action Binding - Samples",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node app.js"
   },
   "author": "Microsoft Corp.",
   "license": "MIT",
