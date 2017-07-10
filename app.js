@@ -33,7 +33,7 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
         session.beginDialog(args.action, args);
     }
 });
-bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
+
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({matches: 'CrearRut'});
 bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
