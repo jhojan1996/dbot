@@ -72,4 +72,4 @@ bot.dialog('Ayuda', require('./actions/ayuda'));
 bot.dialog('CrearRut', require('./actions/crearRut'));
 bot.dialog('GestionarRut', require('./actions/gestionarRut'));
 bot.dialog('Login', require('./actions/login'));
-bot.dialog('CrearCita', require('.actions/crearCita'));
+bot.dialog('CrearCita', require('./actions/crearCita'));
