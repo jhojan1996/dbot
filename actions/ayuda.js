@@ -2,12 +2,10 @@ var builder = require('botbuilder');
 
 module.exports = function(session){
 		console.log("Entre a la ayuda!");
-		session.send("Hola! Soy DiBot. A continuacion te mostrare las acciones en las que puedo ayudar: ");
-		var msg = getHelpCards();
-		session.endDialog(msg)
+		session.endDialog("Hola! Soy DiBot. A continuacion te mostrare las acciones en las que puedo ayudar: ");
 };
 
-function getHelpCards(){
+/*function getHelpCards(){
 	return new builder.Message()
     .attachmentLayout(builder.AttachmentLayout.carousel)
     .attachments([
@@ -79,4 +77,4 @@ function getHelpCards(){
             }
         }
     ]);
-}
+}*/
