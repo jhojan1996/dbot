@@ -34,19 +34,11 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
-    matches: 'CrearRut',
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
-});
+bot.dialog('CrearRut', require('./actions/crearRut')).beginDialogAction('CrearRutAyudaAction', 'Ayuda', { matches: 'Ayuda' });
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
-    matches: 'RutCambiarTipoDoc',
-    onSelectAction: (session, args, next) => {
-        // Add the help dialog to the dialog stack 
-        // (override the default behavior of replacing the stack)
-        session.beginDialog(args.action, args);
-    }
+    matches: 'RutCambiarTipoDoc'
 });
