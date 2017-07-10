@@ -98,8 +98,7 @@ bot.dialog('ShowHotelsReviews', function (session, args) {
     matches: 'ShowHotelsReviews'
 });
 
-bot.dialog('Ayuda', function (session) {
-    session.endDialog('Hi! Try asking me things like \'search hotels in Seattle\', \'search hotels near LAX airport\' or \'show me the reviews of The Bot Resort\'');
+bot.dialog('Ayuda', require('./actions/ayuda')
 }).triggerAction({
     matches: 'Ayuda'
 });
