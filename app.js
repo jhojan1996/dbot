@@ -53,12 +53,16 @@ var bot = new builder.UniversalBot(connector, [
         var selection = result.response.entity;
         switch (selection) {
             case DialogLabels.Ayuda:
+                console.log("Ayuda action");
                 return session.beginDialog('ayuda');
             case DialogLabels.Rut:
+                console.log("Rut action");
                 return session.beginDialog('CrearRut');
             case DialogLabels.Login:
+                console.log("Login action");
             	return session.beginDialog('login');
             case DialogLabels.Citas:
+                console.log("Citas action");
             	return session.beginDialog('citas');
         }
     }
