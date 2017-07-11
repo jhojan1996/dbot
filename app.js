@@ -25,17 +25,17 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
-bot.dialog('Ayuda', require('./actionss/ayuda')).triggeractions({
+bot.dialog('Ayuda', require('./actions/ayuda')).triggeractions({
     matches: 'Ayuda'
 });
-//bot.dialog('Ingresar', require('./actionss/login')).triggeractions({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actionss/crearRut')).triggeractions({
+//bot.dialog('Ingresar', require('./actions/login')).triggeractions({matches: 'Ingresar'});
+bot.dialog('CrearRut', require('./actions/crearRut')).triggeractions({
     matches: 'CrearRut',
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?",
 
 });
-//bot.dialog('GestionarRut', require('./actionss/gestionarRut')).triggeractions({matches: 'GestionarRut'});
-//bot.dialog('CrearCita', require('./actionss/crearCita')).triggeractions({matches: 'CrearCita'});
+//bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggeractions({matches: 'GestionarRut'});
+//bot.dialog('CrearCita', require('./actions/crearCita')).triggeractions({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggeractions({
