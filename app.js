@@ -45,3 +45,7 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
     matches: 'RutCambiarTipoDoc'
 });
+
+bot.dialog('RutCambiarNumeroDocumento', require('./actions/rut/numDoc')).triggerAction({
+    matches: 'RutCambiarNumeroDocumento'
+});
