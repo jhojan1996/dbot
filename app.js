@@ -26,13 +26,18 @@ var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
 bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
-    matches: 'Ayuda'
+    matches: 'Ayuda',
+    onSelectAction: (session, args, next) => {
+        // Add the help dialog to the dialog stack 
+        // (override the default behavior of replacing the stack)
+        session.beginDialog(args.action, args);
+    }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut',
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
-}).beginDialogAction('AyudaAction', 'Ayuda',{matches: 'Ayuda'});
+});
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
