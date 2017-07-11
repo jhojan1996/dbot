@@ -29,10 +29,12 @@ var doc = new pdf;
 module.exports = [
 	//Tipo documento
 	function(session){
+		console.log("Inicio crear rut");
 		session.send('Claro. Te ayudare a crear el RUT, por favor dame la siguiente información:');
 		session.beginDialog('RutCambiarTipoDoc');
 	},
 	function(session, results){
+		console.log("Tipo documento -----------> ",results.response);
 		session.dialogData.tipoDocumento = results.response;
 		session.beginDialog('RutCambiarNumeroDocumento');
 	},
