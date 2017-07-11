@@ -30,6 +30,7 @@ module.exports = [
 	//Tipo documento
 	function(session){
 		console.log("Inicio crear rut");
+		session.dialogData.crearRut = true;
 		session.send('Claro. Te ayudare a crear el RUT, por favor dame la siguiente información:');
 		session.beginDialog('RutCambiarTipoDoc');
 	},
