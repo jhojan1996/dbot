@@ -31,102 +31,124 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut',
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?",
-
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
-    matches: 'RutCambiarTipoDoc'
+    matches: 'RutCambiarTipoDoc',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarNumeroDocumento', require('./actions/rut/numDoc')).triggerAction({
-    matches: 'RutCambiarNumeroDocumento'
+    matches: 'RutCambiarNumeroDocumento',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarFechaExpe', require('./actions/rut/fechaExpe')).triggerAction({
-    matches: 'RutCambiarFechaExpe'
+    matches: 'RutCambiarFechaExpe',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarPaisExpe', require('./actions/rut/paisExpe')).triggerAction({
-    matches: 'RutCambiarPaisExpe'
+    matches: 'RutCambiarPaisExpe',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarDptoExpe', require('./actions/rut/dptoExpe')).triggerAction({
-    matches: 'RutCambiarDptoExpe'
+    matches: 'RutCambiarDptoExpe',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarMpioExpe', require('./actions/rut/mpioExpe')).triggerAction({
-    matches: 'RutCambiarMpioExpe'
+    matches: 'RutCambiarMpioExpe',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarApellido1', require('./actions/rut/apellido1')).triggerAction({
-    matches: 'RutCambiarApellido1'
+    matches: 'RutCambiarApellido1',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarApellido2', require('./actions/rut/apellido2')).triggerAction({
-    matches: 'RutCambiarApellido2'
+    matches: 'RutCambiarApellido2',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarNombre1', require('./actions/rut/nombre1')).triggerAction({
-    matches: 'RutCambiarNombre1'
+    matches: 'RutCambiarNombre1',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarNombre2', require('./actions/rut/nombre2')).triggerAction({
-    matches: 'RutCambiarNombre2'
+    matches: 'RutCambiarNombre2',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarPaisUbi', require('./actions/rut/paisUbi')).triggerAction({
-    matches: 'RutCambiarPaisUbi'
+    matches: 'RutCambiarPaisUbi',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarDptoUbi', require('./actions/rut/dptoUbi')).triggerAction({
-    matches: 'RutCambiarDptoUbi'
+    matches: 'RutCambiarDptoUbi',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarMpioUbi', require('./actions/rut/mpioUbi')).triggerAction({
-    matches: 'RutCambiarMpioUbi'
+    matches: 'RutCambiarMpioUbi',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarDireccion', require('./actions/rut/direccion')).triggerAction({
-    matches: 'RutCambiarDireccion'
+    matches: 'RutCambiarDireccion',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarEmail', require('./actions/rut/email')).triggerAction({
-    matches: 'RutCambiarEmail'
+    matches: 'RutCambiarEmail',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarPostal', require('./actions/rut/postal')).triggerAction({
-    matches: 'RutCambiarPostal'
+    matches: 'RutCambiarPostal',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarTelefono1', require('./actions/rut/telefono1')).triggerAction({
-    matches: 'RutCambiarTelefono1'
+    matches: 'RutCambiarTelefono1',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarTelefono2', require('./actions/rut/telefono2')).triggerAction({
-    matches: 'RutCambiarTelefono2'
+    matches: 'RutCambiarTelefono2',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarActPrinc', require('./actions/rut/actPrinc')).triggerAction({
-    matches: 'RutCambiarActPrinc'
+    matches: 'RutCambiarActPrinc',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarActSecun', require('./actions/rut/actSecun')).triggerAction({
-    matches: 'RutCambiarActSecun'
+    matches: 'RutCambiarActSecun',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarOtrasAct', require('./actions/rut/otrasAct')).triggerAction({
-    matches: 'RutCambiarOtrasAct'
+    matches: 'RutCambiarOtrasAct',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarOcupacion', require('./actions/rut/ocupacion')).triggerAction({
-    matches: 'RutCambiarOcupacion'
+    matches: 'RutCambiarOcupacion',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')).triggerAction({
-    matches: 'RutCambiarResponsabilidad'
+    matches: 'RutCambiarResponsabilidad',
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 //------------------------------------------------------------------//
