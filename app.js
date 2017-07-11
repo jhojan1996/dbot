@@ -26,7 +26,7 @@ var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 
 bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
-    matches: 'Ayuda'
+    matches: /^Ayuda$/
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
