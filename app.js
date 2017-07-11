@@ -24,6 +24,9 @@ var bot = new builder.UniversalBot(connector, function (session) {
 // This Url can be obtained by uploading or creating your model from the LUIS portal: https://www.luis.ai/
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
+var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+
+dialog.onDefault(builder.DialogAction.send("Lo siento, no pude entender lo que me dijiste"));
 
 bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     matches: 'Ayuda',
