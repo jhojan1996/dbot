@@ -22,14 +22,14 @@ server.get('/authorize', restify.queryParser(), function (req, res, next) {
         var username = req.query.username;
         var password = req.query.password;
         var id_usuario;
-        connection.query('SELECT id, id_usuario FROM registro WHERE username = "'+username'" AND password = "'+password+'"', function(err, result, fields) {
+        connection.query('SELECT id, id_usuario FROM registro WHERE username = "'+username+'" AND password = "'+password+'"', function(err, result, fields) {
             if (err) throw err;
             if(result.length > 0){
                 id_usuario = result[0].id_usuario;
             }
         });
 
-        var redirectUri = req.query.redirect_uri + '&authorization_code=' + username;
+        var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
     return res.redirect(redirectUri, next);
     } else {
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
