@@ -6,7 +6,7 @@ var restify = require('restify');
 
 // Setup Restify Server
 var server = restify.createServer();
-server.use(restify.queryParser());
+server.use(restify.plugins.queryParser());
 server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
@@ -18,7 +18,7 @@ var connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());
 
 //Codigo para el login//
-server.get('/authorize', restify.queryParser(), function (req, res, next) {
+server.get('/authorize', restify.plugins.queryParser(), function (req, res, next) {
     if (req.query && req.query.redirect_uri && req.query.username && req.query.password) {
         var username = req.query.username;
         var password = req.query.password;
