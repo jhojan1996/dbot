@@ -37,7 +37,9 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actions/crearRut')).endConversationAction("endCrearRut", "Vale. Cancelado",{
+bot.dialog('CrearRut', require('./actions/crearRut')).matches({
+    matches: 'CrearRut'
+}).endConversationAction("endCrearRut", "Vale. Cancelado",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
