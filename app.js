@@ -16,6 +16,27 @@ var connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
+//Codigo para el login//
+server.get('/authorize', restify.queryParser(), function (req, res, next) {
+    if (req.query && req.query.redirect_uri && req.query.username && req.query.password) {
+        var username = req.query.username;
+        var password = req.query.password;
+        var id_usuario;
+        connection.query('SELECT id, id_usuario FROM registro WHERE username = "'+username'" AND password = "'+password+'"', function(err, result, fields) {
+            if (err) throw err;
+            if(result.length > 0){
+                id_usuario = result[0].id_usuario;
+            }
+        });
+
+        var redirectUri = req.query.redirect_uri + '&authorization_code=' + username;
+    return res.redirect(redirectUri, next);
+    } else {
+        return res.send(400, 'Request did not contain redirect_uri and username in the query string');
+    }
+});
+//-------------------//
+
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
 });
@@ -26,7 +47,35 @@ var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
-dialog.onDefault(builder.DialogAction.send("Lo siento, no pude entender lo que me dijiste"));
+dialog.onDefault(function(session){
+    var accountLinking = session.message.sourceEvent.account_linking;
+    if (accountLinking) {
+        // This is the handling for the `Account Linking webhook event` where we could
+        // verify the authorization_code and that the linking was successful.
+        // The authorization_code is the value we passed above and
+        // status has value `linked` in case the linking succeeded.
+        var id_usuario = accountLinking.authorization_code;
+        var authorizationStatus = accountLinking.status;
+        if (authorizationStatus === 'linked') {
+            // Persist username under the userData
+            session.userData.idUsuario = id_usuario;
+            session.endDialog('Ingresaso exitoso! dime que mas deseas hacer');
+        } else if (authorizationStatus === 'unlinked') {
+            // Remove username from the userData
+            delete session.userData.idUsuario;
+            session.endDialog('Tu cuenta fue desvinculada exitosamente');
+        } else {
+            session.endDialog('Unknown account linking event received');
+        }
+    } else {
+        var storedUsername = session.userData.idUsuario;
+        if (storedUsername) {
+            session.endDialog('You are known as ' + storedUsername + ' - type "unlink account" to try out unlinking');
+        } else {
+            session.endDialog('I hear you - type "link account" to try out account linking');
+        }
+    }
+});
 
 bot.set('localizerSettings', {
     botLocalePath: "./customLocale", 
