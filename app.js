@@ -37,12 +37,13 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
-    matches: 'CrearRut',
+bot.dialog('CrearRut', require('./actions/crearRut')).endConversationAction("endCrearRut", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
+
 
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc'));
@@ -90,3 +91,9 @@ bot.dialog('RutCambiarOcupacion', require('./actions/rut/ocupacion'));
 
 bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad'));
 //------------------------------------------------------------------//
+
+//Login//
+bot.dialog('Login', require('./actions/login')).triggerAction({
+    matches: 'Login'
+});
+//-----//

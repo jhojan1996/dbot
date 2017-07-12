@@ -39,6 +39,7 @@ module.exports = [
 		session.dialogData.tipoDocumento = results.response;
 		session.beginDialog('RutCambiarNumeroDocumento');
 	},
+	
 	function(session,results){
 		session.dialogData.numeroDocumento = results.response;
 		session.beginDialog('RutCambiarFechaExpe');
