@@ -110,94 +110,94 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
 
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
-    matches: 'RutCambiarTipoDoc'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarNumeroDocumento', require('./actions/rut/numDoc')).triggerAction({
-    matches: 'RutCambiarNumeroDocumento'
+    matches: 'CrearRut'
 });
 bot.dialog('RutCambiarFechaExpe', require('./actions/rut/fechaExpe')).triggerAction({
-    matches: 'RutCambiarFechaExpe'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarPaisExpe', require('./actions/rut/paisExpe')).triggerAction({
-    matches: 'RutCambiarPaisExpe'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarDptoExpe', require('./actions/rut/dptoExpe')).triggerAction({
-    matches: 'RutCambiarDptoExpe'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarMpioExpe', require('./actions/rut/mpioExpe')).triggerAction({
-    matches: 'RutCambiarMpioExpe'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarApellido1', require('./actions/rut/apellido1')).triggerAction({
-    matches: 'RutCambiarApellido1'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarApellido2', require('./actions/rut/apellido2')).triggerAction({
-    matches: 'RutCambiarApellido2'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarNombre1', require('./actions/rut/nombre1')).triggerAction({
-    matches: 'RutCambiarNombre1'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarNombre2', require('./actions/rut/nombre2')).triggerAction({
-    matches: 'RutCambiarNombre2'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarPaisUbi', require('./actions/rut/paisUbi')).triggerAction({
-    matches: 'RutCambiarPaisUbi'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarDptoUbi', require('./actions/rut/dptoUbi')).triggerAction({
-    matches: 'RutCambiarDptoUbi'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarMpioUbi', require('./actions/rut/mpioUbi')).triggerAction({
-    matches: 'RutCambiarMpioUbi'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarDireccion', require('./actions/rut/direccion')).triggerAction({
-    matches: 'RutCambiarDireccion'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarEmail', require('./actions/rut/email')).triggerAction({
-    matches: 'RutCambiarEmail'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarPostal', require('./actions/rut/postal')).triggerAction({
-    matches: 'RutCambiarPostal'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarTelefono1', require('./actions/rut/telefono1')).triggerAction({
-    matches: 'RutCambiarTelefono1'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarTelefono2', require('./actions/rut/telefono2')).triggerAction({
-    matches: 'RutCambiarTelefono2'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarActPrinc', require('./actions/rut/actPrinc')).triggerAction({
-    matches: 'RutCambiarActPrinc'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarActSecun', require('./actions/rut/actSecun')).triggerAction({
-    matches: 'RutCambiarActSecun'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarOtrasAct', require('./actions/rut/otrasAct')).triggerAction({
-    matches: 'RutCambiarOtrasAct'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarOcupacion', require('./actions/rut/ocupacion')).triggerAction({
-    matches: 'RutCambiarOcupacion'
+    matches: 'CrearRut'
 });
 
 bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')).triggerAction({
-    matches: 'RutCambiarResponsabilidad'
+    matches: 'CrearRut'
 });
 //------------------------------------------------------------------//
 
