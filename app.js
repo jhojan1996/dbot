@@ -38,7 +38,7 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
     }
 });
 
-server.get(/\/web\/?.*/, restify.serveStatic({
+server.get(/\/web\/?.*/, restify.plugins.serveStatic({
   directory: __dirname
 }));
 
