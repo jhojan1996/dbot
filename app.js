@@ -206,3 +206,21 @@ bot.dialog('Login', require('./actions/login')).triggerAction({
     matches: 'Login'
 });
 //-----//
+
+//Agendar cita//
+bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({
+    matches: 'CrearCita'
+});
+
+bot.dialog('CrearCitaFechaSol', require('./actions/cita/fechaSol')).triggerAction({
+    matches: 'CrearCita'
+});
+
+bot.dialog('CrearCitaHoraSol', require('./actions/cita/horaSol')).triggerAction({
+    matches: 'CrearCita'
+});
+
+bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAction({
+    matches: 'CrearCita'
+});
+//-----------//
