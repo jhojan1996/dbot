@@ -17,6 +17,7 @@ var connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
+
 //Codigo para el login//
 server.get('/authorize', restify.plugins.queryParser(), function (req, res, next) {
     if (req.query && req.query.redirect_uri && req.query.username && req.query.password) {
@@ -36,6 +37,11 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
     }
 });
+
+server.get(/\/web\/?.*/, restify.serveStatic({
+  directory: __dirname
+}));
+
 //-------------------//
 
 var bot = new builder.UniversalBot(connector, function (session) {
