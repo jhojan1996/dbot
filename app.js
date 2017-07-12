@@ -37,7 +37,7 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 //bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
-bot.dialog('CrearRut', require('./actions/crearRut')).matches({
+bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut'
 }).endConversationAction("endCrearRut", "Vale. Cancelado",{
     matches: /^cancelar$|^adios$/i,
