@@ -28,6 +28,11 @@ var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
 dialog.onDefault(builder.DialogAction.send("Lo siento, no pude entender lo que me dijiste"));
 
+bot.set('localizerSettings', {
+    botLocalePath: "./customLocale", 
+    defaultLocale: "es" 
+});
+
 bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     matches: 'Ayuda',
     onSelectAction: (session, args, next) => {
