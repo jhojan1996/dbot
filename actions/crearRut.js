@@ -137,7 +137,7 @@ module.exports = [
 		/* Begin transaction */
 		connection.beginTransaction(function(err) {
 		  if (err) { throw err; }
-		  	connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [session.dialogData.nombre1, session.dialogData.nombre2, session.dialogData.apellido1, session.dialogData.apellido2, session.dialogData.direccion, session.dialogData.telefono1, session.dialogData.telefono2, session.dialogData.email, session.dialogData.postal], function(err, result) {
+		  	connection.query('INSERT INTO usuario (id,nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?,?)', ['',session.dialogData.nombre1, session.dialogData.nombre2, session.dialogData.apellido1, session.dialogData.apellido2, session.dialogData.direccion, session.dialogData.telefono1, session.dialogData.telefono2, session.dialogData.email, session.dialogData.postal], function(err, result) {
 		    if (err) { 
 		      connection.rollback(function() {
 		        throw err;
@@ -146,7 +146,7 @@ module.exports = [
 		 
 		    var log = result.insertId;
 
-            connection.query('INSERT INTO detalle_usuario (id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?)', [log, session.dialogData.tipoDocumento, session.dialogData.numeroDocumento, session.dialogData.fechaExpe, session.dialogData.paisExpe, session.dialogData.dptoExpe, session.dialogData.mpioExpe, session.dialogData.paisUbi, session.dialogData.dptoUbi, session.dialogData.mpioUbi], function(err, result) {
+            connection.query('INSERT INTO detalle_usuario (id,id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?,?)', ['',log, session.dialogData.tipoDocumento, session.dialogData.numeroDocumento, session.dialogData.fechaExpe, session.dialogData.paisExpe, session.dialogData.dptoExpe, session.dialogData.mpioExpe, session.dialogData.paisUbi, session.dialogData.dptoUbi, session.dialogData.mpioUbi], function(err, result) {
               if (err) { 
                 connection.rollback(function() {
                     throw err;
@@ -156,7 +156,7 @@ module.exports = [
 
 		    var cod_rut = Math.floor(Math.random() * 1000000000);
 		 
-		    connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.ActPrinc, session.dialogData.ActSecun, session.dialogData.OtrasAct, session.dialogData.Ocupacion, session.dialogData.Responsabilidad, log], function(err, result) {
+		    connection.query('INSERT INTO rut (id,cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?,?)', ['',cod_rut, session.dialogData.ActPrinc, session.dialogData.ActSecun, session.dialogData.OtrasAct, session.dialogData.Ocupacion, session.dialogData.Responsabilidad, log], function(err, result) {
 		      if (err) { 
 		        connection.rollback(function() {
 		          throw err;
@@ -169,7 +169,7 @@ module.exports = [
 		    var username = session.dialogData.nombre1+session.dialogData.nombre2+rndm
 		    var password = Math.floor(Math.random() * 10000000);
 
-		    connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
+		    connection.query('INSERT INTO registro (id,id_usuario, username, password) VALUES (?,?,?,?)', ['',log, username, password], function(err, result) {
 		      if (err) { 
 		        connection.rollback(function() {
 		          throw err;
