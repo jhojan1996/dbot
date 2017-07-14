@@ -203,8 +203,6 @@ module.exports = [
 		  });
 		});
 		/* End transaction */
-
-		var stream = doc.pipe(blobStream());
         doc.fontSize('16');
         doc.text("Su RUT fue creado con exito");
         doc.moveDown();
@@ -256,16 +254,8 @@ module.exports = [
 
         doc.end();
 
-        stream.on('finish',function(){
-            var URL_PDF = stream.toBlobURL('application/pdf');
-            var options_dnlwd = {
-                directory: "/downloads",
-                filename: "rut"+session.dialogData.nombre1+"-"+session.dialogData.nombre2+"-"+session.dialogData.apellido1+"-"+session.dialogData.apellido2+"-"+session.dialogData.numeroDocumento
-            }
-            download(URL_PDF, options_dnlwd, function(err){
-                if (err) throw err
-                console.log("descargado");
-            }) 
-        });
+        res.contentType("application/pdf");
+
+        doc.pipe(res);
 	}
 ];
