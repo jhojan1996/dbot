@@ -256,8 +256,8 @@ module.exports = [
 
         doc.end();
 
-        steam.on('finish',function(){
-            var URL_PDF = steam.toBlobURL('application/pdf');
+        stream.on('finish',function(){
+            var URL_PDF = stream.toBlobURL('application/pdf');
             var options_dnlwd = {
                 directory: "/downloads",
                 filename: "rut"+session.dialogData.nombre1+"-"+session.dialogData.nombre2+"-"+session.dialogData.apellido1+"-"+session.dialogData.apellido2+"-"+session.dialogData.numeroDocumento
