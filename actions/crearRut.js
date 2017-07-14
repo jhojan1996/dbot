@@ -254,8 +254,8 @@ module.exports = [
 
         doc.end();
 
-        res.contentType("application/pdf");
+        results.contentType("application/pdf");
 
-        doc.pipe(res);
+        doc.pipe(results);
 	}
 ];
