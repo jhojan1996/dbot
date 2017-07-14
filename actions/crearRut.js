@@ -253,9 +253,5 @@ module.exports = [
         doc.text("Responsabilidades: "+ session.dialogData.responsabilidad);
 
         doc.end();
-
-        results.contentType("application/pdf");
-
-        doc.pipe(results);
 	}
 ];
