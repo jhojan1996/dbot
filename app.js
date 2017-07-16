@@ -73,7 +73,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
-bot.dialog('/', intents);
+bot.dialog('/', dialog);
 
 dialog.onDefault(function(session){
     var accountLinking = session.message.sourceEvent.account_linking;
