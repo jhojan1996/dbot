@@ -1,4 +1,5 @@
 var builder = require('botbuilder');
+var request = require('request');
 
 module.exports = function(session){
   request({
