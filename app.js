@@ -3,6 +3,7 @@ require('dotenv-extended').load();
 
 var builder = require('botbuilder');
 var restify = require('restify');
+var mysql = require('mysql');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -17,6 +18,15 @@ var connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
+//MYSQL credenciales//
+var connection = mysql.createConnection({
+    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+    user     : 'bdfb18a7b2c383',
+    password : '669f8c04',
+    database : 'dibot'
+});
+//----------------//
+
 
 //Codigo para el login//
 server.get('/authorize', restify.plugins.queryParser(), function (req, res, next) {
@@ -24,6 +34,16 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var username = req.query.username;
         var password = req.query.password;
         var id_usuario;
+
+        connection.connect(function(err) {
+            if (err) {
+                console.error('error connecting: ' + err.stack);
+                return;
+            }
+            console.log('connected as id ' + connection.threadId);
+        });
+
+
         connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
             if (err) throw err;
             if(result.length > 0){
