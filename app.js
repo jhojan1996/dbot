@@ -81,6 +81,8 @@ dialog.onDefault(function(session){
         // The authorization_code is the value we passed above and
         // status has value `linked` in case the linking succeeded.
         var id_usuario = accountLinking.authorization_code;
+        console.log("id_usuario ---------------->",id_usuario);
+        console.log("accountLinking-------------->",accountLinking);
         var authorizationStatus = accountLinking.status;
         if (authorizationStatus === 'linked') {
             // Persist username under the userData
