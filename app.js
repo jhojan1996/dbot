@@ -85,7 +85,7 @@ dialog.onDefault(function(session){
         if (authorizationStatus === 'linked') {
             // Persist username under the userData
             session.userData.idUsuario = id_usuario;
-            session.endDialog('Ingresaso exitoso! dime que mas deseas hacer');
+            session.endDialog('Ingreso exitoso! dime que mas deseas hacer');
         } else if (authorizationStatus === 'unlinked') {
             // Remove username from the userData
             delete session.userData.idUsuario;
