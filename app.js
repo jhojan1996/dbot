@@ -226,7 +226,7 @@ bot.dialog('Login', require('./actions/login')).triggerAction({
 });
 
 bot.dialog('LogOut', require('./actions/logout')).triggerAction({
-    matches: 'Login'
+    matches: 'LogOut'
 });
 //-----//
 
