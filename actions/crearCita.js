@@ -109,6 +109,10 @@ function getHelpCards(){
 function insertCita(session){
 	console.log("DATOS PARA EL INSTER EN CITAS------------------->",session.dialogData);
 
+	var fechaSol = session.dialogData.fechaSol;
+	var horaSol = session.dialogData.horaSol;
+	var lugarCita = session.dialogData.lugarCita;
+
 	connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);
@@ -124,7 +128,7 @@ function insertCita(session){
 			throw err; 
 		}
 		var idUsuario = session.userData.idUsuario;
-		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, session.dialogData.fechaSol, session.dialogData.horaSol, session.dialogData.fechaSol, session.dialogData.horaSol, session.dialogData.lugarCita], function(err, result) {
+		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, fechaSol, horaSol, fechaSol, horaSol, lugarCita], function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				connection.rollback(function() {
@@ -136,7 +140,41 @@ function insertCita(session){
 			var log = result.insertId;
 
 			console.log("ULTIMO ID INSERTADO EN CITAS--------------->",log);
+
+			connection.commit(function(err) {
+				if (err) { 
+					connection.rollback(function() {
+						throw err;
+					});
+				}
+
+				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
+		            if (err) throw err;
+		            if(result.length > 0){
+		                var email = result[0].email;
+		            }
+		        });
+				var mailOptions = {
+					from: 'dibot2017@gmail.com',
+					to: email,
+					subject: 'Creacion de cita',
+					html: '<h1>su cita fue agendada con exito<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
+				};
+
+				transporter.sendMail(mailOptions, function(error, info){
+					if (error) {
+						console.log(error);
+					} else {
+						console.log('Email sent: ' + info.response);
+					}
+				});
+
+				console.log('Transaction Complete.');
+				connection.end();
+			});
 		});
+
+
 	});
 	/* End transaction */
 }
