@@ -45,7 +45,7 @@ module.exports = [
 		session.beginDialog('RutCambiarFechaExpe');
 	},
 	function(session, results){
-		session.dialogData.fechaExpe = builder.EntityRecognizer.resolveTime([results.response]);
+		session.dialogData.fechaExpe = results.response;
 		session.beginDialog('RutCambiarPaisExpe');
 	},
 	function(session, results){
