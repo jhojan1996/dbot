@@ -184,6 +184,8 @@ module.exports = [
 
 
 function insertRut(session){
+	console.log(session.dialogData);
+
 	connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);
