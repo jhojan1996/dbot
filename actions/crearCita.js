@@ -131,8 +131,9 @@ function insertCita(session){
 		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, fechaSol, horaSol, fechaSol, horaSol, lugarCita], function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
+				console.log("ERROR 2:------------>"err);
 				connection.rollback(function() {
-					console.log("ERROR 2------------->",err)
+					console.log("ERROR 3------------->",err)
 					return err;
 				});
 			}
@@ -142,6 +143,7 @@ function insertCita(session){
 			console.log("ULTIMO ID INSERTADO EN CITAS--------------->",log);
 
 			connection.commit(function(err) {
+				console.log("ERROR 4:------------>"err);
 				if (err) { 
 					connection.rollback(function() {
 						throw err;
