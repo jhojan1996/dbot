@@ -226,7 +226,7 @@ function insertRut(session){
 
 			var cod_rut = Math.floor(Math.random() * 1000000000);
 
-			connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.ActPrinc, session.dialogData.ActSecun, session.dialogData.OtrasAct, session.dialogData.Ocupacion, session.dialogData.Responsabilidad, log], function(err, result) {
+			connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.actPrinc, session.dialogData.actSecun, session.dialogData.otrasAct, session.dialogData.ocupacion, session.dialogData.responsabilidad, log], function(err, result) {
 				console.log("ERROR 4-------------->",err);
 				if (err) { 
 					connection.rollback(function() {
