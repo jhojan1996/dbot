@@ -24,7 +24,7 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var username = req.query.username;
         var password = req.query.password;
         var id_usuario;
-        connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password] function(err, result, fields) {
+        connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
             if (err) throw err;
             if(result.length > 0){
                 id_usuario = result[0].id_usuario;
