@@ -1,4 +1,23 @@
 var builder = require('botbuilder');
+var util = require('util');
+var nodemailer = require('nodemailer');
+var mysql = require('mysql');
+var fs = require('fs');
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: 'dibot2017@gmail.com',
+		pass: 'Innovati2017+'
+	}
+});
+
+var connection = mysql.createConnection({
+	host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+	user     : 'bdfb18a7b2c383',
+	password : '669f8c04',
+	database : 'dibot'
+});
 
 module.exports = [
 	function(session){
@@ -48,6 +67,10 @@ module.exports = [
 	},
 	function(session, result){
 		session.dialogData.lugarCita = result.response;
+		console.log("DATOS DE LA CITA-------------->",session.dialogData);
+
+		insertRut(session);
+
 		session.send("Su cita fue agendada con exito con los siguientes dato: ");
 		session.send("Fecha de la cita: "+session.dialogData.fechaSol);
 		session.send("Hora de la cita: "+session.dialogData.horaSol);
@@ -81,4 +104,39 @@ function getHelpCards(){
             }
         }
     ]);
+}
+
+function insertCita(session){
+	console.log("DATOS PARA EL INSTER EN CITAS------------------->",session.dialogData);
+
+	connection.connect(function(err) {
+		if (err) {
+			console.error('error connecting: ' + err.stack);
+			return;
+		}
+		console.log('connected as id ' + connection.threadId);
+	});
+
+	/* Begin transaction */
+	connection.beginTransaction(function(err) {
+		if (err) {
+			console.log("ERROR 1-------->",err); 
+			throw err; 
+		}
+		var idUsuario = session.userData.idUsuario;
+		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, session.dialogData.fechaSol, session.dialogData.horaSol, session.dialogData.fechaSol, session.dialogData.horaSol, session.dialogData.lugarCita], function(err, result) {
+			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
+			if (err) { 
+				connection.rollback(function() {
+					console.log("ERROR 2------------->",err)
+					return err;
+				});
+			}
+
+			var log = result.insertId;
+
+			console.log("ULTIMO ID INSERTADO EN CITAS--------------->",log);
+		});
+	});
+	/* End transaction */
 }
