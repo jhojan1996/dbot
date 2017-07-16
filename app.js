@@ -46,7 +46,10 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
 
         connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
             if (err) throw err;
+            console.log("ERROR EN ACCOUNT_LINKING---------->", result);
+            console.log("RESULT ACOOUNT_LINKING----------->", result);
             if(result.length > 0){
+                console.log("RESULT ACOOUNT_LINKING----------->", result);
                 id_usuario = result[0].id_usuario;
             }
         });
