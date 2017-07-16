@@ -235,6 +235,9 @@ bot.dialog('LogOut', require('./actions/logout')).triggerAction({
 //Agendar cita//
 bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({
     matches: 'CrearCita'
+}).endConversationAction("endCrearCita", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
 bot.dialog('CrearCitaFechaSol', require('./actions/cita/fechaSol')).triggerAction({
