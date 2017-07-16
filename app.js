@@ -64,9 +64,7 @@ server.get(/\/web\/?.*/, restify.plugins.serveStatic({
 
 //-------------------//
 
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
-});
+var bot = new builder.UniversalBot(connector);
 
 // You can provide your own model by specifing the 'LUIS_MODEL_URL' environment variable
 // This Url can be obtained by uploading or creating your model from the LUIS portal: https://www.luis.ai/
