@@ -214,22 +214,28 @@ function insertRut(session){
 			console.log(log);
 
 			connection.query('INSERT INTO detalle_usuario (id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?)', [log, session.dialogData.tipoDocumento, session.dialogData.numeroDocumento, session.dialogData.fechaExpe, session.dialogData.paisExpe, session.dialogData.dptoExpe, session.dialogData.mpioExpe, session.dialogData.paisUbi, session.dialogData.dptoUbi, session.dialogData.mpioUbi], function(err, result) {
+				console.log("ERROR 3-------------->",err);
 				if (err) { 
 					connection.rollback(function() {
 						throw err;
 					});
 				}
 			});
+
+			console.log("PASE EL ERROR 3");
 
 			var cod_rut = Math.floor(Math.random() * 1000000000);
 
 			connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.ActPrinc, session.dialogData.ActSecun, session.dialogData.OtrasAct, session.dialogData.Ocupacion, session.dialogData.Responsabilidad, log], function(err, result) {
+				console.log("ERROR 4-------------->",err);
 				if (err) { 
 					connection.rollback(function() {
 						throw err;
 					});
 				}
 			});
+
+			console.log("PASE EL ERROR 4");
 
 			var rndm = Math.floor(Math.random() * 100);
 			var password
@@ -237,11 +243,14 @@ function insertRut(session){
 			var password = Math.floor(Math.random() * 10000000);
 
 			connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
+				console.log("ERROR 5-------------->",err);
 				if (err) { 
 					connection.rollback(function() {
 						throw err;
 					});
 				}  
+
+				console.log("PASE EL ERROR 5");
 				connection.commit(function(err) {
 					if (err) { 
 						connection.rollback(function() {
