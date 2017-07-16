@@ -69,7 +69,7 @@ module.exports = [
 		session.dialogData.lugarCita = result.response;
 		console.log("DATOS DE LA CITA-------------->",session.dialogData);
 
-		insertRut(session);
+		insertCita(session);
 
 		session.send("Su cita fue agendada con exito con los siguientes dato: ");
 		session.send("Fecha de la cita: "+session.dialogData.fechaSol);
