@@ -73,6 +73,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 bot.recognizer(recognizer);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+bot.dialog('/', intents);
 
 dialog.onDefault(function(session){
     var accountLinking = session.message.sourceEvent.account_linking;
@@ -223,6 +224,10 @@ bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')
 
 //Login//
 bot.dialog('Login', require('./actions/login')).triggerAction({
+    matches: 'Login'
+});
+
+bot.dialog('LogOut', require('./actions/logout')).triggerAction({
     matches: 'Login'
 });
 //-----//
