@@ -201,6 +201,7 @@ function insertRut(session){
 			throw err; 
 		}
 		connection.query('INSERT INTO usuario (id,nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?,?)', ['',session.dialogData.nombre1, session.dialogData.nombre2, session.dialogData.apellido1, session.dialogData.apellido2, session.dialogData.direccion, session.dialogData.telefono1, session.dialogData.telefono2, session.dialogData.email, session.dialogData.postal], function(err, result) {
+			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				connection.rollback(function() {
 					console.log("ERROR 2------------->",err)
