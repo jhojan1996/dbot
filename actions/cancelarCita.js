@@ -122,7 +122,7 @@ function cancelCita(session){
 		}
 		var idUsuario = session.userData.idUsuario;
 		console.log(session.userData);
-		connection.query('DELETE FROM cita WHERE idUsuario = ?', idUsuario, function(err, result) {
+		connection.query('DELETE FROM cita WHERE id_usuario = ?', idUsuario, function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				console.log("ERROR 2:------------>",err);
