@@ -60,8 +60,9 @@ module.exports = [
 	function(session, result){
 		session.dialogData.cancelarCita = result.response;
 		console.log("DATOS DE LA CITA A REPORGRAMAR-------------->",session.dialogData);
+		var cancel = (typeof session.dialogData.cancelarCita.entity === 'undefined')?session.dialogData.cancelarCita:session.dialogData.cancelarCita.entity;
 
-		if(session.dialogData.cancelarCita === 'Si'){
+		if(cancel === 'Si'){
 			cancelCita(session);
 			session.send("La cita fue cancelada con exito, que mas deseas hacer?");
 		}else{
