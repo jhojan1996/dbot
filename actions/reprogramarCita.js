@@ -129,7 +129,7 @@ function reporgCita(session){
 		}
 		var idUsuario = session.userData.idUsuario;
 		console.log(session.userData);
-		connection.query('UPDATE cita SET f_cita = ?, h_cita = ?, lugar = ?', [fechaSol, horaSol, lugarCita], function(err, result) {
+		connection.query('UPDATE cita SET f_cita = ?, h_cita = ?, lugar = ? WHERE id_usuario = ?', [fechaSol, horaSol, lugarCita, idUsuario], function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				console.log("ERROR 2:------------>",err);

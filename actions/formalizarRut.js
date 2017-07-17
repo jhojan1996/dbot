@@ -22,7 +22,7 @@ var connection = mysql.createConnection({
 module.exports = [
 	function(session){
 		console.log("Inicia accion para formalizar rut");
-		session.dialogData.crearCita = true;
+		session.dialogData.formalizarRut = true;
 		var idUsuario = session.userData.idUsuario;
 		if(!idUsuario){
 			console.log("No tiene idusuario");
@@ -58,10 +58,86 @@ module.exports = [
 		}
 	},
 	function(session, result){
-		console.log("ARCHIVO SUBIDO------------>",result.response);
-		session.dialogData.archivoSubido = result.response;
+		console.log("ARCHIVO SUBIDO------------>",result.response[0].contentUrl);
+		session.dialogData.archivoSubido = result.response[0].contentUrl;
+		var tipo_doc = result.response[0].contentType;
 		console.log("IMAGEN ADJUNTADA-------------->",session.dialogData);
 
-		session.endDialog("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
+		if(tipo_doc === 'image/png'){
+			session.endDialog("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
+			updateRut(session);
+		}else{
+			session.endDialog("El archivo adjunto no es valido. Recuerda que la imagen debe ser adjuntada en formato png. Por favor intentalo de nuevo");
+		}
 	}
 ];
+
+
+function updateRut(session){
+	console.log("DATOS PARA EL UPDATE EN RUT------------------>",session.dialogData);
+
+	connection.connect(function(err) {
+		if (err) {
+			console.error('error connecting: ' + err.stack);
+			return;
+		}
+		console.log('connected as id ' + connection.threadId);
+	});
+
+	/* Begin transaction */
+	connection.beginTransaction(function(err) {
+		if (err) {
+			console.log("ERROR 1-------->",err); 
+			throw err; 
+		}
+		var idUsuario = session.userData.idUsuario;
+		console.log(session.userData);
+		connection.query('UPDATE rut SET image_url = ? WHERE id_usuario = ?', [session.dialogData.archivoSubido, session.userData.idUsuario], function(err, result) {
+			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
+			if (err) { 
+				console.log("ERROR 2:------------>",err);
+				connection.rollback(function() {
+					console.log("ERROR 3------------->",err)
+					return err;
+				});
+			}
+
+			connection.commit(function(err) {
+				console.log("ERROR 4:------------>",err);
+				if (err) { 
+					connection.rollback(function() {
+						throw err;
+					});
+				}
+
+				connection.query("SELECT email FROM usuario WHERE id = ?",session.userData.idUsuario, function(err, result, fields) {
+		            if (err) throw err;
+		            if(result.length > 0){
+		                var email = result[0].email;
+		            
+			            var mailOptions = {
+							from: 'dibot2017@gmail.com',
+							to: email,
+							subject: 'Formalizar el rut',
+							html: '<h1>El proceso de formalizar el rut a sido creado<h1><br/><b>URL imagen subida: '+session.dialogData.archivoSubido+'</b>';
+						};
+
+						transporter.sendMail(mailOptions, function(error, info){
+							if (error) {
+								console.log(error);
+							} else {
+								console.log('Email sent: ' + info.response);
+							}
+						});
+
+						console.log('Transaction Complete.');
+					}
+		        });
+				connection.end();
+			});
+		});
+
+
+	});
+	/* End transaction */
+}
