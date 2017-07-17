@@ -124,7 +124,8 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
         session.beginDialog(args.action, args);
     }
 });
-//bot.dialog('Ingresar', require('./actions/login')).triggerAction({matches: 'Ingresar'});
+
+//Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut'
 }).endConversationAction("endCrearRut", "Vale. Cancelado",{
@@ -132,17 +133,6 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
-/*bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
-    matches: 'FormalizarRut'
-}).endConversationAction("endFormalizarRut", "Vale. Cancelado",{
-    matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
-});*/
-//bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
-//bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
-
-
-//Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
     matches: 'CrearRut'
 });
@@ -234,6 +224,20 @@ bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')
     matches: 'CrearRut'
 });
 //------------------------------------------------------------------//
+
+//Accion para formalizar el RUT//
+bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
+    matches: 'FormalizarRut'
+}).endConversationAction("endFormalizarRut", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
+
+bot.dialog('SubirCedula', require('./actions/rut/subirCedula')).triggerAction({
+    matches: 'SubirCedula'
+});
+
+//----------------------------//
 
 //Login//
 bot.dialog('Login', require('./actions/login')).triggerAction({
