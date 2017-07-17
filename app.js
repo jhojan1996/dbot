@@ -44,7 +44,7 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         });
 
 
-        connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
+        var result = connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
             if (err) throw err;
             console.log("ERROR EN ACCOUNT_LINKING---------->", result);
             console.log("RESULT ACOOUNT_LINKING----------->", result);
@@ -54,9 +54,10 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
                 console.log("POSICION 0 RESULT----------->", result[0]);
                 console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
                 console.log("VARIABLE ID_USUARIO------------->",id_usuario);
-                var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
+                return id_usuario;
             }
         });
+        var redirectUri = req.query.redirect_uri + '&authorization_code=' + result;
         console.log("REDIRECTURI------------>",redirectUri);
         return res.redirect(redirectUri, next);
     } else {
