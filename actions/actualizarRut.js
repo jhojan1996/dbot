@@ -54,6 +54,8 @@ module.exports = function(session){
 		console.log("Tiene ingreso en el sistema");
 		session.send("Claro. te ayudare a actualizar el RUT");
 		session.send("Preciona el boton 'Actualizar RUT' para ingresar al formulario");
+		var msg = getHelpCards();
+		session.endDialog(msg);
 		
 	}
 }
