@@ -28,9 +28,17 @@ module.exports = [
 	//Tipo documento
 	function(session){
 		console.log("Inicio crear rut");
-		session.dialogData.crearRut = true;
-		session.send('Claro. Te ayudare a crear el RUT, por favor dame la siguiente información:');
-		session.beginDialog('RutCambiarTipoDoc');
+		var idUsuario = session.userData.idUsuario;
+		if(idUsuario){
+			console.log("Tiene idusuario");
+			session.send("Usted ya esta registrado en el sistema, a continuación las operaciones que puedes hacer");
+			var msg = getHelpCards();
+			session.endDialog(msg);
+		}else{
+			session.dialogData.crearRut = true;
+			session.send('Claro. Te ayudare a crear el RUT, por favor dame la siguiente información:');
+			session.beginDialog('RutCambiarTipoDoc');
+		}		
 	},
 	function(session, results){
 		console.log("Tipo documento -----------> ",results.response);
@@ -279,4 +287,78 @@ function insertRut(session){
 		});
 	});
 	/* End transaction */
+}
+
+function getHelpCards(){
+	return new builder.Message()
+    .attachmentLayout(builder.AttachmentLayout.carousel)
+    .attachments([
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Crear RUT",
+                "subtitle": "Quiero generar mi RUT",
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Generar mi rut",
+                    "value":"Por favor quiero crear mi rut"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Formalizar el RUT",
+                "subtitle": "Quiero formalizar mi RUT",
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Actualizar el RUT",
+                "subtitle": "Quiero actualizar mi RUT",
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Actualizar+RUT&w=500&h=260"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Notificaciones",
+                "subtitle": "Quiero subscribirme al servicio de notificaciones",
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Agendar citas",
+                "subtitle": "Quiero agendar una cita",
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
+                  }
+                ]
+            }
+        }
+    ]);
 }
