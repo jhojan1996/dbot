@@ -58,7 +58,8 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         });
 
         var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
-    return res.redirect(redirectUri, next);
+        console.log("REDIRECTURI------------>",redirectUri);
+        return res.redirect(redirectUri, next);
     } else {
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
     }
