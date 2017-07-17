@@ -286,3 +286,16 @@ bot.dialog('ReprogLugar', require('./actions/cita/reprogLugar')).triggerAction({
     matches: 'ReprogLugar'
 });
 //---------------//
+
+//Cancelar una cita//
+bot.dialog('CancelarCita', require('./actions/cancelarCita')).triggerAction({
+    matches: 'CancelarCita'
+}).endConversationAction("endCancelarCita", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
+
+bot.dialog('SeleccionarCita', require('./actions/cita/seleccionarCita')).triggerAction({
+    matches: 'ReprogLugar'
+});
+//----------------//
