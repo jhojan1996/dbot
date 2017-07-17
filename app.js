@@ -54,10 +54,9 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
                 console.log("POSICION 0 RESULT----------->", result[0]);
                 console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
                 console.log("VARIABLE ID_USUARIO------------->",id_usuario);
+                var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
             }
         });
-
-        var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
         console.log("REDIRECTURI------------>",redirectUri);
         return res.redirect(redirectUri, next);
     } else {
