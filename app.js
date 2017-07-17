@@ -35,21 +35,30 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var password = req.query.password;
         var id_usuario;
 
-        getIdUser(username,password, function(err,data){
+        connection.connect(function(err) {
             if (err) {
-                // error handling code goes here
-                console.log("ERROR : ",err);            
-            } else {            
-                // code to execute on data retrieval
-                id_usuario = data;
-                console.log("result from db is : ",data);   
+                console.error('error connecting: ' + err.stack);
+                return;
             }
+            console.log('connected as id ' + connection.threadId);
         });
 
-        console.log("RESULT-------------->",id_usuario);
-        var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
-        console.log("REDIRECTURI------------>",redirectUri);
-        return res.redirect(redirectUri, next);
+
+        connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
+            if (err) throw err;
+            console.log("ERROR EN ACCOUNT_LINKING---------->", result);
+            console.log("RESULT ACOOUNT_LINKING----------->", result);
+            if(result.length > 0){
+                console.log("RESULT ACOOUNT_LINKING----------->", result);
+                id_usuario = result[0].id_usuario;
+                console.log("POSICION 0 RESULT----------->", result[0]);
+                console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
+                console.log("VARIABLE ID_USUARIO------------->",id_usuario);
+                var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
+                console.log("REDIRECTURI------------>",redirectUri);
+                return res.redirect(redirectUri, next);     
+            }
+        });
     } else {
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
     }
@@ -249,28 +258,3 @@ bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAct
     matches: 'CrearCita'
 });
 //-----------//
-
-
-function getIdUser(username, password, callback)
-{
-    connection.connect(function(err) {
-        if (err) {
-            console.error('error connecting: ' + err.stack);
-            return;
-        }
-        console.log('connected as id ' + connection.threadId);
-    });
-
-
-    connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
-        if (err) callback(err,null);;
-        console.log("ERROR EN ACCOUNT_LINKING---------->", result);
-        console.log("RESULT ACOOUNT_LINKING----------->", result);
-        if(result.length > 0){
-            console.log("RESULT ACOOUNT_LINKING----------->", result);
-            callback(null,result[0].id_usuario);
-            console.log("POSICION 0 RESULT----------->", result[0]);
-            console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
-        }
-    });
-}
