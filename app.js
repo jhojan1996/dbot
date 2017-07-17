@@ -63,12 +63,17 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
     }
 });
+//-------------------//
 
+//Rotear directorios//
 server.get(/\/web\/?.*/, restify.plugins.serveStatic({
   directory: __dirname
 }));
+server.get(/\/process\/?.*/, restify.plugins.serveStatic({
+  directory: __dirname
+}));
+//-----------------//
 
-//-------------------//
 
 var bot = new builder.UniversalBot(connector);
 
@@ -236,7 +241,19 @@ bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
 bot.dialog('SubirCedula', require('./actions/rut/subirCedula')).triggerAction({
     matches: 'SubirCedula'
 });
+//----------------------------//
 
+//Accion para actualizar el RUT//
+bot.dialog('ActualizarRut', require('./actions/actualizarRut')).triggerAction({
+    matches: 'ActualizarRut'
+}).endConversationAction("endActualizarRut", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
+
+bot.dialog('AbrirActualizar', require('./actions/rut/abrirActualizar')).triggerAction({
+    matches: 'AbrirActualizar'
+});
 //----------------------------//
 
 //Login//
