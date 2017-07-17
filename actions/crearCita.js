@@ -127,7 +127,7 @@ function insertCita(session){
 			console.log("ERROR 1-------->",err); 
 			throw err; 
 		}
-		var idUsuario = parseInt(session.userData.idUsuario);
+		var idUsuario = session.userData.idUsuario;
 		console.log(session.userData);
 		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, fechaSol, horaSol, fechaSol, horaSol, lugarCita], function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
