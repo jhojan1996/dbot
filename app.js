@@ -46,8 +46,8 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
             }
         });
 
-        console.log("RESULT-------------->",result);
-        var redirectUri = req.query.redirect_uri + '&authorization_code=' + result;
+        console.log("RESULT-------------->",id_usuario);
+        var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
         console.log("REDIRECTURI------------>",redirectUri);
         return res.redirect(redirectUri, next);
     } else {
