@@ -132,12 +132,12 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
 
-bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
+/*bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
     matches: 'FormalizarRut'
 }).endConversationAction("endFormalizarRut", "Vale. Cancelado",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
-});
+});*/
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
