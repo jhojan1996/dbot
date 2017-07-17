@@ -35,28 +35,17 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var password = req.query.password;
         var id_usuario;
 
-        connection.connect(function(err) {
+        getIdUser(username,password, function(err,data){
             if (err) {
-                console.error('error connecting: ' + err.stack);
-                return;
-            }
-            console.log('connected as id ' + connection.threadId);
-        });
-
-
-        var result = connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
-            if (err) throw err;
-            console.log("ERROR EN ACCOUNT_LINKING---------->", result);
-            console.log("RESULT ACOOUNT_LINKING----------->", result);
-            if(result.length > 0){
-                console.log("RESULT ACOOUNT_LINKING----------->", result);
-                id_usuario = result[0].id_usuario;
-                console.log("POSICION 0 RESULT----------->", result[0]);
-                console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
-                console.log("VARIABLE ID_USUARIO------------->",id_usuario);
-                return id_usuario;
+                // error handling code goes here
+                console.log("ERROR : ",err);            
+            } else {            
+                // code to execute on data retrieval
+                id_usuario = data;
+                console.log("result from db is : ",data);   
             }
         });
+
         console.log("RESULT-------------->",result);
         var redirectUri = req.query.redirect_uri + '&authorization_code=' + result;
         console.log("REDIRECTURI------------>",redirectUri);
@@ -260,3 +249,29 @@ bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAct
     matches: 'CrearCita'
 });
 //-----------//
+
+
+function getIdUser(username, password, callback)
+{
+    connection.connect(function(err) {
+        if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+        }
+        console.log('connected as id ' + connection.threadId);
+    });
+
+
+    connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
+        if (err) callback(err,null);;
+        console.log("ERROR EN ACCOUNT_LINKING---------->", result);
+        console.log("RESULT ACOOUNT_LINKING----------->", result);
+        if(result.length > 0){
+            console.log("RESULT ACOOUNT_LINKING----------->", result);
+            callback(null,result[0].id_usuario);
+            console.log("POSICION 0 RESULT----------->", result[0]);
+            console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
+            console.log("VARIABLE ID_USUARIO------------->",id_usuario);
+        }
+    });
+}
