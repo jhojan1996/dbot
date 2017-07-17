@@ -30,7 +30,7 @@ module.exports = [
                 var h_cita = result[0].h_cita;
                 var lugar = result[0].lugar;
                 session.send("Tiene una cita agendada para la fecha: "+f_cita+" con hora: "+h_cita+" y el lugar es: "+lugar);
-                builder.Prompts.choice(session, "Por favor selecciona o ingresa la fecha en la que deseas la cita en el formato: AAAA-MM-DD",[f_cita]);
+                builder.Prompts.text(session, "Por favor ingresa la fecha en la que deseas la cita en formato: AAAA-MM-DD");
             }else{
                 builder.Prompts.text(session, "Por favor ingresa la fecha en la que deseas la cita en formato: AAAA-MM-DD");
             }

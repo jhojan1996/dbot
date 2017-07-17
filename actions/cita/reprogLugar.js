@@ -29,7 +29,7 @@ module.exports = [
                 var f_cita = result[0].f_cita;
                 var h_cita = result[0].h_cita;
                 var lugar = result[0].lugar;
-                builder.Prompts.choice(session, "Por favor selecciona o ingresa el lugar en el que deseas la cita",[lugar]);
+                builder.Prompts.text(session, "Por favor ingresa el lugar en el que deseas la cita");
             }else{
                 builder.Prompts.text(session, "Por favor ingresa el lugar en el que deseas la cita");
             }
