@@ -271,7 +271,6 @@ function getIdUser(username, password, callback)
             callback(null,result[0].id_usuario);
             console.log("POSICION 0 RESULT----------->", result[0]);
             console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
-            console.log("VARIABLE ID_USUARIO------------->",id_usuario);
         }
     });
 }
