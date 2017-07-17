@@ -53,6 +53,7 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
                 id_usuario = result[0].id_usuario;
                 console.log("POSICION 0 RESULT----------->", result[0]);
                 console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
+                console.log("VARIABLE ID_USUARIO------------->",id_usuario);
             }
         });
 
