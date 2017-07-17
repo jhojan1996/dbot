@@ -131,6 +131,13 @@ bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
 });
+
+bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
+    matches: 'FormalizarRut'
+}).endConversationAction("endFormalizarRut", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
 //bot.dialog('GestionarRut', require('./actions/gestionarRut')).triggerAction({matches: 'GestionarRut'});
 //bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({matches: 'CrearCita'});
 
@@ -258,3 +265,24 @@ bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAct
     matches: 'CrearCita'
 });
 //-----------//
+
+//Reprogramar cita//
+bot.dialog('ReprogramarCita', require('./actions/reprogramarCita')).triggerAction({
+    matches: 'ReprogramarCita'
+}).endConversationAction("endReprogramarCita", "Vale. Cancelado",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+});
+
+bot.dialog('ReprogFecha', require('./actions/cita/reprogFecha')).triggerAction({
+    matches: 'ReprogFecha'
+});
+
+bot.dialog('ReprogHora', require('./actions/cita/reprogHora')).triggerAction({
+    matches: 'ReprogHora'
+});
+
+bot.dialog('ReprogLugar', require('./actions/cita/reprogLugar')).triggerAction({
+    matches: 'ReprogLugar'
+});
+//---------------//
