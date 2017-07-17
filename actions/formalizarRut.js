@@ -76,6 +76,9 @@ module.exports = [
 function updateRut(session){
 	console.log("DATOS PARA EL UPDATE EN RUT------------------>",session.dialogData);
 
+	var archivoSubido = session.dialogData.archivoSubido;
+	var idUsuario = session.userData.idUsuario;
+
 	connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);
@@ -90,9 +93,9 @@ function updateRut(session){
 			console.log("ERROR 1-------->",err); 
 			throw err; 
 		}
-		var idUsuario = session.userData.idUsuario;
+		
 		console.log(session.userData);
-		connection.query('UPDATE rut SET image_url = ? WHERE id_usuario = ?', [session.dialogData.archivoSubido, session.userData.idUsuario], function(err, result) {
+		connection.query('UPDATE rut SET image_url = ? WHERE id_usuario = ?', [archivoSubido, idUsuario], function(err, result) {
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				console.log("ERROR 2:------------>",err);
@@ -110,7 +113,7 @@ function updateRut(session){
 					});
 				}
 
-				connection.query("SELECT email FROM usuario WHERE id = ?",session.userData.idUsuario, function(err, result, fields) {
+				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
 		            if (err) throw err;
 		            if(result.length > 0){
 		                var email = result[0].email;
@@ -119,7 +122,7 @@ function updateRut(session){
 							from: 'dibot2017@gmail.com',
 							to: email,
 							subject: 'Formalizar el rut',
-							html: '<h1>El proceso de formalizar el rut a sido creado<h1><br/><b>URL imagen subida: '+session.dialogData.archivoSubido+'</b>'
+							html: '<h1>El proceso de formalizar el rut a sido creado<h1><br/><b>URL imagen subida: '+archivoSubido+'</b>'
 						};
 
 						transporter.sendMail(mailOptions, function(error, info){
