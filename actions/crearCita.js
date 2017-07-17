@@ -155,24 +155,25 @@ function insertCita(session){
 		            if (err) throw err;
 		            if(result.length > 0){
 		                var email = result[0].email;
-		            }
-		        });
-				var mailOptions = {
-					from: 'dibot2017@gmail.com',
-					to: email,
-					subject: 'Creacion de cita',
-					html: '<h1>su cita fue agendada con exito<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
-				};
+		            
+			            var mailOptions = {
+							from: 'dibot2017@gmail.com',
+							to: email,
+							subject: 'Creacion de cita',
+							html: '<h1>su cita fue agendada con exito<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
+						};
 
-				transporter.sendMail(mailOptions, function(error, info){
-					if (error) {
-						console.log(error);
-					} else {
-						console.log('Email sent: ' + info.response);
+						transporter.sendMail(mailOptions, function(error, info){
+							if (error) {
+								console.log(error);
+							} else {
+								console.log('Email sent: ' + info.response);
+							}
+						});
+
+						console.log('Transaction Complete.');
 					}
-				});
-
-				console.log('Transaction Complete.');
+		        });
 				connection.end();
 			});
 		});
