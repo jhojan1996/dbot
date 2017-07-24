@@ -4,6 +4,7 @@ require('dotenv-extended').load();
 var builder = require('botbuilder');
 var restify = require('restify');
 var mysql = require('mysql');
+var request = require('request');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -69,7 +70,7 @@ server.get('/welcomemsg', restify.plugins.queryParser(), function (req, res, nex
     var data = {
         setting_type: "greeting",
         greeting:{
-            text: "Hola {{user_full_name}}! En este chat te ayudare con "
+            text: "Hola {{user_full_name}}! En este chat te ayudare con temas pertenecientes a tus responsabilidades tributarias."
         }
     };
 

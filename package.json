@@ -12,7 +12,7 @@
     "botbuilder": "^3.8.4",
     "jsonpath": "^0.2.10",
     "lodash": "^4.17.4",
-    "request": "^2.79.0",
+    "request": "^2.81.0",
     "request-promise": "^4.1.1",
     "restify": "^5.0.0",
     "schema-inspector": "^1.6.8",
