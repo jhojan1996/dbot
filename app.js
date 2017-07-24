@@ -101,6 +101,9 @@ server.get(/\/web\/?.*/, restify.plugins.serveStatic({
 server.get(/\/process\/?.*/, restify.plugins.serveStatic({
   directory: __dirname
 }));
+server.get(/\/images\/?.*/, restify.plugins.serveStatic({
+  directory: __dirname
+}));
 //-----------------//
 
 
