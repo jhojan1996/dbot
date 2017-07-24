@@ -94,6 +94,35 @@ server.get('/welcomemsg', restify.plugins.queryParser(), function (req, res, nex
 });
 // ------------------------------------ //
 
+// Configurar mensaje de bienvenida al BOT//
+server.get('/empezarbut', restify.plugins.queryParser(), function (req, res, next) {
+    var data = {
+        setting_type: "greeting",
+        greeting:{
+            text: "Hola {{user_full_name}}! En este chat te ayudare con temas pertenecientes a tus responsabilidades tributarias."
+        }
+    };
+
+    // Start the request
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+        qs: { access_token: process.env.FACEBOOK_PAGE_TOKEN },
+        method: 'POST',
+        json: data
+    },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            res.send(body);
+
+        } else {
+            // TODO: Handle errors
+            res.send(body);
+        }
+    });
+});
+// ------------------------------------ //
+
 //Rotear directorios//
 server.get(/\/web\/?.*/, restify.plugins.serveStatic({
   directory: __dirname
@@ -151,6 +180,10 @@ dialog.onDefault(function(session){
 bot.set('localizerSettings', {
     botLocalePath: "./customLocale", 
     defaultLocale: "es" 
+});
+
+bot.dialog('Hola', require('./actions/empezar')).triggerAction({
+    matches: 'Hola'
 });
 
 bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({

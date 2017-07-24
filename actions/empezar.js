@@ -1,11 +1,13 @@
 var builder = require('botbuilder');
 
 module.exports = function(session){
-		console.log("Entre a la ayuda!");
+		console.log("Entre a empezar!");
+		session.send("Hola! Soy DiBot. Te ayudaré con todo lo relacionado a tus obligaciones tributarias. A continuacion te muestro algunas de operaciones en las que te puedo ayudar");
 		var msg = getHelpCards();
-		session.send(msg);
+		session.send(msg)
 		session.endDialog();
 };
+
 
 function getHelpCards(){
 	return new builder.Message()
