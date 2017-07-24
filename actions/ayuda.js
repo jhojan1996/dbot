@@ -34,11 +34,18 @@ function getHelpCards(){
         {
             "contentType": "application/vnd.microsoft.card.hero",
             "content": {
-                "title": "Formalizar el RUT",
+                "title": "Formalizar mi RUT",
                 "subtitle": "Quiero formalizar mi RUT",
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "formalizar mi RUT",
+                    "value":"formalizar mi rut"
                   }
                 ]
             }
@@ -52,6 +59,13 @@ function getHelpCards(){
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Actualizar+RUT&w=500&h=260"
                   }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Actualizar mi RUT",
+                    "value":"Actualizar mi rut"
+                  }
                 ]
             }
         },
@@ -64,6 +78,13 @@ function getHelpCards(){
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
                   }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Notificaciones",
+                    "value":"notificaciones"
+                  }
                 ]
             }
         },
@@ -75,6 +96,13 @@ function getHelpCards(){
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Quiero agendar una cita",
+                    "value":"Quiero agendar una cita"
                   }
                 ]
             }
