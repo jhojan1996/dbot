@@ -97,11 +97,15 @@ server.get('/welcomemsg', restify.plugins.queryParser(), function (req, res, nex
 // Configurar mensaje de bienvenida al BOT//
 server.get('/empezarbut', restify.plugins.queryParser(), function (req, res, next) {
     var data = {
-        setting_type: "greeting",
-        greeting:{
-            text: "Hola {{user_full_name}}! En este chat te ayudare con temas pertenecientes a tus responsabilidades tributarias."
-        }
+        setting_type: "call_to_actions",
+        thread_state: "new_thread",
+        call_to_actions: [
+            {
+                payload: "empezar"
+            }
+        ]
     };
+
 
     // Start the request
     request({
