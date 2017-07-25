@@ -212,7 +212,7 @@ bot.dialog('Terminar', require('./actions/terminar')).triggerAction({
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut'
-.}).endConversationAction("endCrearRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endCrearRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
