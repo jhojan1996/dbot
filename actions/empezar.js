@@ -1,15 +1,9 @@
 var builder = require('botbuilder');
-var RetrieveUserProfile = require('botbuilder-facebookextension');
-bot.use(  
-    RetrieveUserProfile({
-        accessToken: process.env.FACEBOOK_PAGE_TOKEN,
-    })
-);
 
 module.exports = function(session){
 		console.log("Entre a empezar!");
     let message = new builder.Message(session)
-    .text("Hola "+session.userData.first_name+". Te puedo ayudar a recordar tus obligaciones tributarias enviandote mensajes a tu celular antes de que estas de vensan.")
+    .text("Hola. Te puedo ayudar a recordar tus obligaciones tributarias enviandote mensajes a tu celular antes de que estas de vensan.")
     .sourceEvent({
         facebook: {
             "quick_replies": [
