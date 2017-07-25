@@ -56,7 +56,10 @@ module.exports = [
 			session.beginDialog('RutCambiarPaisExpe');
 		}else{
 			session.send("La fecha que ingresaste no es valida.");
-			session.beginDialog('RutCambiarFechaExpe');
+			session.endDialogWithResult({
+                response: null,
+                resumed: builder.ResumeReason.back
+            });
 		}
 	},
 	function(session, results){
