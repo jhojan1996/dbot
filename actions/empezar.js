@@ -1,7 +1,7 @@
 var builder = require('botbuilder');
 
 module.exports = function(session){
-		console.log("Entre a empezar!");
+	console.log("Entre a empezar!");
     let message = new builder.Message(session)
     .text("Hola. Te puedo ayudar a recordar tus obligaciones tributarias enviandote mensajes a tu celular antes de que estas de venzan.")
     .sourceEvent({
@@ -20,6 +20,6 @@ module.exports = function(session){
             ]
         }
     });
-		session.send(message);
-		session.endDialog();
+	session.send(message);
+	session.endDialog();
 };

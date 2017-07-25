@@ -133,6 +133,26 @@ module.exports = [
 	function(session, results) {
 		session.dialogData.responsabilidad = results.response;
 
+		let message = new builder.Message(session)
+	    .text("Tu RUT fue creado con exito. A tu correo te llegara la información con la cual podras ingresar al sistema. ¿En que mas te puedo ayudar?")
+	    .sourceEvent({
+	        facebook: {
+	            "quick_replies": [
+	                {
+	                    "content_type": "text",
+	                    "title": "Ingresar al sistema",
+	                    "payload": "login"
+	                },
+	                {
+	                    "content_type": "text",
+	                    "title": "Ayuda",
+	                    "payload": "ayuda"
+	                }
+	            ]
+	        }
+	    });
+		session.send(message);
+
 		insertRut(session);
 		
 		doc.fontSize('16');
