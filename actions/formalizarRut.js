@@ -122,7 +122,7 @@ function updateRut(session){
 							from: 'dibot2017@gmail.com',
 							to: email,
 							subject: 'Formalizar el rut',
-							html: '<h1>El proceso de formalizar el rut a sido creado<h1><br/><b>URL imagen subida: '+archivoSubido+'</b>'
+							html: 'Su solicitud de formalización del RUT se encuentra en proceso, hemos recibido la imagen que esta en elo siguiente enlace: '+archivoSubido+' Proximamente le notificaremos por este mismo medio si el proceso termino exitosamente'
 						};
 
 						transporter.sendMail(mailOptions, function(error, info){

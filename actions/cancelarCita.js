@@ -148,7 +148,7 @@ function cancelCita(session){
 			            var mailOptions = {
 							from: 'dibot2017@gmail.com',
 							to: email,
-							subject: 'Creacion de cita',
+							subject: 'Cancelación de cita',
 							html: '<h1>Su cita fue cancelada con exito</h1>'
 						};
 

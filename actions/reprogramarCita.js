@@ -155,7 +155,7 @@ function reporgCita(session){
 			            var mailOptions = {
 							from: 'dibot2017@gmail.com',
 							to: email,
-							subject: 'Creacion de cita',
+							subject: 'Reprogramar cita',
 							html: '<h1>Su cita fue reprogramada con exito, a cotinuacion los datos<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
 						};
 

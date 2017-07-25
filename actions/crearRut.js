@@ -277,7 +277,7 @@ function insertRut(session){
 						from: 'jhojanestiven1996@gmail.com',
 						to: session.dialogData.email,
 						subject: 'Creacion de RUT',
-						html: '<h1>su rut fue creado con exito<h1><br/><b>Usuario: '+username+'</b><br/>Contraseña: '+password
+						html: 'Señor '+session.dialogData.nombre1+' '+session.dialogData.apellido1+'. Su RUT a sido creado con exito<br/><b>Su usuario es: '+username+'</b><br/>Su contraseña es: '+password
 					};
 
 					transporter.sendMail(mailOptions, function(error, info){
