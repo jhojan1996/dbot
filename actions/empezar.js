@@ -1,5 +1,5 @@
 var builder = require('botbuilder');
-import { RetrieveUserProfile } from 'botbuilder-facebookextension';
+var RetrieveUserProfile = require('botbuilder-facebookextension');
 bot.use(  
     RetrieveUserProfile({
         accessToken: process.env.FACEBOOK_PAGE_TOKEN,
