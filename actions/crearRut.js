@@ -52,7 +52,12 @@ module.exports = [
 	},
 	function(session, results){
 		session.dialogData.fechaExpe = results.response;
-		session.beginDialog('RutCambiarPaisExpe');
+		if(isValidDate(result.response)){
+			session.beginDialog('RutCambiarPaisExpe');
+		}else{
+			session.send("La fecha que ingresaste no es valida.");
+			session.beginDialog('RutCambiarFechaExpe');
+		}
 	},
 	function(session, results){
 		session.dialogData.paisExpe = results.response;
@@ -287,6 +292,11 @@ function insertRut(session){
 		});
 	});
 	/* End transaction */
+}
+
+function isValidDate(dateString) {
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  return dateString.match(regEx) != null;
 }
 
 function getHelpCards(){
