@@ -37,9 +37,9 @@ module.exports = [
                 ];
 
                 var f_cita = new Date(result[0].f_cita);
-                var dia = dayNames[f_cita.getDay()+1];
+                var dia = dayNames[f_cita.getDay()];
                 var getDate = f_cita.getDate();
-                var mes = monthNames[f_cita.getMonth()+1];
+                var mes = monthNames[f_cita.getMonth()];
                 var ano = f_cita.getFullYear();
                 var h_cita = result[0].h_cita;
                 var lugar = result[0].lugar;
