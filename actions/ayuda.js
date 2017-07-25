@@ -3,6 +3,7 @@ var builder = require('botbuilder');
 module.exports = function(session){
 		console.log("Entre a la ayuda!");
 		var msg = getHelpCards();
+    session.send("A continuación te mostrare las tareas en la que te puedo ayudar");
 		session.send(msg);
 		session.endDialog();
 };

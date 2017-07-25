@@ -6,6 +6,7 @@ var restify = require('restify');
 var mysql = require('mysql');
 var request = require('request');
 
+
 // Setup Restify Server
 var server = restify.createServer();
 server.use(restify.plugins.queryParser());
@@ -70,7 +71,7 @@ server.get('/welcomemsg', restify.plugins.queryParser(), function (req, res, nex
     var data = {
         setting_type: "greeting",
         greeting:{
-            text: "Hola {{user_full_name}}! En este chat te ayudare con temas pertenecientes a tus responsabilidades tributarias."
+            text: "Hola {{user_full_name}}! Soy Dibot, tu asistente personal para ayudarte a realizar tus tareas tributarias mas importantes."
         }
     };
 
@@ -199,12 +200,21 @@ bot.dialog('Ayuda', require('./actions/ayuda')).triggerAction({
     }
 });
 
+bot.dialog('Terminar', require('./actions/terminar')).triggerAction({
+    matches: 'Terminar',
+    onSelectAction: (session, args, next) => {
+        // Add the help dialog to the dialog stack 
+        // (override the default behavior of replacing the stack)
+        session.beginDialog(args.action, args);
+    }
+});
+
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut'
-}).endConversationAction("endCrearRut", "Vale. Cancelado",{
+.}).endConversationAction("endCrearRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('RutCambiarTipoDoc', require('./actions/rut/tipoDoc')).triggerAction({
@@ -302,9 +312,9 @@ bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')
 //Accion para formalizar el RUT//
 bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
     matches: 'FormalizarRut'
-}).endConversationAction("endFormalizarRut", "Vale. Cancelado",{
+}).endConversationAction("endFormalizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('SubirCedula', require('./actions/rut/subirCedula')).triggerAction({
@@ -315,9 +325,9 @@ bot.dialog('SubirCedula', require('./actions/rut/subirCedula')).triggerAction({
 //Accion para actualizar el RUT//
 bot.dialog('ActualizarRut', require('./actions/actualizarRut')).triggerAction({
     matches: 'ActualizarRut'
-}).endConversationAction("endActualizarRut", "Vale. Cancelado",{
+}).endConversationAction("endActualizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('AbrirActualizar', require('./actions/rut/abrirActualizar')).triggerAction({
@@ -338,9 +348,9 @@ bot.dialog('LogOut', require('./actions/logout')).triggerAction({
 //Agendar cita//
 bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({
     matches: 'CrearCita'
-}).endConversationAction("endCrearCita", "Vale. Cancelado",{
+}).endConversationAction("endCrearCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('CrearCitaFechaSol', require('./actions/cita/fechaSol')).triggerAction({
@@ -359,9 +369,9 @@ bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAct
 //Reprogramar cita//
 bot.dialog('ReprogramarCita', require('./actions/reprogramarCita')).triggerAction({
     matches: 'ReprogramarCita'
-}).endConversationAction("endReprogramarCita", "Vale. Cancelado",{
+}).endConversationAction("endReprogramarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('ReprogFecha', require('./actions/cita/reprogFecha')).triggerAction({
@@ -380,9 +390,9 @@ bot.dialog('ReprogLugar', require('./actions/cita/reprogLugar')).triggerAction({
 //Cancelar una cita//
 bot.dialog('CancelarCita', require('./actions/cancelarCita')).triggerAction({
     matches: 'CancelarCita'
-}).endConversationAction("endCancelarCita", "Vale. Cancelado",{
+}).endConversationAction("endCancelarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
     matches: /^cancelar$|^adios$/i,
-    confirmPrompt: "Si escribes esto los datos que has ingresado de perderan. Deseas continuar?"
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
 
 bot.dialog('SeleccionarCita', require('./actions/cita/seleccionarCita')).triggerAction({

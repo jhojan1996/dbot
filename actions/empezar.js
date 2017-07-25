@@ -1,8 +1,32 @@
 var builder = require('botbuilder');
+import { RetrieveUserProfile } from 'botbuilder-facebookextension';
+bot.use(  
+    RetrieveUserProfile({
+        accessToken: process.env.FACEBOOK_PAGE_TOKEN,
+    })
+);
 
 module.exports = function(session){
 		console.log("Entre a empezar!");
-		session.send("Hola! Soy DiBot. Te ayudaré con todo lo relacionado a tus obligaciones tributarias. A continuacion te muestro algunas de operaciones en las que te puedo ayudar");
+    let message = new builder.Message(session)
+    .text("Hola "+session.userData.first_name+". Te puedo ayudar a recordar tus obligaciones tributarias enviandote mensajes a tu celular antes de que estas de vensan.")
+    .sourceEvent({
+        facebook: {
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Ok. Hagámoslo.",
+                    "payload": "Ayuda"
+                },
+                {
+                    "content_type": "text",
+                    "title": "No. Gracias.",
+                    "payload": "Terminar"
+                }
+            ]
+        }
+    });
+		session.send();
 		var msg = getHelpCards();
 		session.send(msg)
 		session.endDialog();
