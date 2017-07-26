@@ -27,6 +27,13 @@ var connection = mysql.createConnection({
     password : '669f8c04',
     database : 'dibot'
 });
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    }
+    console.log('connected as id ' + connection.threadId);
+});
 //----------------//
 
 
@@ -36,15 +43,6 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var username = req.query.username;
         var password = req.query.password;
         var id_usuario;
-
-        connection.connect(function(err) {
-            if (err) {
-                console.error('error connecting: ' + err.stack);
-                return;
-            }
-            console.log('connected as id ' + connection.threadId);
-        });
-
 
         connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
             if (err) throw err;
