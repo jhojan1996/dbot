@@ -162,7 +162,69 @@ dialog.onDefault(function(session){
         if (authorizationStatus === 'linked') {
             // Persist username under the userData
             session.userData.idUsuario = id_usuario;
-            session.endDialog('Ingreso exitoso! dime que mas deseas hacer');
+            session.send('¡Ingreso exitoso!. ¿Qué más deseas hacer?:');
+            var message = new builder.Message()
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments([
+                {
+                    "contentType": "application/vnd.microsoft.card.hero",
+                    "content": {
+                        "title": "Recibir notificaciones",
+                        "subtitle": 'Frases: "Quiero subscribirme al servicio de notificaciones", "Subscribirme a la notificaciones", "Enviame notificaciones"',
+                        "images": [
+                          {
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
+                          }
+                        ],
+                        "buttons": [
+                          {
+                            "type": "postBack",
+                            "title": "Recibir notificaciones",
+                            "value":"notificaciones"
+                          }
+                        ]
+                    }
+                },
+                {
+                    "contentType": "application/vnd.microsoft.card.hero",
+                    "content": {
+                        "title": "Agendar cita",
+                        "subtitle": 'Frases: "Quiero agendar una cita", "Agendar una cita", "Quiero pedir una cita"',
+                        "images": [
+                          {
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
+                          }
+                        ],
+                        "buttons": [
+                          {
+                            "type": "postBack",
+                            "title": "Agendar cita",
+                            "value":"Quiero agendar una cita"
+                          }
+                        ]
+                    }
+                },
+                {
+                    "contentType": "application/vnd.microsoft.card.hero",
+                    "content": {
+                        "title": "Formalizar mi RUT",
+                        "subtitle": 'Frases: "Formalizar mi RUT", "Formalizar RUT".',
+                        "images": [
+                          {
+                            "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
+                          }
+                        ],
+                        "buttons": [
+                          {
+                            "type": "postBack",
+                            "title": "Formalizar mi RUT",
+                            "value":"formalizar mi rut"
+                          }
+                        ]
+                    }
+                }
+            ]);
+            session.endDialog(message);
         } else if (authorizationStatus === 'unlinked') {
             // Remove username from the userData
             delete session.userData.idUsuario;
