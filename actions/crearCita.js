@@ -26,11 +26,11 @@ module.exports = [
 		var idUsuario = session.userData.idUsuario;
 		if(!idUsuario){
 			console.log("No tiene idusuario");
-			session.send("Para agendar una cita debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te pondre las acciones que puedes realizar");
-			session.send("Para crear el rut precione en siguiente boton: ");
+			session.send("Para agendar una cita debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te mostraré las acciones que puedes realizar:");
+			session.send("Para crear el rut presione en siguiente boton: ");
 			var msg = getHelpCards();
 			session.send(msg);
-			session.send("Para ingresar al sistema precione el boton Log In");
+			session.send("Para ingresar al sistema presione el boton Log In");
 			var message = new builder.Message(session)
 		      .sourceEvent({
 		        facebook: {

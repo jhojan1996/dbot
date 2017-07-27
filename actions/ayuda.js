@@ -15,8 +15,27 @@ function getHelpCards(){
         {
             "contentType": "application/vnd.microsoft.card.hero",
             "content": {
+                "title": "Ingresar al sistema (necesita tener el RUT creado).",
+                "subtitle": 'Frase: "Ingresar".',
+                "images": [
+                  {
+                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingresar+al+sistema&w=500&h=260"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Ingresar al sistema",
+                    "value":"Ingresar al sistema"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
                 "title": "Crear RUT",
-                "subtitle": "Quiero generar mi RUT",
+                "subtitle": 'Frases: "Crear RUT", "Generar RUT", "Sacar RUT".',
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
@@ -25,7 +44,7 @@ function getHelpCards(){
                 "buttons": [
                   {
                     "type": "postBack",
-                    "title": "Generar mi rut",
+                    "title": "Crear RUT",
                     "value":"Por favor quiero crear mi rut"
                   }
                 ]
@@ -35,7 +54,7 @@ function getHelpCards(){
             "contentType": "application/vnd.microsoft.card.hero",
             "content": {
                 "title": "Formalizar mi RUT",
-                "subtitle": "Quiero formalizar mi RUT",
+                "subtitle": 'Frases: "Formalizar mi RUT", "Formalizar RUT".',
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
@@ -44,7 +63,7 @@ function getHelpCards(){
                 "buttons": [
                   {
                     "type": "postBack",
-                    "title": "formalizar mi RUT",
+                    "title": "Formalizar mi RUT",
                     "value":"formalizar mi rut"
                   }
                 ]
@@ -53,27 +72,8 @@ function getHelpCards(){
         {
             "contentType": "application/vnd.microsoft.card.hero",
             "content": {
-                "title": "Actualizar el RUT",
-                "subtitle": "Quiero actualizar mi RUT",
-                "images": [
-                  {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Actualizar+RUT&w=500&h=260"
-                  }
-                ],
-                "buttons": [
-                  {
-                    "type": "postBack",
-                    "title": "Actualizar mi RUT",
-                    "value":"Actualizar mi rut"
-                  }
-                ]
-            }
-        },
-        {
-            "contentType": "application/vnd.microsoft.card.hero",
-            "content": {
-                "title": "Notificaciones",
-                "subtitle": "Quiero subscribirme al servicio de notificaciones",
+                "title": "Recibir notificaciones",
+                "subtitle": 'Frases: "Quiero subscribirme al servicio de notificaciones", "Subscribirme a la notificaciones", "Enviame notificaciones"',
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
@@ -82,7 +82,7 @@ function getHelpCards(){
                 "buttons": [
                   {
                     "type": "postBack",
-                    "title": "Notificaciones",
+                    "title": "Recibir notificaciones",
                     "value":"notificaciones"
                   }
                 ]
@@ -91,8 +91,8 @@ function getHelpCards(){
         {
             "contentType": "application/vnd.microsoft.card.hero",
             "content": {
-                "title": "Agendar citas",
-                "subtitle": "Quiero agendar una cita",
+                "title": "Agendar cita",
+                "subtitle": 'Frases: "Quiero agendar una cita", "Agendar una cita", "Quiero pedir una cita"',
                 "images": [
                   {
                     "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
@@ -101,7 +101,7 @@ function getHelpCards(){
                 "buttons": [
                   {
                     "type": "postBack",
-                    "title": "Quiero agendar una cita",
+                    "title": "Agendar cita",
                     "value":"Quiero agendar una cita"
                   }
                 ]

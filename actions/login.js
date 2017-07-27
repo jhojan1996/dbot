@@ -11,7 +11,7 @@ module.exports = function(session){
             payload: {
               template_type: 'generic',
               elements: [{
-                title: 'Ingresar al sistema',
+                title: 'Ingresar al sistema (necesita tener el RUT creado).',
                 image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingeso+al+sistema&w=500&h=260",
                 buttons: [{
                   type: 'account_link',
