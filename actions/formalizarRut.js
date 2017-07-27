@@ -121,7 +121,7 @@ function updateRut(session){
 							from: 'dibot2017@gmail.com',
 							to: email,
 							subject: 'Inicio del proceso de formalización del RUT',
-							html: 'Su solicitud de formalización del RUT ha iniciado.<br/>Hemos recibido una imagen de su documento de identificación y la hemos colocado en el siguiente enlace con el fin de continuar el proceso de formalización: '+archivoSubido+'<br/>Proximamente le notificaremos por este mismo medio si el proceso termino exitosamente.<br/><br/>Atentamente,<br/>Asistente tributario.<br/>Un desarrollo de Innovati centro de innovación. www.innovati.com.co<br/><img src="http://dibot.azurewebsites.net/images/logo_innovati.jpg" /><img src="http://dibot.azurewebsites.net/images/dibot.png" />'
+							html: 'Su solicitud de formalización del RUT ha iniciado.<br/>La imagen que hemos recibido de su documento de identificación es la siguiente: <img src="'+archivoSubido+'" /><br/>Proximamente le notificaremos por este mismo medio si el proceso termino exitosamente.<br/><br/>Atentamente,<br/>Asistente tributario.<br/><img src="http://dibot.azurewebsites.net/images/dibot.png" width="100px" /><br/>Un desarrollo de Innovati centro de innovación. www.innovati.com.co<br/><img src="http://dibot.azurewebsites.net/images/logo_innovati.jpg" />'
 						};
 
 						transporter.sendMail(mailOptions, function(error, info){
