@@ -18,6 +18,13 @@ var connection = mysql.createConnection({
 	password : '669f8c04',
 	database : 'dibot'
 });
+connection.connect(function(err) {
+	if (err) {
+		console.error('error connecting: ' + err.stack);
+		return;
+	}
+	console.log('connected as id ' + connection.threadId);
+});
 
 module.exports = [
 	function(session){
@@ -112,15 +119,6 @@ function reporgCita(session){
 	var fechaSol = session.dialogData.fechaSol;
 	var horaSol = session.dialogData.horaSol;
 	var lugarCita = session.dialogData.lugarCita;
-
-	connection.connect(function(err) {
-		if (err) {
-			console.error('error connecting: ' + err.stack);
-			return;
-		}
-		console.log('connected as id ' + connection.threadId);
-	});
-
 	/* Begin transaction */
 	connection.beginTransaction(function(err) {
 		if (err) {
