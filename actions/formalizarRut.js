@@ -18,6 +18,13 @@ var connection = mysql.createConnection({
 	password : '669f8c04',
 	database : 'dibot'
 });
+connection.connect(function(err) {
+	if (err) {
+		console.error('error connecting: ' + err.stack);
+		return;
+	}
+	console.log('connected as id ' + connection.threadId);
+});
 
 module.exports = [
 	function(session){
@@ -79,15 +86,6 @@ function updateRut(session){
 
 	var archivoSubido = session.dialogData.archivoSubido;
 	var idUsuario = session.userData.idUsuario;
-
-	connection.connect(function(err) {
-		if (err) {
-			console.error('error connecting: ' + err.stack);
-			return;
-		}
-		console.log('connected as id ' + connection.threadId);
-	});
-
 	/* Begin transaction */
 	connection.beginTransaction(function(err) {
 		if (err) {
