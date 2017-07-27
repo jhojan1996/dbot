@@ -58,12 +58,13 @@ module.exports = [
 		}
 	},
 	function(session, result){
+		console.log("ARCHIVO SUBIDO INFO COMPLETA ------------------->",result.response[0]);
 		console.log("ARCHIVO SUBIDO------------>",result.response[0].contentUrl);
 		session.dialogData.archivoSubido = result.response[0].contentUrl;
 		var tipo_doc = result.response[0].contentType;
 		console.log("IMAGEN ADJUNTADA-------------->",session.dialogData);
 
-		if(tipo_doc === 'image/png' || tipo_doc === 'image/jpg'){
+		if(tipo_doc === 'image/png' || tipo_doc === 'image/jpg' || tipo_doc === 'image/jpeg'){
 			updateRut(session);
 			session.endDialog("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
 		}else{

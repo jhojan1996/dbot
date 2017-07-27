@@ -53,7 +53,7 @@ module.exports = [
 			session.endDialog(message);
 		}else{
 			console.log("Tiene ingreso en el sistema");
-			session.send("Claro. te ayudare a reprogramar una cita");
+			session.send("Claro. te ayudare a reprogramar la cita.");
 			session.beginDialog("ReprogFecha");
 		}
 	},
