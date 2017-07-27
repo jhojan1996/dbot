@@ -43,10 +43,10 @@ module.exports = [
                 var ano = f_cita.getFullYear();
                 var h_cita = result[0].h_cita;
                 var lugar = result[0].lugar;
-                session.send("Tiene una cita agendada para la fecha: "+dia+" "+getDate+" de "+mes+" de "+ano+" con hora: "+h_cita+" y el lugar es: "+lugar);
-                builder.Prompts.text(session, "Por favor ingresa la fecha en la que deseas la cita en formato: AAAA-MM-DD");
+                session.send("Tiene una cita agendada para el "+dia+" "+getDate+" de "+mes+" de "+ano+" con hora: "+h_cita+" y el lugar es: "+lugar+".");
+                builder.Prompts.text(session, "Por favor ingresa la nueva fecha para la cita. Utiliza el formato: AAAA-MM-DD");
             }else{
-                builder.Prompts.text(session, "Por favor ingresa la fecha en la que deseas la cita en formato: AAAA-MM-DD");
+                builder.Prompts.text(session, "Por favor ingresa la nueva fecha para la cita. Utiliza el formato: AAAA-MM-DD");
             }
         });
     },

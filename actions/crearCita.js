@@ -71,7 +71,7 @@ module.exports = [
 
 		insertCita(session);
 
-		session.send("Su cita fue agendada con exito con los siguientes dato: ");
+		session.send("Su cita fue agendada exitosamente:");
 		session.send("Fecha de la cita: "+session.dialogData.fechaSol);
 		session.send("Hora de la cita: "+session.dialogData.horaSol);
 		session.send("Lugar de la cita: "+session.dialogData.lugarCita);

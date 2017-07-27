@@ -29,9 +29,9 @@ module.exports = [
                 var f_cita = result[0].f_cita;
                 var h_cita = result[0].h_cita;
                 var lugar = result[0].lugar;
-                builder.Prompts.text(session, "Por favor ingresa la hora en la que deseas la cita en formato: HH:MM");
+                builder.Prompts.text(session, "Por favor ingresa la hora en la que deseas la cita. Utiliza el formato de 24 horas: HH:MM");
             }else{
-                builder.Prompts.text(session, "Por favor ingresa la hora en la que deseas la cita en formato: HH:MM");
+                builder.Prompts.text(session, "Por favor ingresa la hora en la que deseas la cita. Utiliza el formato de 24 horas: HH:MM");
             }
         });
     },

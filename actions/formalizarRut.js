@@ -63,11 +63,11 @@ module.exports = [
 		var tipo_doc = result.response[0].contentType;
 		console.log("IMAGEN ADJUNTADA-------------->",session.dialogData);
 
-		if(tipo_doc === 'image/png'){
+		if(tipo_doc === 'image/png' || tipo_doc === 'image/jpg'){
 			updateRut(session);
 			session.endDialog("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
 		}else{
-			session.endDialog("El archivo adjunto no es valido. Recuerda que la imagen debe ser adjuntada en formato png. Por favor intentalo de nuevo");
+			session.endDialog("El archivo adjunto no es valido. Recuerda que debe ser una imagen. Por favor intentalo de nuevo");
 		}
 	}
 ];
