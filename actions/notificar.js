@@ -70,7 +70,61 @@ function programarNoti(session){
 	var consulta;
 	var idUsuario = session.userData.idUsuario;
 
-	connection.query("SELECT documento FROM detalle_usuario WHERE id_usuario = ?",idUsuario, function(err, result, fields) {
+	connection.beginTransaction(function(err) {
+		if (err) {
+			console.log("ERROR 1-------->",err); 
+			throw err; 
+		}
+		
+		connection.query('SELECT documento FROM detalle_usuario WHERE id_usuario = ?', idUsuario, function(err, result) {
+			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
+			if (err) { 
+				console.log("ERROR 2:------------>",err);
+				connection.rollback(function() {
+					console.log("ERROR 3------------->",err)
+					return err;
+				});
+			}
+
+			connection.commit(function(err) {
+				console.log("ERROR 4:------------>",err);
+				if (err) { 
+					connection.rollback(function() {
+						throw err;
+					});
+				}
+
+				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
+		            if (err) throw err;
+		            if(result.length > 0){
+		                var email = result[0].email;
+		            
+			            var mailOptions = {
+							from: 'dibot2017@gmail.com',
+							to: email,
+							subject: 'Inicio del proceso de formalización del RUT',
+							html: 'Su solicitud de formalización del RUT ha iniciado.<br/>La imagen que hemos recibido de su documento de identificación es la siguiente:<br/> <img src="'+archivoSubido+'" width="200px"/><br/>Proximamente le notificaremos por este mismo medio si el proceso termino exitosamente.<br/><br/>Atentamente,<br/>Asistente tributario.<br/><img src="http://dibot.azurewebsites.net/images/dibot.png" width="100px" /><br/>Un desarrollo de Innovati centro de innovación. www.innovati.com.co<br/><img src="http://dibot.azurewebsites.net/images/logo_innovati.jpg" />'
+						};
+
+						transporter.sendMail(mailOptions, function(error, info){
+							if (error) {
+								console.log(error);
+							} else {
+								console.log('Email sent: ' + info.response);
+							}
+						});
+
+						console.log('Transaction Complete.');
+					}
+		        });
+				connection.end();
+			});
+		});
+
+
+	});
+
+	connection.query("",idUsuario, function(err, result, fields) {
 		console.log(err);
         if (err) throw err;
         if(result.length > 0){
