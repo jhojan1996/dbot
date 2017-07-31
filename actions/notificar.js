@@ -61,10 +61,6 @@ module.exports = [
 		console.log("DATOS DE LA NOTIFICACION-------------->",session.dialogData);
 	
 		programarNoti(session);
-		if (not){
-			console.log("termino programar noti");
-			noti();
-		}
 		session.endDialog("Su suscripción al servicio de notificaciones fue realizada correctamente.");
 	}
 ];
@@ -115,6 +111,11 @@ function programarNoti(session){
 			connection.end();
 		});
 	});
+
+	if (not){
+		console.log("termino programar noti");
+		noti();
+	}
 }
 function noti(){
 	var currentDate = new Date();
