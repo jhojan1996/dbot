@@ -12,13 +12,6 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
-var connection = mysql.createConnection({
-	host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
-	user     : 'bdfb18a7b2c383',
-	password : '669f8c04',
-	database : 'dibot'
-});
-
 module.exports = function(session){
 	console.log("Inicia accion para actualizar rut");
 	session.dialogData.formalizarRut = true;

@@ -2,19 +2,6 @@ var builder = require('botbuilder');
 var schedule = require('node-schedule');
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
-    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
-    user     : 'bdfb18a7b2c383',
-    password : '669f8c04',
-    database : 'dibot'
-});
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
-});
 
 module.exports = [
 	function(session){
@@ -71,6 +58,7 @@ function programarNoti(session){
 	var idUsuario = session.userData.idUsuario;
 
 	connection.query("SELECT documento FROM detalle_usuario WHERE id_usuario = ?",idUsuario, function(err, result, fields) {
+		console.log(err);
         if (err) throw err;
         if(result.length > 0){
             console.log("RESULT DOCUMENTO----------->", result);

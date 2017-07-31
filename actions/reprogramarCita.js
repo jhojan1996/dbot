@@ -12,20 +12,6 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
-var connection = mysql.createConnection({
-	host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
-	user     : 'bdfb18a7b2c383',
-	password : '669f8c04',
-	database : 'dibot'
-});
-connection.connect(function(err) {
-	if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-	}
-	console.log('connected as id ' + connection.threadId);
-});
-
 module.exports = [
 	function(session){
 		console.log("Inicia accion para reprogramar citas");
