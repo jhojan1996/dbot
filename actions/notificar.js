@@ -80,80 +80,37 @@ function programarNoti(session){
 			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 			if (err) { 
 				console.log("ERROR 2:------------>",err);
-				connection.rollback(function() {
-					console.log("ERROR 3------------->",err)
-					return err;
-				});
+				throw err;
 			}
-
-			connection.commit(function(err) {
-				console.log("ERROR 4:------------>",err);
-				if (err) { 
-					connection.rollback(function() {
-						throw err;
-					});
+			if(result.length > 0){
+	            console.log("RESULT DOCUMENTO----------->", result);
+	            documento = result[0].documento;
+	            var lastChar = documento.substr(documento.length-1);
+	            var cuatrimestre;
+	            if(nMonth >= 0 && nMonth <= 3){
+					cuatrimestre = "1";
+				}else if(nMonth > 3 && nMonth <= 7){
+					cuatrimestre = "2";
+				}else{
+					cuatrimestre = "3";
 				}
-
-				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
-		            if (err) throw err;
-		            if(result.length > 0){
-		                var email = result[0].email;
-		            
-			            var mailOptions = {
-							from: 'dibot2017@gmail.com',
-							to: email,
-							subject: 'Inicio del proceso de formalización del RUT',
-							html: 'Su solicitud de formalización del RUT ha iniciado.<br/>La imagen que hemos recibido de su documento de identificación es la siguiente:<br/> <img src="'+archivoSubido+'" width="200px"/><br/>Proximamente le notificaremos por este mismo medio si el proceso termino exitosamente.<br/><br/>Atentamente,<br/>Asistente tributario.<br/><img src="http://dibot.azurewebsites.net/images/dibot.png" width="100px" /><br/>Un desarrollo de Innovati centro de innovación. www.innovati.com.co<br/><img src="http://dibot.azurewebsites.net/images/logo_innovati.jpg" />'
-						};
-
-						transporter.sendMail(mailOptions, function(error, info){
-							if (error) {
-								console.log(error);
-							} else {
-								console.log('Email sent: ' + info.response);
-							}
-						});
-
-						console.log('Transaction Complete.');
-					}
-		        });
-				connection.end();
-			});
-		});
-
-
-	});
-
-	connection.query("",idUsuario, function(err, result, fields) {
-		console.log(err);
-        if (err) throw err;
-        if(result.length > 0){
-            console.log("RESULT DOCUMENTO----------->", result);
-            documento = result[0].documento;
-            var lastChar = documento.substr(documento.length-1);
-            var cuatrimestre;
-            if(nMonth >= 0 && nMonth <= 3){
-				cuatrimestre = "1";
-			}else if(nMonth > 3 && nMonth <= 7){
-				cuatrimestre = "2";
-			}else{
-				cuatrimestre = "3";
+				connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
+	            	console.log("ERROR SEGUNDO QUERY---->",err);
+	        		if (err) throw err;
+	            	var event = schedule.scheduleJob("*/5 * * * *", function() {
+				        console.log('This runs every 5 minute');
+				        if(cuatrimestre === "1"){
+				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
+				        }else if(cuatrimestre === "2"){
+				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2)
+				        }else{
+				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
+				        }
+				    });
+	            });
 			}
-            connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
-            	console.log("ERROR SEGUNDO QUERY---->",err);
-        		if (err) throw err;
-            	var event = schedule.scheduleJob("*/5 * * * *", function() {
-			        console.log('This runs every 5 minute');
-			        if(cuatrimestre === "1"){
-			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
-			        }else if(cuatrimestre === "2"){
-			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2)
-			        }else{
-			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
-			        }
-			    });
-			    connection.end();
-            });
-        }
-    });
+				
+			connection.end();
+		});
+	});
 }
