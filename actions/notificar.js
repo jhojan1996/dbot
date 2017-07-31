@@ -78,9 +78,9 @@ function programarNoti(session){
             documento = result[0].documento;
             var lastChar = documento.substr(documento.length-1);
             var cuatrimestre;
-            if(n >= 0 && n <= 3){
+            if(nMonth >= 0 && nMonth <= 3){
 				cuatrimestre = "1";
-			}else if(n > 3 && n <= 7){
+			}else if(nMonth > 3 && nMonth <= 7){
 				cuatrimestre = "2";
 			}else{
 				cuatrimestre = "3";
