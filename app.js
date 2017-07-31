@@ -461,3 +461,15 @@ bot.dialog('SeleccionarCita', require('./actions/cita/seleccionarCita')).trigger
 });
 //----------------//
 
+//Recibir notificaciones//
+bot.dialog('Notificaciones', require('./actions/notificar')).triggerAction({
+    matches: 'Notificaciones'
+}).endConversationAction("endNotificaciones", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
+});
+
+bot.dialog('HoraNotificacion', require('./actions/notificacion/horaNoti')).triggerAction({
+    matches: 'Notificaciones'
+});
+//---------------------//
