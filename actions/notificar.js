@@ -1,6 +1,8 @@
 var builder = require('botbuilder');
 var schedule = require('node-schedule');
 var mysql = require('mysql');
+var not = false;
+var cuatrimestral;
 
 var connection = mysql.createConnection({
     host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
@@ -57,9 +59,12 @@ module.exports = [
 	function(session, result){
 		session.dialogData.horaNoti = result.response;
 		console.log("DATOS DE LA NOTIFICACION-------------->",session.dialogData);
-
+	
 		programarNoti(session);
-
+		if (not){
+			console.log(termino programar noti);
+			noti();
+		}
 		session.endDialog("Su suscripción al servicio de notificaciones fue realizada correctamente.");
 	}
 ];
@@ -97,20 +102,40 @@ function programarNoti(session){
 				connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
 	            	console.log("ERROR SEGUNDO QUERY---->",err);
 	        		if (err) throw err;
-	            	var event = schedule.scheduleJob("*/5 * * * *", function() {
-				        console.log('This runs every 5 minute');
-				        if(cuatrimestre === "1"){
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
-				        }else if(cuatrimestre === "2"){
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2)
-				        }else{
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
-				        }
-				    });
+	            	not = true;
+	            	 if(cuatrimestre === "1"){
+			        	cuatrimestre = result[0].cuatrimestre1;
+			        }else if(cuatrimestre === "2"){
+			        	cuatrimestre = result[0].cuatrimestre2;
+			        }else{
+			        	cuatrimestre = result[0].cuatrimestre3;
+			        }
 	            });
 			}
-				
 			connection.end();
 		});
 	});
+}
+function noti(){
+	var currentDate = new Date();
+	var nMonth = currentDate.getMonth();
+	var cuatrimestre;
+	if(nMonth >= 0 && nMonth <= 3){
+		cuatrimestre = "1";
+	}else if(nMonth > 3 && nMonth <= 7){
+		cuatrimestre = "2";
+	}else{
+		cuatrimestre = "3";
+	}
+
+	var event = schedule.scheduleJob("*/5 * * * *", function() {
+        console.log('This runs every 5 minute');
+        if(cuatrimestre === "1"){
+        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+cuatrimestral)
+        }else if(cuatrimestre === "2"){
+        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+cuatrimestral)
+        }else{
+        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+cuatrimestral)
+        }
+    });
 }
