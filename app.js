@@ -5,6 +5,7 @@ var builder = require('botbuilder');
 var restify = require('restify');
 var mysql = require('mysql');
 var request = require('request');
+var schedule = require('node-schedule');
 
 
 // Setup Restify Server
@@ -459,3 +460,4 @@ bot.dialog('SeleccionarCita', require('./actions/cita/seleccionarCita')).trigger
     matches: 'ReprogLugar'
 });
 //----------------//
+
