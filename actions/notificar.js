@@ -1,5 +1,20 @@
 var builder = require('botbuilder');
 var schedule = require('node-schedule');
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+    user     : 'bdfb18a7b2c383',
+    password : '669f8c04',
+    database : 'dibot'
+});
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    }
+    console.log('connected as id ' + connection.threadId);
+});
 
 module.exports = [
 	function(session){
@@ -50,7 +65,39 @@ module.exports = [
 ];
 
 function programarNoti(session){
-	var event = schedule.scheduleJob("*/1 * * * *", function() {
-        console.log('This runs every 5 minute');
+	var currentDate = new Date();
+	var nMonth = currentDate.getMonth();
+	var consulta;
+	var idUsuario = session.userData.idUsuario;
+
+	connection.query("SELECT documento FROM detalle_usuario WHERE id_usuario = ?",idUsuario, function(err, result, fields) {
+        if (err) throw err;
+        if(result.length > 0){
+            console.log("RESULT DOCUMENTO----------->", result);
+            documento = result[0].documento;
+            var lastChar = documento.substr(documento.length-1);
+            var cuatrimestre;
+            if(n >= 0 && n <= 3){
+				cuatrimestre = "1";
+			}else if(n > 3 && n <= 7){
+				cuatrimestre = "2";
+			}else{
+				cuatrimestre = "3";
+			}
+            connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
+            	var event = schedule.scheduleJob("*/5 * * * *", function() {
+			        console.log('This runs every 5 minute');
+			        if(cuatrimestre === "1"){
+			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
+			        }else if(cuatrimestre === "2"){
+			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2)
+			        }else{
+			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
+			        }
+			    });
+            });
+        }
     });
+
+    connection.end();
 }
