@@ -86,6 +86,8 @@ function programarNoti(session){
 				cuatrimestre = "3";
 			}
             connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
+            	console.log(err);
+        		if (err) throw err;
             	var event = schedule.scheduleJob("*/5 * * * *", function() {
 			        console.log('This runs every 5 minute');
 			        if(cuatrimestre === "1"){
