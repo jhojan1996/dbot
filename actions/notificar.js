@@ -62,7 +62,7 @@ module.exports = [
 	
 		programarNoti(session);
 		if (not){
-			console.log(termino programar noti);
+			console.log("termino programar noti");
 			noti();
 		}
 		session.endDialog("Su suscripción al servicio de notificaciones fue realizada correctamente.");
