@@ -99,6 +99,7 @@ function programarNoti(session){
 					connection.query("SELECT cuatrimestre"+cuatrimestre+" FROM declaracion WHERE ult_digito = ?",lastChar, function(err, result, fields) {
 		            	console.log("ERROR SEGUNDO QUERY---->",err);
 		        		if (err) throw err;
+		        		console.log("ERROR TERCER QUERY---->",err);
 		        		 if(cuatrimestre === "1"){
 				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
 				        }else if(cuatrimestre === "2"){
