@@ -98,9 +98,8 @@ function programarNoti(session){
 			        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
 			        }
 			    });
+			    connection.end();
             });
         }
     });
-
-    connection.end();
 }
