@@ -270,7 +270,7 @@ bot.dialog('Terminar', require('./actions/terminar')).triggerAction({
 //Acciones para cambiar de contexto en creacion de RUT//
 bot.dialog('CrearRut', require('./actions/crearRut')).triggerAction({
     matches: 'CrearRut'
-}).endConversationAction("endCrearRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endCrearRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -370,7 +370,7 @@ bot.dialog('RutCambiarResponsabilidad', require('./actions/rut/responsabilidad')
 //Accion para formalizar el RUT//
 bot.dialog('FormalizarRut', require('./actions/formalizarRut')).triggerAction({
     matches: 'FormalizarRut'
-}).endConversationAction("endFormalizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endFormalizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -383,7 +383,7 @@ bot.dialog('SubirCedula', require('./actions/rut/subirCedula')).triggerAction({
 //Accion para actualizar el RUT//
 bot.dialog('ActualizarRut', require('./actions/actualizarRut')).triggerAction({
     matches: 'ActualizarRut'
-}).endConversationAction("endActualizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endActualizarRut", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -406,7 +406,7 @@ bot.dialog('LogOut', require('./actions/logout')).triggerAction({
 //Agendar cita//
 bot.dialog('CrearCita', require('./actions/crearCita')).triggerAction({
     matches: 'CrearCita'
-}).endConversationAction("endCrearCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endCrearCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -427,7 +427,7 @@ bot.dialog('CrearCitaLugarCita', require('./actions/cita/lugarCita')).triggerAct
 //Reprogramar cita//
 bot.dialog('ReprogramarCita', require('./actions/reprogramarCita')).triggerAction({
     matches: 'ReprogramarCita'
-}).endConversationAction("endReprogramarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endReprogramarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -448,7 +448,7 @@ bot.dialog('ReprogLugar', require('./actions/cita/reprogLugar')).triggerAction({
 //Cancelar una cita//
 bot.dialog('CancelarCita', require('./actions/cancelarCita')).triggerAction({
     matches: 'CancelarCita'
-}).endConversationAction("endCancelarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endCancelarCita", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -461,7 +461,7 @@ bot.dialog('SeleccionarCita', require('./actions/cita/seleccionarCita')).trigger
 //Recibir notificaciones//
 bot.dialog('Notificaciones', require('./actions/notificar')).triggerAction({
     matches: 'Notificaciones'
-}).endConversationAction("endNotificaciones", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endNotificaciones", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });
@@ -474,7 +474,7 @@ bot.dialog('HoraNotificacion', require('./actions/notificacion/horaNoti')).trigg
 //Cancelar notificaciones//
 bot.dialog('CancelarNoti', require('./actions/cancelarNoti')).triggerAction({
     matches: 'CancelarNoti'
-}).endConversationAction("endCancelarNoti", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+}).endConversationAction("endCancelarNoti", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?. Puedes escribir ayuda para mostrarte los comandos mas comunes.",{
     matches: /^cancelar$|^adios$/i,
     confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
 });

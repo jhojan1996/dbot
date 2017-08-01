@@ -19,7 +19,7 @@ function getHelpCards(){
                 "subtitle": 'Frase: "Ingresar".',
                 "images": [
                   {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingresar+al+sistema&w=500&h=260"
+                    "url": "http://dibot.azurewebsites.net/images/login.png"
                   }
                 ],
                 "buttons": [
@@ -38,7 +38,7 @@ function getHelpCards(){
                 "subtitle": 'Frases: "Crear RUT", "Generar RUT", "Sacar RUT".',
                 "images": [
                   {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Crear+RUT&w=500&h=260"
+                    "url": "http://dibot.azurewebsites.net/images/crearrut.png"
                   }
                 ],
                 "buttons": [
@@ -76,7 +76,7 @@ function getHelpCards(){
                 "subtitle": 'Frases: "Quiero subscribirme al servicio de notificaciones", "Subscribirme a la notificaciones", "Enviame notificaciones"',
                 "images": [
                   {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Notificaciones&w=500&h=260"
+                    "url": "http://dibot.azurewebsites.net/images/notificacion.png"
                   }
                 ],
                 "buttons": [
@@ -95,7 +95,7 @@ function getHelpCards(){
                 "subtitle": 'Frases: "Quiero agendar una cita", "Agendar una cita", "Quiero pedir una cita"',
                 "images": [
                   {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Agendar+citas&w=500&h=260"
+                    "url": "http://dibot.azurewebsites.net/images/agendar.jpg"
                   }
                 ],
                 "buttons": [
