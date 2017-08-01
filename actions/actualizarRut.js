@@ -19,30 +19,30 @@ module.exports = function(session){
 	if(!idUsuario){
 		console.log("No tiene idusuario");
 		session.send("Para actualizar el RUT debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te pondre las acciones que puedes realizar");
-		session.send("Para crear el rut precione en siguiente boton: ");
-		var msg = getHelpCards();
-		session.send(msg);
-		session.send("Para ingresar al sistema precione el boton Log In");
-		var message = new builder.Message(session)
-	      .sourceEvent({
-	        facebook: {
-	          attachment: {
-	            type: 'template',
-	            payload: {
-	              template_type: 'generic',
-	              elements: [{
-	                title: 'Ingresar al sistema',
-	                image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingeso+al+sistema&w=500&h=260",
-	                buttons: [{
-	                  type: 'account_link',
-	                  url: process.env.FRONT_END_URL + '/web/login.html'
-	                }]
-	              }]
-	            }
-	          }
-	        }
-	      });
-		session.endDialog(message);
+		session.send("Para ingresar al sistema presione el boton Log In");
+			var message = new builder.Message(session)
+		      .sourceEvent({
+		        facebook: {
+		          attachment: {
+		            type: 'template',
+		            payload: {
+		              template_type: 'generic',
+		              elements: [{
+		                title: 'Ingresar al sistema',
+		                image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingeso+al+sistema&w=500&h=260",
+		                buttons: [{
+		                  type: 'account_link',
+		                  url: process.env.FRONT_END_URL + '/web/login.html'
+		                }]
+		              }]
+		            }
+		          }
+		        }
+		      });
+		    session.send(message);
+			session.send("Para crear el rut presione en siguiente botón: ");
+			var msg = getHelpCards();			
+			session.endDialog(msg);
 	}else{
 		console.log("Tiene ingreso en el sistema");
 		session.send("Claro. te ayudare a actualizar el RUT");

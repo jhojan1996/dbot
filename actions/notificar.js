@@ -24,9 +24,6 @@ module.exports = [
 		if(!idUsuario){
 			console.log("No tiene idusuario");
 			session.send("Para suscribirse al servicio de notificaciones debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te mostraré las acciones que puedes realizar:");
-			session.send("Para crear el rut presione en siguiente boton: ");
-			var msg = getHelpCards();
-			session.send(msg);
 			session.send("Para ingresar al sistema presione el boton Log In");
 			var message = new builder.Message(session)
 		      .sourceEvent({
@@ -47,7 +44,10 @@ module.exports = [
 		          }
 		        }
 		      });
-			session.endDialog(message);
+		    session.send(message);
+			session.send("Para crear el rut presione en siguiente botón: ");
+			var msg = getHelpCards();			
+			session.endDialog(msg);
 		}else{
 			console.log("Tiene ingreso en el sistema");
 			session.send("Claro. te ayudare a suscribirte al servicio");

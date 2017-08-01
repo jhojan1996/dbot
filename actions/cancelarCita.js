@@ -12,6 +12,14 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
+var pool = mysql.createPool({
+    connectionLimit : 10,
+    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+    user     : 'bdfb18a7b2c383',
+    password : '669f8c04',
+    database : 'dibot'
+});
+
 module.exports = [
 	function(session){
 		console.log("Inicia accion para cancelar citas");
@@ -20,10 +28,7 @@ module.exports = [
 		if(!idUsuario){
 			console.log("No tiene idusuario");
 			session.send("Para cancelar una cita debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te pondre las acciones que puedes realizar");
-			session.send("Para crear el rut precione en siguiente boton: ");
-			var msg = getHelpCards();
-			session.send(msg);
-			session.send("Para ingresar al sistema precione el boton Log In");
+			session.send("Para ingresar al sistema presione el boton Log In");
 			var message = new builder.Message(session)
 		      .sourceEvent({
 		        facebook: {
@@ -43,7 +48,10 @@ module.exports = [
 		          }
 		        }
 		      });
-			session.endDialog(message);
+		    session.send(message);
+			session.send("Para crear el rut presione en siguiente botón: ");
+			var msg = getHelpCards();			
+			session.endDialog(msg);
 		}else{
 			console.log("Tiene ingreso en el sistema");
 			session.send("Claro. te ayudare a cancelar la cita que tienes programada");
@@ -98,60 +106,59 @@ function cancelCita(session){
 	var fechaSol = session.dialogData.fechaSol;
 	var horaSol = session.dialogData.horaSol;
 	var lugarCita = session.dialogData.lugarCita;
-	/* Begin transaction */
-	connection.beginTransaction(function(err) {
-		if (err) {
-			console.log("ERROR 1-------->",err); 
-			throw err; 
-		}
-		var idUsuario = session.userData.idUsuario;
-		console.log(session.userData);
-		connection.query('DELETE FROM cita WHERE id_usuario = ?', idUsuario, function(err, result) {
-			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
-			if (err) { 
-				console.log("ERROR 2:------------>",err);
-				connection.rollback(function() {
-					console.log("ERROR 3------------->",err)
-					return err;
-				});
-			}
 
-			connection.commit(function(err) {
-				console.log("ERROR 4:------------>",err);
+	pool.getConnection(function(err, connection){
+		connection.beginTransaction(function(err) {
+			if (err) {
+				console.log("ERROR 1-------->",err); 
+				throw err; 
+			}
+			var idUsuario = session.userData.idUsuario;
+			console.log(session.userData);
+			connection.query('DELETE FROM cita WHERE id_usuario = ?', idUsuario, function(err, result) {
+				console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 				if (err) { 
+					console.log("ERROR 2:------------>",err);
 					connection.rollback(function() {
-						throw err;
+						console.log("ERROR 3------------->",err)
+						return err;
 					});
 				}
 
-				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
-		            if (err) throw err;
-		            if(result.length > 0){
-		                var email = result[0].email;
-		            
-			            var mailOptions = {
-							from: 'dibot2017@gmail.com',
-							to: email,
-							subject: 'Cancelación de cita',
-							html: '<h1>Su cita fue cancelada con exito</h1>'
-						};
-
-						transporter.sendMail(mailOptions, function(error, info){
-							if (error) {
-								console.log(error);
-							} else {
-								console.log('Email sent: ' + info.response);
-							}
+				connection.commit(function(err) {
+					console.log("ERROR 4:------------>",err);
+					if (err) { 
+						connection.rollback(function() {
+							throw err;
 						});
-
-						console.log('Transaction Complete.');
 					}
-		        });
-				connection.end();
+
+					connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
+			            if (err) throw err;
+			            if(result.length > 0){
+			                var email = result[0].email;
+			            
+				            var mailOptions = {
+								from: 'dibot2017@gmail.com',
+								to: email,
+								subject: 'Cancelación de cita',
+								html: '<h1>Su cita fue cancelada con exito</h1>'
+							};
+
+							transporter.sendMail(mailOptions, function(error, info){
+								if (error) {
+									console.log(error);
+								} else {
+									console.log('Email sent: ' + info.response);
+								}
+							});
+
+							console.log('Transaction Complete.');
+						}
+			        });
+					connection.release();
+				});
 			});
 		});
-
-
 	});
-	/* End transaction */
 }

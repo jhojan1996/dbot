@@ -22,18 +22,12 @@ var connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());
 
 //MYSQL credenciales//
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit : 10,
     host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
     user     : 'bdfb18a7b2c383',
     password : '669f8c04',
     database : 'dibot'
-});
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
 });
 //----------------//
 
@@ -44,22 +38,25 @@ server.get('/authorize', restify.plugins.queryParser(), function (req, res, next
         var username = req.query.username;
         var password = req.query.password;
         var id_usuario;
-
-        connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
-            if (err) throw err;
-            console.log("ERROR EN ACCOUNT_LINKING---------->", result);
-            console.log("RESULT ACOOUNT_LINKING----------->", result);
-            if(result.length > 0){
+        pool.getConnection(function(err, connection){
+            connection.query("SELECT id, id_usuario FROM registro WHERE username = ? AND password = ?",[username, password], function(err, result, fields) {
+                if (err) throw err;
+                console.log("ERROR EN ACCOUNT_LINKING---------->", result);
                 console.log("RESULT ACOOUNT_LINKING----------->", result);
-                id_usuario = result[0].id_usuario;
-                console.log("POSICION 0 RESULT----------->", result[0]);
-                console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
-                console.log("VARIABLE ID_USUARIO------------->",id_usuario);
-                var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
-                console.log("REDIRECTURI------------>",redirectUri);
-                return res.redirect(redirectUri, next);     
-            }
+                if(result.length > 0){
+                    console.log("RESULT ACOOUNT_LINKING----------->", result);
+                    id_usuario = result[0].id_usuario;
+                    console.log("POSICION 0 RESULT----------->", result[0]);
+                    console.log("POSICION 0 RESULT CON ID_USUARIO----------->", result[0].id_usuario);
+                    console.log("VARIABLE ID_USUARIO------------->",id_usuario);
+                    var redirectUri = req.query.redirect_uri + '&authorization_code=' + id_usuario;
+                    console.log("REDIRECTURI------------>",redirectUri);
+                    return res.redirect(redirectUri, next);     
+                }
+            });
+            connection.release();
         });
+            
     } else {
         return res.send(400, 'Request did not contain redirect_uri and username in the query string');
     }

@@ -15,6 +15,14 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
+var pool = mysql.createPool({
+	connectionLimit : 10,
+    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+    user     : 'bdfb18a7b2c383',
+    password : '669f8c04',
+    database : 'dibot'
+});
+
 var doc = new pdf;
 
 module.exports = [
@@ -204,93 +212,89 @@ module.exports = [
 
 function insertRut(session){
 	console.log(session.dialogData);
-	/* Begin transaction */
-	connection.beginTransaction(function(err) {
-		if (err) {
-			console.log("ERROR 1-------->",err); 
-			throw err; 
-		}
-		connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [session.dialogData.nombre1, session.dialogData.nombre2, session.dialogData.apellido1, session.dialogData.apellido2, session.dialogData.direccion, session.dialogData.telefono1, session.dialogData.telefono2, session.dialogData.email, session.dialogData.postal], function(err, result) {
-			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
-			if (err) { 
-				connection.rollback(function() {
-					console.log("ERROR 2------------->",err)
-					return err;
-				});
-			}
-
-			var log = result.insertId;
-
-			console.log(log);
-
-			var tipo_documento = (typeof session.dialogData.tipoDocumento.entity === 'undefined')?session.dialogData.tipoDocumento:session.dialogData.tipoDocumento.entity;
-
-			connection.query('INSERT INTO detalle_usuario (id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?)', [log, tipo_documento, session.dialogData.numeroDocumento, session.dialogData.fechaExpe, session.dialogData.paisExpe, session.dialogData.dptoExpe, session.dialogData.mpioExpe, session.dialogData.paisUbi, session.dialogData.dptoUbi, session.dialogData.mpioUbi], function(err, result) {
-				console.log("ERROR 3-------------->",err);
+	pool.getConnection(function(err, connection){
+		connection.beginTransaction(function(err){
+			connection.query('INSERT INTO usuario (nombre1,nombre2,apellido1,apellido2,direccion,telefono1,telefono2,email,cod_postal) VALUES (?,?,?,?,?,?,?,?,?)', [session.dialogData.nombre1, session.dialogData.nombre2, session.dialogData.apellido1, session.dialogData.apellido2, session.dialogData.direccion, session.dialogData.telefono1, session.dialogData.telefono2, session.dialogData.email, session.dialogData.postal], function(err, result) {
+				console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 				if (err) { 
 					connection.rollback(function() {
-						throw err;
+						console.log("ERROR 2------------->",err)
+						return err;
 					});
 				}
-			});
 
-			console.log("PASE EL ERROR 3");
+				var log = result.insertId;
 
-			var cod_rut = Math.floor(Math.random() * 1000000000);
+				console.log(log);
 
-			connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.actPrinc, session.dialogData.actSecun, session.dialogData.otrasAct, session.dialogData.ocupacion, session.dialogData.responsabilidad, log], function(err, result) {
-				console.log("ERROR 4-------------->",err);
-				if (err) { 
-					connection.rollback(function() {
-						throw err;
-					});
-				}
-			});
+				var tipo_documento = (typeof session.dialogData.tipoDocumento.entity === 'undefined')?session.dialogData.tipoDocumento:session.dialogData.tipoDocumento.entity;
 
-			console.log("PASE EL ERROR 4");
-
-			var rndm = Math.floor(Math.random() * 100);
-			var password
-			var username = session.dialogData.nombre1+session.dialogData.nombre2+rndm
-			var password = Math.floor(Math.random() * 10000000);
-
-			connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
-				console.log("ERROR 5-------------->",err);
-				if (err) { 
-					connection.rollback(function() {
-						throw err;
-					});
-				}  
-
-				console.log("PASE EL ERROR 5");
-				connection.commit(function(err) {
+				connection.query('INSERT INTO detalle_usuario (id_usuario, tipo_documento, documento, fecha_exp, pais_exp, dpto_exp, mpio_exp, pais_ubi, dpto_ubi, mpio_ubi) VALUES (?,?,?,?,?,?,?,?,?,?)', [log, tipo_documento, session.dialogData.numeroDocumento, session.dialogData.fechaExpe, session.dialogData.paisExpe, session.dialogData.dptoExpe, session.dialogData.mpioExpe, session.dialogData.paisUbi, session.dialogData.dptoUbi, session.dialogData.mpioUbi], function(err, result) {
+					console.log("ERROR 3-------------->",err);
 					if (err) { 
 						connection.rollback(function() {
 							throw err;
 						});
 					}
-					var mailOptions = {
-						from: 'jhojanestiven1996@gmail.com',
-						to: session.dialogData.email,
-						subject: 'Creacion de RUT',
-						html: 'Señor(a) '+session.dialogData.nombre1+' '+session.dialogData.apellido1+', su RUT a sido creado con exito.<br/><b>Su usuario es: '+username+'</b><br/>Su contraseña es: '+password
-					};
+				});
 
-					transporter.sendMail(mailOptions, function(error, info){
-						if (error) {
-							console.log(error);
-						} else {
-							console.log('Email sent: ' + info.response);
+				console.log("PASE EL ERROR 3");
+
+				var cod_rut = Math.floor(Math.random() * 1000000000);
+
+				connection.query('INSERT INTO rut (cod_rut, act_principal, act_secundaria, otr_act, ocupacion, responsabilidades, id_usuario) VALUES (?,?,?,?,?,?,?)', [cod_rut, session.dialogData.actPrinc, session.dialogData.actSecun, session.dialogData.otrasAct, session.dialogData.ocupacion, session.dialogData.responsabilidad, log], function(err, result) {
+					console.log("ERROR 4-------------->",err);
+					if (err) { 
+						connection.rollback(function() {
+							throw err;
+						});
+					}
+				});
+
+				console.log("PASE EL ERROR 4");
+
+				var rndm = Math.floor(Math.random() * 100);
+				var password
+				var username = session.dialogData.nombre1+session.dialogData.nombre2+rndm
+				var password = Math.floor(Math.random() * 10000000);
+
+				connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
+					console.log("ERROR 5-------------->",err);
+					if (err) { 
+						connection.rollback(function() {
+							throw err;
+						});
+					}  
+
+					console.log("PASE EL ERROR 5");
+					connection.commit(function(err) {
+						if (err) { 
+							connection.rollback(function() {
+								throw err;
+							});
 						}
-					});
+						var mailOptions = {
+							from: 'jhojanestiven1996@gmail.com',
+							to: session.dialogData.email,
+							subject: 'Creacion de RUT',
+							html: 'Señor(a) '+session.dialogData.nombre1+' '+session.dialogData.apellido1+', su RUT a sido creado con exito.<br/><b>Su usuario es: '+username+'</b><br/>Su contraseña es: '+password
+						};
 
-					console.log('Transaction Complete.');
-					connection.end();
+						transporter.sendMail(mailOptions, function(error, info){
+							if (error) {
+								console.log(error);
+							} else {
+								console.log('Email sent: ' + info.response);
+							}
+						});
+
+						console.log('Transaction Complete.');
+						connection.release();
+					});
 				});
 			});
 		});
-	});
-	/* End transaction */
+	});	
 }
 
 function getHelpCards(){

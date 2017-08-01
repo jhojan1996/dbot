@@ -12,6 +12,14 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
+var pool = mysql.createPool({
+    connectionLimit : 10,
+    host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
+    user     : 'bdfb18a7b2c383',
+    password : '669f8c04',
+    database : 'dibot'
+});
+
 module.exports = [
 	function(session){
 		console.log("Inicia accion para crear citas");
@@ -20,9 +28,6 @@ module.exports = [
 		if(!idUsuario){
 			console.log("No tiene idusuario");
 			session.send("Para agendar una cita debe ingresar al sistema, si no tiene usuario y contraseña por favor cree el RUT. A continuación te mostraré las acciones que puedes realizar:");
-			session.send("Para crear el rut presione en siguiente boton: ");
-			var msg = getHelpCards();
-			session.send(msg);
 			session.send("Para ingresar al sistema presione el boton Log In");
 			var message = new builder.Message(session)
 		      .sourceEvent({
@@ -43,7 +48,10 @@ module.exports = [
 		          }
 		        }
 		      });
-			session.endDialog(message);
+		    session.send(message);
+			session.send("Para crear el rut presione en siguiente botón: ");
+			var msg = getHelpCards();			
+			session.endDialog(msg);
 		}else{
 			console.log("Tiene ingreso en el sistema");
 			session.send("Claro. te ayudare a agendar una cita");
@@ -106,64 +114,62 @@ function insertCita(session){
 	var horaSol = session.dialogData.horaSol;
 	var lugarCita = session.dialogData.lugarCita;
 
-	/* Begin transaction */
-	connection.beginTransaction(function(err) {
-		if (err) {
-			console.log("ERROR 1-------->",err); 
-			throw err; 
-		}
-		var idUsuario = session.userData.idUsuario;
-		console.log(session.userData);
-		connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, fechaSol, horaSol, fechaSol, horaSol, lugarCita], function(err, result) {
-			console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
-			if (err) { 
-				console.log("ERROR 2:------------>",err);
-				connection.rollback(function() {
-					console.log("ERROR 3------------->",err)
-					return err;
-				});
+	pool.getConnection(function(err, connection){
+		connection.beginTransaction(function(err) {
+			if (err) {
+				console.log("ERROR 1-------->",err); 
+				throw err; 
 			}
-
-			var log = result.insertId;
-
-			console.log("ULTIMO ID INSERTADO EN CITAS--------------->",log);
-
-			connection.commit(function(err) {
-				console.log("ERROR 4:------------>",err);
+			var idUsuario = session.userData.idUsuario;
+			console.log(session.userData);
+			connection.query('INSERT INTO cita (id_usuario,f_solicitud,h_solicitud,f_cita,h_cita,lugar) VALUES (?,?,?,?,?,?)', [idUsuario, fechaSol, horaSol, fechaSol, horaSol, lugarCita], function(err, result) {
+				console.log("ERROR: ----------------> "+err+" ||| RESULT ------------>:"+result);
 				if (err) { 
+					console.log("ERROR 2:------------>",err);
 					connection.rollback(function() {
-						throw err;
+						console.log("ERROR 3------------->",err)
+						return err;
 					});
 				}
 
-				connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
-		            if (err) throw err;
-		            if(result.length > 0){
-		                var email = result[0].email;
-		            
-			            var mailOptions = {
-							from: 'dibot2017@gmail.com',
-							to: email,
-							subject: 'Creacion de cita',
-							html: '<h1>su cita fue agendada con exito<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
-						};
+				var log = result.insertId;
 
-						transporter.sendMail(mailOptions, function(error, info){
-							if (error) {
-								console.log(error);
-							} else {
-								console.log('Email sent: ' + info.response);
-							}
+				console.log("ULTIMO ID INSERTADO EN CITAS--------------->",log);
+
+				connection.commit(function(err) {
+					console.log("ERROR 4:------------>",err);
+					if (err) { 
+						connection.rollback(function() {
+							throw err;
 						});
-
-						console.log('Transaction Complete.');
 					}
-		        });
-				connection.end();
+
+					connection.query("SELECT email FROM usuario WHERE id = ?",idUsuario, function(err, result, fields) {
+			            if (err) throw err;
+			            if(result.length > 0){
+			                var email = result[0].email;
+			            
+				            var mailOptions = {
+								from: 'dibot2017@gmail.com',
+								to: email,
+								subject: 'Creacion de cita',
+								html: '<h1>su cita fue agendada con exito<h1><br/><b>Fecha: '+fechaSol+'</b><br/><b>Hora: '+horaSol+'</b><br/><b>Lugar: '+lugarCita+'</b>'
+							};
+
+							transporter.sendMail(mailOptions, function(error, info){
+								if (error) {
+									console.log(error);
+								} else {
+									console.log('Email sent: ' + info.response);
+								}
+							});
+
+							console.log('Transaction Complete.');
+						}
+			        });
+					connection.release();
+				});
 			});
 		});
-
-
 	});
-	/* End transaction */
 }

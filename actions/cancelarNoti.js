@@ -53,7 +53,6 @@ module.exports = [
 	}
 ];
 
-
 function getHelpCards(){
 	return new builder.Message()
     .attachmentLayout(builder.AttachmentLayout.carousel)
