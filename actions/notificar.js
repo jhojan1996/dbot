@@ -65,7 +65,7 @@ module.exports = [
 ];
 
 function programarNoti(session){
-	var event = schedule.scheduleJob("*/5 * * * *", function() {
+	var event = schedule.scheduleJob("notificar", "*/5 * * * *", function() {
 		console.log('This runs every 5 minute');
 		var currentDate = new Date();
 		var nMonth = currentDate.getMonth();

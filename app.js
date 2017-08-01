@@ -473,3 +473,16 @@ bot.dialog('HoraNotificacion', require('./actions/notificacion/horaNoti')).trigg
     matches: 'Notificaciones'
 });
 //---------------------//
+
+//Cancelar notificaciones//
+bot.dialog('CancelarNoti', require('./actions/cancelarNoti')).triggerAction({
+    matches: 'CancelarNoti'
+}).endConversationAction("endCancelarNoti", "La operación anterior ha sido cancelada. ¿Como más puedo ayudarte?",{
+    matches: /^cancelar$|^adios$/i,
+    confirmPrompt: "Si eliges cancelar, los datos que has ingresado se perderan. ¿Deseas continuar?"
+});
+
+bot.dialog('ConfirmarCancel', require('./actions/notificacion/confirmarCancel')).triggerAction({
+    matches: 'Notificaciones'
+});
+//----------------------//
