@@ -41,7 +41,7 @@ module.exports = [
 	function(session, result){
 		session.dialogData.confirmarCancel = result.response;
 		console.log("DATOS DE LA CANCELACION-------------->",session.dialogData);
-		var cancel = session.dialogData.confirmarCancel;
+		var cancel = (typeof session.dialogData.confirmarCancel.entity === 'undefined')?session.dialogData.confirmarCancel:session.dialogData.confirmarCancel.entity;
 
 		if(cancel === 'Si'){
 			cancelNoti(session);
