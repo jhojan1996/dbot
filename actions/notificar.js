@@ -14,13 +14,6 @@ var connection = mysql.createConnection({
     password : '669f8c04',
     database : 'dibot'
 });
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
-});
 
 module.exports = [
 	function(session){
@@ -78,6 +71,14 @@ function programarNoti(session){
 		var consulta;
 		var idUsuario = session.userData.idUsuario;
 		var address = session.message.address;
+
+		connection.connect(function(err) {
+		    if (err) {
+		        console.error('error connecting: ' + err.stack);
+		        return;
+		    }
+		    console.log('connected as id ' + connection.threadId);
+		});
 
 		connection.beginTransaction(function(err) {
 			if (err) {
