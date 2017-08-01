@@ -97,17 +97,17 @@ function programarNoti(session){
 		        		console.log("ERROR 3---->",err);
 		        		 if(cuatrimestre === "1"){
 				        	var msg = new builder.Message().address(address);
-						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+result[0].cuatrimestre1);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+rows[0].cuatrimestre1);
 						    msg.textLocale('es-ES');
 						    bot.send(msg);
 				        }else if(cuatrimestre === "2"){
 				        	var msg = new builder.Message().address(address);
-						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+result[0].cuatrimestre2);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+rows[0].cuatrimestre2);
 						    msg.textLocale('es-ES');
 						    bot.send(msg);
 				        }else{
 				        	var msg = new builder.Message().address(address);
-						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+result[0].cuatrimestre3);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA en la fecha "+rows[0].cuatrimestre3);
 						    msg.textLocale('es-ES');
 						    bot.send(msg);
 				        }
