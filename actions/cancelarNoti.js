@@ -1,14 +1,6 @@
 var builder = require('botbuilder');
 var schedule = require('node-schedule');
 
-var transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: 'dibot2017@gmail.com',
-		pass: 'Innovati2017+'
-	}
-});
-
 module.exports = [
 	function(session){
 		console.log("Inicia accion para cancelar notificaciones");
