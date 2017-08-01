@@ -19,7 +19,7 @@ function getHelpCards(){
                 "subtitle": 'Frase: "Ingresar".',
                 "images": [
                   {
-                    "url": "http://dibot.azurewebsites.net/images/login.png"
+                    "url": "http://dibot.azurewebsites.net/images/login1.png"
                   }
                 ],
                 "buttons": [
