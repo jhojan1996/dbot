@@ -38,7 +38,7 @@ function getHelpCards(){
                 "subtitle": 'Frases: "Crear RUT", "Generar RUT", "Sacar RUT".',
                 "images": [
                   {
-                    "url": "http://dibot.azurewebsites.net/images/crearrut.png"
+                    "url": "http://dibot.azurewebsites.net/images/crearrut.jpg"
                   }
                 ],
                 "buttons": [
