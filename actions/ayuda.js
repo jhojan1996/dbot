@@ -57,7 +57,7 @@ function getHelpCards(){
                 "subtitle": 'Frases: "Formalizar mi RUT", "Formalizar RUT".',
                 "images": [
                   {
-                    "url": "https://placeholdit.imgix.net/~text?txtsize=35&txt=Formalizar+RUT&w=500&h=260"
+                    "url": "http://dibot.azurewebsites.net/images/formalizar.jpg"
                   }
                 ],
                 "buttons": [
