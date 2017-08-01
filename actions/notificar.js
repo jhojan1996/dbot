@@ -2,18 +2,17 @@ var builder = require('botbuilder');
 var schedule = require('node-schedule');
 var mysql = require('mysql');
 
+var connector = new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+});
+var bot = new builder.UniversalBot(connector);
+
 var connection = mysql.createConnection({
     host     : 'us-cdbr-azure-southcentral-f.cloudapp.net',
     user     : 'bdfb18a7b2c383',
     password : '669f8c04',
     database : 'dibot'
-});
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
 });
 
 module.exports = [
@@ -71,6 +70,15 @@ function programarNoti(session){
 		var nMonth = currentDate.getMonth();
 		var consulta;
 		var idUsuario = session.userData.idUsuario;
+		var address = session.message.address;
+
+		connection.connect(function(err) {
+		    if (err) {
+		        console.error('error connecting: ' + err.stack);
+		        return;
+		    }
+		    console.log('connected as id ' + connection.threadId);
+		});
 
 		connection.beginTransaction(function(err) {
 			if (err) {
@@ -101,11 +109,20 @@ function programarNoti(session){
 		        		if (err) throw err;
 		        		console.log("ERROR TERCER QUERY---->",err);
 		        		 if(cuatrimestre === "1"){
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1)
+				        	var msg = new builder.Message().address(address);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre1);
+						    msg.textLocale('es-ES');
+						    bot.send(msg);
 				        }else if(cuatrimestre === "2"){
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2)
+				        	var msg = new builder.Message().address(address);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre2);
+						    msg.textLocale('es-ES');
+						    bot.send(msg);
 				        }else{
-				        	session.endDialog("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3)
+				        	var msg = new builder.Message().address(address);
+						    msg.text("Recuerde que debe realizar el pago de declaracion cuatrimestral de IVA el "+result[0].cuatrimestre3);
+						    msg.textLocale('es-ES');
+						    bot.send(msg);
 				        }
 		
 		            });
