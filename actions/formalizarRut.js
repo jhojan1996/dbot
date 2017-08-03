@@ -67,10 +67,13 @@ module.exports = [
 
 		if(tipo_doc === 'image/png' || tipo_doc === 'image/jpg' || tipo_doc === 'image/jpeg'){
 			updateRut(session);
-			session.endDialog("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
+			session.send("Tu imagen fue guardada con exito y sera enviada a revision, cuando termine el proceso te enviaremos un correo con el resultado de la formalización.");
 		}else{
-			session.endDialog("El archivo adjunto no es valido. Recuerda que debe ser una imagen. Por favor intentalo de nuevo");
+			session.send("El archivo adjunto no es valido. Recuerda que debe ser una imagen. Por favor intentalo de nuevo");
 		}
+		session.send("¿En qué más te puedo ayudar?");
+		var msj = getAllCards();
+		session.endDialog(msj);
 	}
 ];
 
@@ -155,6 +158,70 @@ function getHelpCards(){
                     "type": "postBack",
                     "title": "Generar mi rut",
                     "value":"Por favor quiero crear mi rut"
+                  }
+                ]
+            }
+        }
+    ]);
+}
+
+function getAllCards(){
+	new builder.Message()
+    .attachmentLayout(builder.AttachmentLayout.carousel)
+    .attachments([
+    	{
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Recibir notificaciones",
+                "subtitle": 'Frases: "Quiero subscribirme al servicio de notificaciones", "Subscribirme a la notificaciones", "Enviame notificaciones"',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/notificacion.png"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Recibir notificaciones",
+                    "value":"notificaciones"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Formalizar mi RUT",
+                "subtitle": 'Frases: "Formalizar mi RUT", "Formalizar RUT".',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/formalizar.jpg"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Formalizar mi RUT",
+                    "value":"formalizar mi rut"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Agendar cita",
+                "subtitle": 'Frases: "Quiero agendar una cita", "Agendar una cita", "Quiero pedir una cita"',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/agendar.jpg"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Agendar cita",
+                    "value":"Quiero agendar una cita"
                   }
                 ]
             }
