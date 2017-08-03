@@ -12,7 +12,7 @@ module.exports = function(session){
               template_type: 'generic',
               elements: [{
                 title: 'Ingresar al sistema (necesita tener el RUT creado).',
-                image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingeso+al+sistema&w=500&h=260",
+                image_url: "http://dibot.azurewebsites.net/images/login1.png",
                 buttons: [{
                   type: 'account_link',
                   url: process.env.FRONT_END_URL + '/web/login.html'

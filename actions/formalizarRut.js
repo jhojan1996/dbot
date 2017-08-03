@@ -38,7 +38,7 @@ module.exports = [
 		              template_type: 'generic',
 		              elements: [{
 		                title: 'Ingresar al sistema',
-		                image_url: "https://placeholdit.imgix.net/~text?txtsize=35&txt=Ingeso+al+sistema&w=500&h=260",
+		                image_url: "http://dibot.azurewebsites.net/images/login1.png",
 		                buttons: [{
 		                  type: 'account_link',
 		                  url: process.env.FRONT_END_URL + '/web/login.html'
@@ -134,4 +134,30 @@ function updateRut(session){
 			});
 		});
 	});
+}
+
+function getHelpCards(){
+	return new builder.Message()
+    .attachmentLayout(builder.AttachmentLayout.carousel)
+    .attachments([
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Crear RUT",
+                "subtitle": "Quiero generar mi RUT",
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/crearrut.png"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Generar mi rut",
+                    "value":"Por favor quiero crear mi rut"
+                  }
+                ]
+            }
+        }
+    ]);
 }

@@ -255,8 +255,8 @@ function insertRut(session){
 
 				var rndm = Math.floor(Math.random() * 100);
 				var password
-				var username = session.dialogData.nombre1+session.dialogData.nombre2+rndm
-				var password = Math.floor(Math.random() * 10000000);
+				var username = session.dialogData.nombre1.toLowerCase();
+				var password = session.dialogData.nombre1+"2017";
 
 				connection.query('INSERT INTO registro (id_usuario, username, password) VALUES (?,?,?)', [log, username, password], function(err, result) {
 					console.log("ERROR 5-------------->",err);
