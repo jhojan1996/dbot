@@ -179,7 +179,7 @@ function insertCita(session){
 }
 
 function getAllCards(){
-	new builder.Message()
+	return new builder.Message()
     .attachmentLayout(builder.AttachmentLayout.carousel)
     .attachments([
     	{

@@ -65,11 +65,12 @@ module.exports = [
 
 		if(cancel === 'Si'){
 			cancelCita(session);
-			session.send("La cita fue cancelada con exito, que mas deseas hacer?");
+			session.send("La cita fue cancelada con exito, ¿qué más deseas hacer?");
 		}else{
-			session.send("La cita no fue cancelada, que mas deseas hacer?");
+			session.send("La cita no fue cancelada, ¿qué más deseas hacer?");
 		}
-		session.endDialog();
+		var msj = getAllCards();
+		session.endDialog(msj);
 	}
 ];
 
@@ -161,4 +162,68 @@ function cancelCita(session){
 			});
 		});
 	});
+}
+
+function getAllCards(){
+	return new builder.Message()
+    .attachmentLayout(builder.AttachmentLayout.carousel)
+    .attachments([
+    	{
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Recibir notificaciones",
+                "subtitle": 'Frases: "Quiero subscribirme al servicio de notificaciones", "Subscribirme a la notificaciones", "Enviame notificaciones"',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/notificacion.png"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Recibir notificaciones",
+                    "value":"notificaciones"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Formalizar mi RUT",
+                "subtitle": 'Frases: "Formalizar mi RUT", "Formalizar RUT".',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/formalizar.jpg"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Formalizar mi RUT",
+                    "value":"formalizar mi rut"
+                  }
+                ]
+            }
+        },
+        {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+                "title": "Agendar cita",
+                "subtitle": 'Frases: "Quiero agendar una cita", "Agendar una cita", "Quiero pedir una cita"',
+                "images": [
+                  {
+                    "url": "http://dibot.azurewebsites.net/images/agendar.jpg"
+                  }
+                ],
+                "buttons": [
+                  {
+                    "type": "postBack",
+                    "title": "Agendar cita",
+                    "value":"Quiero agendar una cita"
+                  }
+                ]
+            }
+        }
+    ]);
 }
