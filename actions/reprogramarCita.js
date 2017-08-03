@@ -112,7 +112,7 @@ function reporgCita(session){
 
 	var fechaSol = session.dialogData.fechaSol;
 	var horaSol = session.dialogData.horaSol;
-	var lugarCita = session.dialogData.lugarCita;
+	var lugarCita = (typeof session.dialogData.lugarCita.entity === 'undefined')?session.dialogData.lugarCita:session.dialogData.lugarCita.entity;
 	pool.getConnection(function(err, connection){
 		connection.beginTransaction(function(err) {
 			if (err) {
